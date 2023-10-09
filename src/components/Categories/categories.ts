@@ -3,17 +3,20 @@ type Categories = {
   url?: string
 }
 
+export enum CategoriesOwn {
+  'MEN' = 'MEN',
+  'WOMEN' = 'WOMEN',
+  'SPORTSWEAR' = 'SPORTSWEAR',
+}
+
 export const menCategories: Categories[] = [
-  { name: 'ALL', url: '' },
   { name: 'SHIRTS', url: 'shirts' },
   { name: 'T-SHIRTS', url: 't-shirts' },
   { name: 'SWEATERS', url: 'sweaters' },
   { name: 'JACKETS AND COATS', url: 'jackets-and-coasts' },
-  { name: 'NEW COLLECTION', url: 'new-collection' },
 ]
 
 export const womenCategories: Categories[] = [
-  { name: 'ALL', url: '' },
   { name: 'SKIRTS', url: 'shirts' },
   { name: 'DRESSES', url: 't-shirts' },
   { name: 'SHIRTS AND BLOUSES', url: 'sweaters' },
@@ -23,7 +26,6 @@ export const womenCategories: Categories[] = [
 ]
 
 export const sportSwearsCategories: Categories[] = [
-  { name: 'ALL', url: '' },
   { name: 'TOPS', url: 'tops' },
   { name: 'SWEATSHIRTS', url: 'sweatshirts' },
   { name: 'PAINTS', url: 'paints' },

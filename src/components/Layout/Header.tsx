@@ -6,14 +6,19 @@ import MenuIconButton from '../ui/MenuIconButton'
 import SearchIcon from '@mui/icons-material/Search'
 import PersonIcon from '@mui/icons-material/Person'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import { Link } from 'react-router-dom'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     height: 74,
     borderBottom: `1px solid ${colors.grey[300]}`,
+    width: '100%',
+    position: 'sticky',
+    top: 0,
+    backgroundColor: '#fff',
   },
   image: {
     height: 50,
@@ -34,7 +39,9 @@ export default function Header() {
   }
   return (
     <Box className={classes.root}>
-      <img src="src/assets/logo.png" className={classes.image} />
+      <Link to={'/'}>
+        <img src="src/assets/logo.png" className={classes.image} />
+      </Link>
       <TabContext value={value}>
         <Box>
           <TabList onChange={handleChange} aria-label="lab API tabs example">

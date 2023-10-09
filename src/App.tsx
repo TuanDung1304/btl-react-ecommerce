@@ -1,7 +1,7 @@
-import MainLayout from './components/Layout/MainLayout'
+import DefineRouter from './components/Routes/Router'
 
 function App() {
-  return <MainLayout>hahahhah</MainLayout>
+  return <DefineRouter />
 }
 
 export default App
