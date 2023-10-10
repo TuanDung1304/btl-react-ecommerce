@@ -2,7 +2,7 @@ import { TabContext, TabList } from '@mui/lab'
 import { Box, Tab, colors } from '@mui/material'
 import React, { useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
-import MenuIconButton from '../ui/MenuIconButton'
+import MenuIconButton from '../../ui/MenuIconButton'
 import SearchIcon from '@mui/icons-material/Search'
 import PersonIcon from '@mui/icons-material/Person'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
@@ -19,6 +19,7 @@ const useStyles = makeStyles()(() => ({
     position: 'sticky',
     top: 0,
     backgroundColor: '#fff',
+    zIndex: 9999,
   },
   image: {
     height: 50,

@@ -36,7 +36,7 @@ interface Props {
   type: CategoriesOwn | 'myAccount'
 }
 
-export default function CatagoryLinks({ type }: Props) {
+export default function CategoryLinks({ type }: Props) {
   const { classes, cx } = useStyles()
 
   const categories =
