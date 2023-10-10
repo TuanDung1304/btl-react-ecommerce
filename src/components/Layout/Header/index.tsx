@@ -1,12 +1,12 @@
+import PersonIcon from '@mui/icons-material/Person'
+import SearchIcon from '@mui/icons-material/Search'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { TabContext, TabList } from '@mui/lab'
-import { Box, Tab, colors } from '@mui/material'
+import { Box, Menu, MenuItem, Tab, colors } from '@mui/material'
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
 import MenuIconButton from '../../ui/MenuIconButton'
-import SearchIcon from '@mui/icons-material/Search'
-import PersonIcon from '@mui/icons-material/Person'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles()(() => ({
     position: 'sticky',
     top: 0,
     backgroundColor: '#fff',
-    zIndex: 9999,
+    zIndex: 1,
   },
   image: {
     height: 50,
@@ -29,11 +29,26 @@ const useStyles = makeStyles()(() => ({
     fontSize: 20,
     fontWeight: 500,
   },
+  menuLink: {
+    color: 'black',
+    textDecoration: 'none',
+    width: '100%',
+    height: '100%',
+  },
 }))
 
 export default function Header() {
   const { classes } = useStyles()
   const [value, setValue] = useState('')
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue)
@@ -58,9 +73,30 @@ export default function Header() {
       </TabContext>
       <Box>
         <MenuIconButton icon={SearchIcon} />
-        <MenuIconButton icon={PersonIcon} />
+        <MenuIconButton icon={PersonIcon} onClick={handleClick} />
         <MenuIconButton icon={ShoppingCartIcon} />
       </Box>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        sx={{ width: 200 }}
+        slotProps={{ paper: { sx: { width: '150px' } } }}>
+        <MenuItem onClick={handleClose}>
+          <Link to="/login" className={classes.menuLink}>
+            Login
+          </Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/register" className={classes.menuLink}>
+            Sign up
+          </Link>
+        </MenuItem>
+      </Menu>
     </Box>
   )
 }
