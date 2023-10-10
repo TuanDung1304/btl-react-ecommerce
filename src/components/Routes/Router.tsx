@@ -7,6 +7,8 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom'
+import Login from '../../Pages/Auth/Login'
+import Register from '../../Pages/Auth/Register'
 
 export interface RouteConfig {
   title?: string
@@ -19,6 +21,16 @@ const routes: RouteConfig[] = [
   {
     path: '',
     component: <Home />,
+    layout: MainLayout,
+  },
+  {
+    path: '/login',
+    component: <Login />,
+    layout: MainLayout,
+  },
+  {
+    path: '/register',
+    component: <Register />,
     layout: MainLayout,
   },
 ]
