@@ -50,9 +50,6 @@ export default function Header() {
     setAnchorEl(null)
   }
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue)
-  }
   return (
     <Box className={classes.root}>
       <Link to={'/'}>
@@ -60,13 +57,26 @@ export default function Header() {
       </Link>
       <TabContext value={value}>
         <Box>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="WOMEN" value="women" className={classes.tabList} />
-            <Tab label="MEN" value="men" className={classes.tabList} />
+          <TabList
+            onMouseLeave={() => setValue('')}
+            aria-label="lab API tabs example">
+            <Tab
+              label="WOMEN"
+              value="women"
+              className={classes.tabList}
+              onMouseEnter={() => setValue('women')}
+            />
+            <Tab
+              label="MEN"
+              value="men"
+              className={classes.tabList}
+              onMouseEnter={() => setValue('men')}
+            />
             <Tab
               label="SPORTSWEAR"
               value="sportswear"
               className={classes.tabList}
+              onMouseEnter={() => setValue('sportswear')}
             />
           </TabList>
         </Box>
