@@ -40,6 +40,41 @@ const useStyles = makeStyles()(() => ({
       objectFit: 'cover',
     },
   },
+  trandingNavigate: {
+    backgroundColor: ' #f2f2f2',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '60px 0',
+    width: '100%',
+    marginTop: 30,
+
+    '& p:nth-child(1)': {
+      color: '#0074c2',
+      fontSize: '20px',
+      fontWeight: 500,
+      letterSpacing: 1,
+    },
+    '& p:nth-child(2)': {
+      fontSize: '25px',
+      fontWeight: 400,
+      letterSpacing: '2px',
+    },
+    '& p:nth-child(3)': {
+      letterSpacing: '1.2px',
+    },
+    '& button': {
+      padding: '8px 150px',
+      borderWidth: '2px',
+      fontSize: 20,
+      marginTop: 20,
+
+      '&:hover': {
+        borderWidth: '2px',
+        color: '#004284',
+      },
+    },
+  },
 }))
 
 export default function Home() {
@@ -60,12 +95,12 @@ export default function Home() {
       <Grid container className={classes.categoryGrid} spacing={2}>
         <Grid item container xs={6} direction="column" rowSpacing={2}>
           <CategoryGridItem
-            url="sports/men"
+            url="products/men"
             content="MEN"
             img="src/assets/menCate.jpg"
           />
           <CategoryGridItem
-            url="sports/sportswear"
+            url="products/sportswear"
             content="SPORTSWEAR"
             img="src/assets/sportCate.jpg"
           />
@@ -76,6 +111,13 @@ export default function Home() {
           img="src/assets/womenCate.jpg"
         />
       </Grid>
+
+      <Box className={classes.trandingNavigate}>
+        <Typography>Get the Look</Typography>
+        <Typography fontWeight={26}>FASHION TRENDS</Typography>
+        <Typography>Fashion Trends Note</Typography>
+        <Button variant="outlined">SHOP NOW</Button>
+      </Box>
     </Box>
   )
 }
