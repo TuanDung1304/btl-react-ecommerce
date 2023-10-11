@@ -75,6 +75,30 @@ const useStyles = makeStyles()(() => ({
       },
     },
   },
+  outstanding: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: 20,
+    gap: 20,
+    width: '90%',
+    '& div': {
+      width: '100%',
+      height: '300px',
+      overflow: 'hidden',
+
+      '& img': {
+        width: '100%',
+        objectFit: 'cover',
+        objectPosition: 'center',
+      },
+    },
+
+    '@media (min-width: 992px)': {
+      flexDirection: 'row',
+      width: 'auto',
+      '& div': { width: '50%', height: 'auto' },
+    },
+  },
 }))
 
 export default function Home() {
@@ -117,6 +141,15 @@ export default function Home() {
         <Typography fontWeight={26}>FASHION TRENDS</Typography>
         <Typography>Fashion Trends Note</Typography>
         <Button variant="outlined">SHOP NOW</Button>
+      </Box>
+
+      <Box className={classes.outstanding}>
+        <Box>
+          <img src="src/assets/newCollection.jpg" />
+        </Box>
+        <Box>
+          <img src="src/assets/summerSale.jpg" />
+        </Box>
       </Box>
     </Box>
   )
