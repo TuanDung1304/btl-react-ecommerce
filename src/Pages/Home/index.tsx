@@ -77,8 +77,6 @@ const useStyles = makeStyles()(() => ({
       },
     },
   },
-<<<<<<< Updated upstream
-=======
   outstanding: {
     marginTop: 20,
     width: '90%',
@@ -101,7 +99,6 @@ const useStyles = makeStyles()(() => ({
       '& div': { height: 'auto' },
     },
   },
->>>>>>> Stashed changes
 }))
 
 export default function Home() {
@@ -147,8 +144,6 @@ export default function Home() {
         <Typography>Fashion Trends Note</Typography>
         <Button variant="outlined">SHOP NOW</Button>
       </Box>
-<<<<<<< Updated upstream
-=======
 
       <Grid
         container
@@ -168,7 +163,6 @@ export default function Home() {
           url="products/summer-sale"
         />
       </Grid>
->>>>>>> Stashed changes
     </Box>
   )
 }
