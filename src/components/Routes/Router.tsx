@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom'
 import Login from '../../Pages/Auth/Login'
 import Register from '../../Pages/Auth/Register'
+import Products from '../../Pages/Products'
 
 export interface RouteConfig {
   title?: string
@@ -31,6 +32,11 @@ const routes: RouteConfig[] = [
   {
     path: '/register',
     component: <Register />,
+    layout: MainLayout,
+  },
+  {
+    path: '/collections/:type',
+    component: <Products />,
     layout: MainLayout,
   },
 ]
