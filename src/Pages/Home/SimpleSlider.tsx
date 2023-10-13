@@ -1,51 +1,82 @@
 import { Box, Typography } from '@mui/material'
 import Slider, { Settings } from 'react-slick'
 import { makeStyles } from 'tss-react/mui'
-import BestSellerItemCard from '../../components/ui/BestSellerItemCard'
+import ProductItemCard from '../../components/ui/ProductItemCard'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 export const initProducts = [
   {
-    img: 'https://shopping-mall-fashion-store.com/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcWw4IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f7fd5d5c3099d31ec02936da34a892f8511af135/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lOTWpjNGVETTNNVDRHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--e7564df6469ef8f2d59c47a840a9f96299f6205b/-app-tmp-photos-products-Women-Shirts%20and%20Blouses-printed%20shirt-green-AdobeStock_136218039.jpg',
-    price: 50,
-    name: 'Printed Shirt',
+    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
+    price: 999000,
+    name: 'Áo Khoác Gió 2 Lớp Biluxury 123213213213123123123123123213123',
+    model: '6AG2T011XPA',
   },
   {
-    img: 'https://shopping-mall-fashion-store.com/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcWw4IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f7fd5d5c3099d31ec02936da34a892f8511af135/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lOTWpjNGVETTNNVDRHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--e7564df6469ef8f2d59c47a840a9f96299f6205b/-app-tmp-photos-products-Women-Shirts%20and%20Blouses-printed%20shirt-green-AdobeStock_136218039.jpg',
-    price: 50,
-    name: 'Printed Shirt',
+    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
+    price: 999000,
+    name: 'Áo Khoác Gió 2 Lớp Biluxury',
+    model: '6AG2T011XPA',
   },
   {
-    img: 'https://shopping-mall-fashion-store.com/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcWw4IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f7fd5d5c3099d31ec02936da34a892f8511af135/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lOTWpjNGVETTNNVDRHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--e7564df6469ef8f2d59c47a840a9f96299f6205b/-app-tmp-photos-products-Women-Shirts%20and%20Blouses-printed%20shirt-green-AdobeStock_136218039.jpg',
-    price: 50,
-    name: 'Printed Shirt',
+    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
+    price: 999000,
+    name: 'Áo Khoác Gió 2 Lớp Biluxury',
+    model: '6AG2T011XPA',
   },
   {
-    img: 'https://shopping-mall-fashion-store.com/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcWw4IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f7fd5d5c3099d31ec02936da34a892f8511af135/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lOTWpjNGVETTNNVDRHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--e7564df6469ef8f2d59c47a840a9f96299f6205b/-app-tmp-photos-products-Women-Shirts%20and%20Blouses-printed%20shirt-green-AdobeStock_136218039.jpg',
-    price: 50,
-    name: 'Printed Shirt',
+    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
+    price: 999000,
+    name: 'Áo Khoác Gió 2 Lớp Biluxury',
+    model: '6AG2T011XPA',
   },
   {
-    img: 'https://shopping-mall-fashion-store.com/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcWw4IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f7fd5d5c3099d31ec02936da34a892f8511af135/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lOTWpjNGVETTNNVDRHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--e7564df6469ef8f2d59c47a840a9f96299f6205b/-app-tmp-photos-products-Women-Shirts%20and%20Blouses-printed%20shirt-green-AdobeStock_136218039.jpg',
-    price: 50,
-    name: 'Printed Shirt',
+    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
+    price: 999000,
+    name: 'Áo Khoác Gió 2 Lớp Biluxury',
+    model: '6AG2T011XPA',
   },
   {
-    img: 'https://shopping-mall-fashion-store.com/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcWw4IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f7fd5d5c3099d31ec02936da34a892f8511af135/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lOTWpjNGVETTNNVDRHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--e7564df6469ef8f2d59c47a840a9f96299f6205b/-app-tmp-photos-products-Women-Shirts%20and%20Blouses-printed%20shirt-green-AdobeStock_136218039.jpg',
-    price: 50,
-    name: 'Printed Shirt',
+    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
+    price: 999000,
+    name: 'Áo Khoác Gió 2 Lớp Biluxury',
+    model: '6AG2T011XPA',
   },
   {
-    img: 'https://shopping-mall-fashion-store.com/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcWw4IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f7fd5d5c3099d31ec02936da34a892f8511af135/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lOTWpjNGVETTNNVDRHT2daRlZBPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--e7564df6469ef8f2d59c47a840a9f96299f6205b/-app-tmp-photos-products-Women-Shirts%20and%20Blouses-printed%20shirt-green-AdobeStock_136218039.jpg',
-    price: 50,
-    name: 'Printed Shirt',
+    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
+    price: 999000,
+    name: 'Áo Khoác Gió 2 Lớp Biluxury',
+    model: '6AG2T011XPA',
+  },
+  {
+    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
+    price: 999000,
+    name: 'Áo Khoác Gió 2 Lớp Biluxury',
+    model: '6AG2T011XPA',
+  },
+  {
+    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
+    price: 999000,
+    name: 'Áo Khoác Gió 2 Lớp Biluxury',
+    model: '6AG2T011XPA',
+  },
+  {
+    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
+    price: 999000,
+    name: 'Áo Khoác Gió 2 Lớp Biluxury',
+    model: '6AG2T011XPA',
+  },
+  {
+    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
+    price: 999000,
+    name: 'Áo Khoác Gió 2 Lớp Biluxury',
+    model: '6AG2T011XPA',
   },
 ]
 
 const useStyles = makeStyles()(() => ({
   root: {
-    maxWidth: 1200,
+    maxWidth: 1400,
     width: '100%',
     marginTop: '35px',
     display: 'flex',
@@ -83,8 +114,14 @@ export default function SimpleSlider() {
         Bestsellers
       </Typography>
       <Slider {...settings} className={classes.slider}>
-        {initProducts.map(({ img, name, price }, index) => (
-          <BestSellerItemCard name={name} price={price} url={img} key={index} />
+        {initProducts.map(({ img, name, price, model }, index) => (
+          <ProductItemCard
+            name={name}
+            price={price}
+            url={img}
+            key={index}
+            model={model}
+          />
         ))}
       </Slider>
     </Box>

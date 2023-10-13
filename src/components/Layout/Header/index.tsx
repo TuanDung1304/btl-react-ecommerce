@@ -61,22 +61,22 @@ export default function Header() {
             onMouseLeave={() => setValue('')}
             aria-label="lab API tabs example">
             <Tab
-              label="WOMEN"
-              value="women"
+              label="Ao"
+              value="ao"
               className={classes.tabList}
-              onMouseEnter={() => setValue('women')}
+              onMouseEnter={() => setValue('ao')}
             />
             <Tab
-              label="MEN"
-              value="men"
+              label="Quan"
+              value="quan"
               className={classes.tabList}
-              onMouseEnter={() => setValue('men')}
+              onMouseEnter={() => setValue('quan')}
             />
             <Tab
-              label="SPORTSWEAR"
-              value="sportswear"
+              label="Phu Kien"
+              value="phu-kien"
               className={classes.tabList}
-              onMouseEnter={() => setValue('sportswear')}
+              onMouseEnter={() => setValue('phu-kien')}
             />
           </TabList>
         </Box>

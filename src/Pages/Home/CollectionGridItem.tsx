@@ -9,6 +9,9 @@ const useStyles = makeStyles()(() => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  img: {
+    height: '100%',
+  },
   categoryButton: {
     position: 'absolute',
     background: 'white',
@@ -23,23 +26,17 @@ const useStyles = makeStyles()(() => ({
 interface Props {
   url: string
   content: string
-  title: string
   img: string
 }
 
-export default function CollectionGridItem({
-  url,
-  content,
-  img,
-  title,
-}: Props) {
+export default function CollectionGridItem({ url, content, img }: Props) {
   const { classes } = useStyles()
 
   return (
     <Grid item xs={12} md={6} className={classes.root}>
-      <img src={img} />
+      <img src={img} className={classes.img} />
       <Box component={Link} className={classes.categoryButton} to={url}>
-        <Typography color="primary">{title}</Typography>
+        <Typography color="primary">NEW COLLECTION</Typography>
         <Typography fontSize={26} fontWeight={500}>
           {content}
         </Typography>

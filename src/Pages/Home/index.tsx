@@ -19,28 +19,15 @@ const useStyles = makeStyles()(() => ({
       width: '100%',
     },
   },
-  shopBtnContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '280px',
-    position: 'absolute',
-    top: '50%',
-    right: '10%',
-    transform: 'translateY(-50%)',
-    gap: '25px',
-  },
   label: { textAlign: 'center', fontWeight: 400, letterSpacing: '3px' },
   shopBtn: {
     fontSize: 25,
   },
   categoryGrid: {
     marginTop: '20px',
-    width: '80%',
-    '& img': {
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-    },
+    width: '60%',
+    minWidth: 1000,
+    height: '710px',
   },
   trandingNavigate: {
     backgroundColor: ' #f2f2f2',
@@ -106,33 +93,31 @@ export default function Home() {
   return (
     <Box className={classes.root}>
       <Box className={classes.banner}>
-        <img src="src/assets/home.jpg" />
-        <Box className={classes.shopBtnContainer}>
-          <Typography className={classes.label} variant="h2">
-            Fashion Store
-          </Typography>
-          <Button fullWidth variant="contained" className={classes.shopBtn}>
-            SHOP NOW
-          </Button>
-        </Box>
+        <img src="src/assets/home.webp" />
       </Box>
-      <Grid container className={classes.categoryGrid} spacing={2}>
-        <Grid item container xs={6} direction="column" rowSpacing={2}>
+      <Grid container className={classes.categoryGrid} spacing={3}>
+        <Grid
+          item
+          container
+          xs={6}
+          direction="column"
+          height={'100%'}
+          rowSpacing={2}>
           <CategoryGridItem
-            url="products/men"
-            content="MEN"
-            img="src/assets/menCate.jpg"
+            url="products/ao-nam"
+            content="AO"
+            img="src/assets/ao-quan-cate.webp"
           />
           <CategoryGridItem
-            url="products/sportswear"
-            content="SPORTSWEAR"
-            img="src/assets/sportCate.jpg"
+            url="products/quan-nam"
+            content="QUAN"
+            img="src/assets/ao-quan-cate.webp"
           />
         </Grid>
         <CategoryGridItem
-          url="products/women"
-          content="WOMEN"
-          img="src/assets/womenCate.jpg"
+          url="products/phu kien"
+          content="PHU KIEN"
+          img="src/assets/phu-kien-cate.webp"
         />
       </Grid>
 
@@ -147,15 +132,13 @@ export default function Home() {
 
       <Grid container className={classes.outstanding} spacing={2}>
         <CollectionGridItem
-          img="src/assets/newCollection.jpg"
-          content="STREETSTYLE"
-          title="NEW COLLECTION"
+          img="src/assets/suit-collection.webp"
+          content="Men's Suits"
           url="products/street-style"
         />
         <CollectionGridItem
-          img="src/assets/summerSale.jpg"
-          content="UP TO 60%"
-          title="SUMMER SALE"
+          img="src/assets/winter-collection.webp"
+          content="Fall Winter"
           url="products/summer-sale"
         />
       </Grid>

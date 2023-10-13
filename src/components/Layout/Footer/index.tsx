@@ -47,9 +47,9 @@ export default function Footer() {
     <>
       <Box className={classes.root}>
         <Grid container className={classes.gridContainer}>
-          <CategoryLinks type={CategoriesOwn.WOMEN} />
-          <CategoryLinks type={CategoriesOwn.MEN} />
-          <CategoryLinks type={CategoriesOwn.SPORTSWEAR} />
+          <CategoryLinks type={CategoriesOwn.Ao} />
+          <CategoryLinks type={CategoriesOwn.Quan} />
+          <CategoryLinks type={CategoriesOwn.PhuKien} />
           <CategoryLinks type={'myAccount'} />
         </Grid>
       </Box>
