@@ -1,6 +1,8 @@
 import { Box, Button, Grid, Typography } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 import CategoryGridItem from './CategoryGridItem'
+import CollectionGridItem from './CollectionGridItem'
+import SimpleSlider from './SimpleSlider'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -75,6 +77,28 @@ const useStyles = makeStyles()(() => ({
       },
     },
   },
+  outstanding: {
+    marginTop: 20,
+    width: '90%',
+    maxWidth: 1200,
+
+    '& div': {
+      width: '100%',
+      height: '300px',
+      overflow: 'hidden',
+    },
+
+    '& img': {
+      width: '100%',
+      maxHeight: '100%',
+      objectFit: 'cover',
+    },
+
+    '@media (min-width: 900px)': {
+      width: 'auto',
+      '& div': { height: 'auto' },
+    },
+  },
 }))
 
 export default function Home() {
@@ -112,12 +136,29 @@ export default function Home() {
         />
       </Grid>
 
+      <SimpleSlider />
+
       <Box className={classes.trandingNavigate}>
         <Typography>Get the Look</Typography>
         <Typography fontWeight={26}>FASHION TRENDS</Typography>
         <Typography>Fashion Trends Note</Typography>
         <Button variant="outlined">SHOP NOW</Button>
       </Box>
+
+      <Grid container className={classes.outstanding} spacing={2}>
+        <CollectionGridItem
+          img="src/assets/newCollection.jpg"
+          content="STREETSTYLE"
+          title="NEW COLLECTION"
+          url="products/street-style"
+        />
+        <CollectionGridItem
+          img="src/assets/summerSale.jpg"
+          content="UP TO 60%"
+          title="SUMMER SALE"
+          url="products/summer-sale"
+        />
+      </Grid>
     </Box>
   )
 }
