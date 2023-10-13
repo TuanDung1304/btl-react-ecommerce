@@ -5,6 +5,13 @@ import { makeStyles } from 'tss-react/mui'
 const useStyles = makeStyles()(() => ({
   root: {
     position: 'relative',
+    overflow: 'hidden',
+    height: '100%',
+  },
+  categoryImg: {
+    height: '100%',
+    width: '100%',
+    objectFit: 'cover',
   },
   categoryButton: {
     position: 'absolute',
@@ -20,20 +27,32 @@ const useStyles = makeStyles()(() => ({
     fontFamily: 'Roboto',
     letterSpacing: 3.5,
   },
+  ao: {
+    objectPosition: '0 -50px',
+  },
+  quan: {
+    objectPosition: '0 -393px',
+  },
 }))
 
 interface Props {
   url: string
-  content: 'MEN' | 'WOMEN' | 'SPORTSWEAR'
+  content: 'AO' | 'QUAN' | 'PHU KIEN'
   img: string
 }
 
 export default function CategoryGridItem({ url, content, img }: Props) {
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
 
   return (
     <Grid item xs={6} className={classes.root}>
-      <img src={img} />
+      <img
+        src={img}
+        className={cx(classes.categoryImg, {
+          [classes.ao]: content === 'AO',
+          [classes.quan]: content === 'QUAN',
+        })}
+      />
       <Box component={Link} className={classes.categoryButton} to={url}>
         {content}
       </Box>

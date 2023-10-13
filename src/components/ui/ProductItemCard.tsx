@@ -1,0 +1,62 @@
+import { Box, Typography } from '@mui/material'
+import { makeStyles } from 'tss-react/mui'
+
+const useStyles = makeStyles()(() => ({
+  root: {
+    width: '300px',
+    borderRadius: '8px',
+  },
+  imgWrapper: {
+    width: '100%',
+    height: '380px',
+    overflow: 'hidden',
+  },
+  img: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    objectPosition: 'center',
+  },
+  brand: {
+    marginTop: 6,
+    color: '#8f8f8f',
+    fontSize: 12,
+    fontWeight: 700,
+  },
+  name: {
+    fontSize: 13,
+    letterSpacing: 0.3,
+    lineHeight: '18px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  price: {
+    fontSize: 14,
+    fontWeight: 500,
+    marginTop: 4,
+    lineHeight: '20px',
+  },
+}))
+
+interface Props {
+  url: string
+  price: number
+  name: string
+  model: string
+}
+
+export default function ProductItemCard({ name, price, url, model }: Props) {
+  const { classes } = useStyles()
+  return (
+    <Box className={classes.root}>
+      <Box className={classes.imgWrapper}>
+        <img src={url} className={classes.img} />
+      </Box>
+      <Typography className={classes.brand}>Biluxury</Typography>
+      <Typography className={classes.name}>{name + ' ' + model}</Typography>
+      <Typography
+        className={classes.price}>{`${price.toLocaleString()}₫`}</Typography>
+    </Box>
+  )
+}
