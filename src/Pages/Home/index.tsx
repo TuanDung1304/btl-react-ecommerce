@@ -80,6 +80,7 @@ const useStyles = makeStyles()(() => ({
   outstanding: {
     marginTop: 20,
     width: '90%',
+    maxWidth: 1200,
 
     '& div': {
       width: '100%',
@@ -94,7 +95,6 @@ const useStyles = makeStyles()(() => ({
     },
 
     '@media (min-width: 900px)': {
-      flexDirection: 'row',
       width: 'auto',
       '& div': { height: 'auto' },
     },
@@ -145,11 +145,7 @@ export default function Home() {
         <Button variant="outlined">SHOP NOW</Button>
       </Box>
 
-      <Grid
-        container
-        className={classes.outstanding}
-        columnSpacing={{ md: 2 }}
-        rowSpacing={2}>
+      <Grid container className={classes.outstanding} spacing={2}>
         <CollectionGridItem
           img="src/assets/newCollection.jpg"
           content="STREETSTYLE"
