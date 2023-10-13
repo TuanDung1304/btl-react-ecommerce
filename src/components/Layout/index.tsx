@@ -8,7 +8,7 @@ interface Props {
   children: React.ReactNode
 }
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',

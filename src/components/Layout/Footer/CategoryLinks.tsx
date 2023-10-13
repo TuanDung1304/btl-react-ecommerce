@@ -1,8 +1,8 @@
 import {
-  CategoriesOwn,
-  aoCategories,
-  phuKienCategories,
-  quanCategories,
+  CategoriesType,
+  AO_CATEGORIES,
+  PHU_KIEN_CATEGORIES,
+  QUAN_CATEGORIES,
 } from '../../Categories/categories'
 import { Link as RouterLink } from 'react-router-dom'
 import { Grid, Link, Typography } from '@mui/material'
@@ -33,18 +33,18 @@ const useStyles = makeStyles()(() => ({
 }))
 
 interface Props {
-  type: CategoriesOwn | 'myAccount'
+  type: CategoriesType | 'myAccount'
 }
 
 export default function CategoryLinks({ type }: Props) {
   const { classes, cx } = useStyles()
 
   const categories =
-    type === CategoriesOwn.Ao
-      ? aoCategories
-      : type === CategoriesOwn.Quan
-      ? quanCategories
-      : phuKienCategories
+    type === CategoriesType.Ao
+      ? AO_CATEGORIES
+      : type === CategoriesType.Quan
+      ? QUAN_CATEGORIES
+      : PHU_KIEN_CATEGORIES
 
   if (type === 'myAccount') {
     return (
@@ -67,14 +67,14 @@ export default function CategoryLinks({ type }: Props) {
     <Grid item xs={3} className={classes.gridCol}>
       <Link
         component={RouterLink}
-        to={`/${categoryUrl}`}
+        to={`/collections/${categoryUrl}`}
         className={cx(classes.link, classes.label)}>
         {type}
       </Link>
       {categories.map((category) => (
         <Link
           component={RouterLink}
-          to={`/${category.url}`}
+          to={`/collections/${category.url}`}
           className={classes.link}>
           {category.name}
         </Link>

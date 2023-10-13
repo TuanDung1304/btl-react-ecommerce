@@ -104,18 +104,18 @@ export default function Home() {
           height={'100%'}
           rowSpacing={2}>
           <CategoryGridItem
-            url="products/ao-nam"
+            url="collections/ao"
             content="AO"
             img="src/assets/ao-quan-cate.webp"
           />
           <CategoryGridItem
-            url="products/quan-nam"
+            url="collections/quan"
             content="QUAN"
             img="src/assets/ao-quan-cate.webp"
           />
         </Grid>
         <CategoryGridItem
-          url="products/phu kien"
+          url="collections/phu-kien"
           content="PHU KIEN"
           img="src/assets/phu-kien-cate.webp"
         />
@@ -134,12 +134,12 @@ export default function Home() {
         <CollectionGridItem
           img="src/assets/suit-collection.webp"
           content="Men's Suits"
-          url="products/street-style"
+          url="collections/street-style"
         />
         <CollectionGridItem
           img="src/assets/winter-collection.webp"
           content="Fall Winter"
-          url="products/summer-sale"
+          url="collections/summer-sale"
         />
       </Grid>
     </Box>

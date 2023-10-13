@@ -53,7 +53,10 @@ export default function Header() {
   return (
     <Box className={classes.root}>
       <Link to={'/'}>
-        <img src="src/assets/logo.png" className={classes.image} />
+        <img
+          src="https://spree-shopping-mall-demo.herokuapp.com/assets/logo/fashion_store_logo-7e5bc0ced748ad79fd7dc5269fa106c5d91d0724daac368e7e197f14f42e5744.png"
+          className={classes.image}
+        />
       </Link>
       <TabContext value={value}>
         <Box>
