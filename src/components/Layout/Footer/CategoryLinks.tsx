@@ -61,17 +61,17 @@ export default function CategoryLinks({ type }: Props) {
     )
   }
 
-  const categoryUrl = type.toLocaleLowerCase().split(' ').join('-')
+  const [titleCategory, ...restCategories] = categories
 
   return (
     <Grid item xs={3} className={classes.gridCol}>
       <Link
         component={RouterLink}
-        to={`/collections/${categoryUrl}`}
+        to={`/collections/${titleCategory.url}`}
         className={cx(classes.link, classes.label)}>
         {type}
       </Link>
-      {categories.map((category) => (
+      {restCategories.map((category) => (
         <Link
           component={RouterLink}
           to={`/collections/${category.url}`}

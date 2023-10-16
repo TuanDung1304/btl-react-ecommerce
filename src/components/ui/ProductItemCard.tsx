@@ -1,9 +1,10 @@
 import { Box, Typography } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
+import { Product } from '../../Pages/Products/type'
 
 const useStyles = makeStyles()(() => ({
   root: {
-    width: '300px',
+    maxWidth: '300px',
     borderRadius: '8px',
   },
   imgWrapper: {
@@ -40,18 +41,17 @@ const useStyles = makeStyles()(() => ({
 }))
 
 interface Props {
-  url: string
-  price: number
-  name: string
-  model: string
+  product: Product
 }
 
-export default function ProductItemCard({ name, price, url, model }: Props) {
+export default function ProductItemCard({ product }: Props) {
+  const { name, price, img, model } = product
+
   const { classes } = useStyles()
   return (
     <Box className={classes.root}>
       <Box className={classes.imgWrapper}>
-        <img src={url} className={classes.img} />
+        <img src={img} className={classes.img} />
       </Box>
       <Typography className={classes.brand}>Biluxury</Typography>
       <Typography className={classes.name}>{name + ' ' + model}</Typography>
