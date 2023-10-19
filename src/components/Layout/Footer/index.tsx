@@ -1,6 +1,6 @@
-import { Box, Grid, Typography, colors } from '@mui/material'
+import { Box, Grid, colors } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
-import { CategoriesType } from '../../Categories/categories'
+import { CategoryType } from '../../Categories/categories'
 import CategoryLinks from './CategoryLinks'
 import { Link } from 'react-router-dom'
 
@@ -47,9 +47,9 @@ export default function Footer() {
     <>
       <Box className={classes.root}>
         <Grid container className={classes.gridContainer}>
-          <CategoryLinks type={CategoriesType.Ao} />
-          <CategoryLinks type={CategoriesType.Quan} />
-          <CategoryLinks type={CategoriesType.PhuKien} />
+          <CategoryLinks type={CategoryType.Ao} />
+          <CategoryLinks type={CategoryType.Quan} />
+          <CategoryLinks type={CategoryType.PhuKien} />
           <CategoryLinks type={'myAccount'} />
         </Grid>
       </Box>

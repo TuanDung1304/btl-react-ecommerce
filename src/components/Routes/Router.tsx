@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import Home from '../../Pages/Home'
 import MainLayout from '../Layout'
 import {
   Route,
@@ -10,6 +9,7 @@ import {
 import Login from '../../Pages/Auth/Login'
 import Register from '../../Pages/Auth/Register'
 import Products from '../../Pages/Products'
+import Home from '../../Pages/Home'
 
 export interface RouteConfig {
   title?: string

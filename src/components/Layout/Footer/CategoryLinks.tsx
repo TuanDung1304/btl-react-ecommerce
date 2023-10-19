@@ -1,6 +1,6 @@
 import {
-  CategoriesType,
   AO_CATEGORIES,
+  CategoryType,
   PHU_KIEN_CATEGORIES,
   QUAN_CATEGORIES,
 } from '../../Categories/categories'
@@ -33,16 +33,16 @@ const useStyles = makeStyles()(() => ({
 }))
 
 interface Props {
-  type: CategoriesType | 'myAccount'
+  type: CategoryType | 'myAccount'
 }
 
 export default function CategoryLinks({ type }: Props) {
   const { classes, cx } = useStyles()
 
   const categories =
-    type === CategoriesType.Ao
+    type === CategoryType.Ao
       ? AO_CATEGORIES
-      : type === CategoriesType.Quan
+      : type === CategoryType.Quan
       ? QUAN_CATEGORIES
       : PHU_KIEN_CATEGORIES
 

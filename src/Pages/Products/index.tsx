@@ -23,6 +23,7 @@ const useStyles = makeStyles()(() => ({
   },
   productFilterWrapper: {
     display: 'flex',
+    gap: 15,
   },
 }))
 
@@ -38,7 +39,10 @@ export default function Products() {
   return (
     <Box className={classes.root}>
       <Box>
-        <img src="https://theme.hstatic.net/200000053174/1001115888/14/breadcrumb_bg.jpg?v=1057" />
+        <img
+          src="https://theme.hstatic.net/200000053174/1001115888/14/breadcrumb_bg.jpg"
+          width={'100%'}
+        />
       </Box>
       <TabContext value={value}>
         <CategoriesTabList type={categoryType} value={value} />
