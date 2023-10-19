@@ -1,13 +1,13 @@
-import { TabContext, TabPanel } from '@mui/lab'
+import { TabContext } from '@mui/lab'
 import { Box } from '@mui/material'
 import { useState } from 'react'
-import CategoriesTabList from './CategoriesTabList'
-import {
-  AO_CATEGORIES,
-  CategoriesType,
-} from '../../components/Categories/categories'
-import { makeStyles } from 'tss-react/mui'
 import { useParams } from 'react-router-dom'
+import { makeStyles } from 'tss-react/mui'
+import CategoriesTabList from './CategoriesTabList'
+import ProductFilter from './ProductFilter'
+import ProductList from './ProductList'
+import ProductSort from './ProductSort'
+import { getCategory, getCategoryTypeFromUrl } from './functions'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -16,30 +16,43 @@ const useStyles = makeStyles()(() => ({
     alignItems: 'center',
   },
   tabContext: {},
+  productListContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '1400px',
+  },
+  productFilterWrapper: {
+    display: 'flex',
+    gap: 15,
+  },
 }))
 
 export default function Products() {
   const { classes } = useStyles()
-  const params = useParams()
+  const { type } = useParams()
 
-  const [value, setValue] = useState(params.type as string)
+  const [value, setValue] = useState(type as string)
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue)
-  }
+  const categoryType = getCategoryTypeFromUrl(type as string)
+  const category = getCategory(type as string)
+
   return (
     <Box className={classes.root}>
       <Box>
-        <img src="https://theme.hstatic.net/200000053174/1001115888/14/breadcrumb_bg.jpg?v=1057" />
+        <img
+          src="https://theme.hstatic.net/200000053174/1001115888/14/breadcrumb_bg.jpg"
+          width={'100%'}
+        />
       </Box>
       <TabContext value={value}>
-        <CategoriesTabList
-          onChange={handleChange}
-          catagories={AO_CATEGORIES}
-          type={CategoriesType.Ao}
-          value={value}
-        />
-        <TabPanel value={value}>{value}</TabPanel>
+        <CategoriesTabList type={categoryType} value={value} />
+        <Box className={classes.productListContainer}>
+          <ProductSort />
+          <Box className={classes.productFilterWrapper}>
+            <ProductFilter />
+            <ProductList category={category.url} />
+          </Box>
+        </Box>
       </TabContext>
     </Box>
   )

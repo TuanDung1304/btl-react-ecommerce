@@ -2,7 +2,7 @@ import { Box, Button, Grid, Typography } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 import CategoryGridItem from './CategoryGridItem'
 import CollectionGridItem from './CollectionGridItem'
-import SimpleSlider from './SimpleSlider'
+import BestSellerSlider from './BestSellerSlider'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -104,12 +104,12 @@ export default function Home() {
           height={'100%'}
           rowSpacing={2}>
           <CategoryGridItem
-            url="collections/ao"
+            url="collections/ao-nam"
             content="AO"
             img="src/assets/ao-quan-cate.webp"
           />
           <CategoryGridItem
-            url="collections/quan"
+            url="collections/quan-nam"
             content="QUAN"
             img="src/assets/ao-quan-cate.webp"
           />
@@ -121,7 +121,7 @@ export default function Home() {
         />
       </Grid>
 
-      <SimpleSlider />
+      <BestSellerSlider />
 
       <Box className={classes.trandingNavigate}>
         <Typography>Get the Look</Typography>
