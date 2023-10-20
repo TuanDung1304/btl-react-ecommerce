@@ -1,21 +1,21 @@
 import { Tab, Tabs } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { CategoryType } from '../../components/Categories/categories'
-import { getCategoriesFromType } from './functions'
+import { getCategoriesFromType, getCategoryTypeFromUrl } from './functions'
 
 interface Props {
-  type?: CategoryType
   catagories?: CategoryType[]
-  value: string
+  tab: string
 }
 
-export default function CategoriesTabList({ type, value }: Props) {
+export default function CategoriesTabList({ tab }: Props) {
   const navigate = useNavigate()
-  if (!type) {
+  const categoryType = getCategoryTypeFromUrl(tab)
+  if (!categoryType) {
     return null
   }
 
-  const categories = getCategoriesFromType(type)
+  const categories = getCategoriesFromType(categoryType)
 
   const tabs = categories.map(({ name, url }) => (
     <Tab
@@ -27,7 +27,7 @@ export default function CategoriesTabList({ type, value }: Props) {
   ))
 
   return (
-    <Tabs value={value} aria-label="lab API tabs example">
+    <Tabs value={tab} aria-label="lab API tabs example">
       {tabs}
     </Tabs>
   )

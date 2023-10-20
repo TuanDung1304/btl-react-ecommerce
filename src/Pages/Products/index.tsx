@@ -1,13 +1,13 @@
 import { TabContext } from '@mui/lab'
 import { Box } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
 import CategoriesTabList from './CategoriesTabList'
 import ProductFilter from './ProductFilter'
 import ProductList from './ProductList'
 import ProductSort from './ProductSort'
-import { getCategory, getCategoryTypeFromUrl } from './functions'
+import { getCategory } from './functions'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -29,12 +29,13 @@ const useStyles = makeStyles()(() => ({
 
 export default function Products() {
   const { classes } = useStyles()
-  const { type } = useParams()
+  const { collection = 'ao-nam' } = useParams()
+  const [tab, setTab] = useState(collection)
+  const category = getCategory(tab)
 
-  const [value, setValue] = useState(type as string)
-
-  const categoryType = getCategoryTypeFromUrl(type as string)
-  const category = getCategory(type as string)
+  useEffect(() => {
+    setTab(collection)
+  }, [collection])
 
   return (
     <Box className={classes.root}>
@@ -44,8 +45,8 @@ export default function Products() {
           width={'100%'}
         />
       </Box>
-      <TabContext value={value}>
-        <CategoriesTabList type={categoryType} value={value} />
+      <TabContext value={tab}>
+        <CategoriesTabList tab={tab} />
         <Box className={classes.productListContainer}>
           <ProductSort />
           <Box className={classes.productFilterWrapper}>

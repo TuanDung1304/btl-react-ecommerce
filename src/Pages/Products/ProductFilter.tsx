@@ -8,14 +8,30 @@ import MuiAccordionSummary, {
 import MuiAccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
 import { makeStyles } from 'tss-react/mui'
-import { Box } from '@mui/material'
+import { Box, Grid } from '@mui/material'
+import { useColorsFilter } from './hooks'
 
-const useStyles = makeStyles()(() => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     width: '310px',
+  },
+  circleWrapper: {
+    width: 26,
+    height: 26,
+    cursor: 'pointer',
+    border: `1px solid ${theme.palette.grey[500]}`,
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  colorPicker: {
+    width: 20,
+    height: 20,
+    borderRadius: '50%',
   },
 }))
 
@@ -56,9 +72,15 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }))
 
+const ColorPicker = ({ color }: { color: string }) => {
+  const { classes } = useStyles()
+  return <Box className={classes.colorPicker} bgcolor={color} />
+}
+
 export default function CustomizedAccordions() {
   const { classes } = useStyles()
   const [expanded, setExpanded] = React.useState<string | false>('panel1')
+  const colors = useColorsFilter()
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
@@ -74,7 +96,15 @@ export default function CustomizedAccordions() {
           <Typography>Color</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>123</Typography>
+          <Grid container rowGap={1}>
+            {colors.map((color) => (
+              <Grid xs={2}>
+                <Box className={classes.circleWrapper}>
+                  <ColorPicker color={color} />
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
         </AccordionDetails>
       </Accordion>
       <Accordion

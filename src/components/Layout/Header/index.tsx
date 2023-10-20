@@ -29,11 +29,15 @@ const useStyles = makeStyles()(() => ({
     fontSize: 20,
     fontWeight: 500,
   },
+  menuItem: {
+    padding: 0,
+  },
   menuLink: {
     color: 'black',
     textDecoration: 'none',
     width: '100%',
     height: '100%',
+    padding: '6px 16px',
   },
 }))
 
@@ -99,12 +103,12 @@ export default function Header() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         sx={{ width: 200 }}
         slotProps={{ paper: { sx: { width: '150px' } } }}>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClose} className={classes.menuItem}>
           <Link to="/login" className={classes.menuLink}>
             Login
           </Link>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClose} className={classes.menuItem}>
           <Link to="/register" className={classes.menuLink}>
             Sign up
           </Link>

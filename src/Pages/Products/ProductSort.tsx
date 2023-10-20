@@ -1,10 +1,12 @@
-import * as React from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { Box } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import { useSearchParams } from 'react-router-dom'
+import { Short } from './type'
+import { useEffect, useState } from 'react'
 const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
@@ -14,35 +16,38 @@ const useStyles = makeStyles()(() => ({
 
 export default function ProductSort() {
   const { classes } = useStyles()
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [title, setTitle] = useState<Short>(Short.default)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
-  const handleClose = () => {
+
+  const handleClick = (param: keyof typeof Short) => {
+    setTitle(Short[param])
+    setSearchParams(param === 'default' ? '' : `short=${param}`)
     setAnchorEl(null)
   }
 
+  useEffect(() => {
+    if (!searchParams.get('short')) {
+      setTitle(Short['default'])
+      setSearchParams('')
+    }
+  }, [searchParams, setSearchParams])
+
   return (
     <Box className={classes.root}>
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        color="error">
-        SHORT
+      <Button onClick={handleOpen} color="error">
+        {title}
         <KeyboardArrowDownIcon />
       </Button>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
+        onClose={() => setAnchorEl(null)}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right',
@@ -51,10 +56,14 @@ export default function ProductSort() {
           vertical: 'top',
           horizontal: 'right',
         }}>
-        <MenuItem onClick={handleClose}>Default</MenuItem>
-        <MenuItem onClick={handleClose}>Newest</MenuItem>
-        <MenuItem onClick={handleClose}>Price (High - Low)</MenuItem>
-        <MenuItem onClick={handleClose}>Price (Low - High)</MenuItem>
+        <MenuItem onClick={() => handleClick('default')}>Default</MenuItem>
+        <MenuItem onClick={() => handleClick('newest')}>Newest</MenuItem>
+        <MenuItem onClick={() => handleClick('desc')}>
+          Price (High - Low)
+        </MenuItem>
+        <MenuItem onClick={() => handleClick('asc')}>
+          Price (Low - High)
+        </MenuItem>
       </Menu>
     </Box>
   )

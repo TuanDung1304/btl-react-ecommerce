@@ -8,3 +8,10 @@ export type Product = {
   type: CategoryType
   category: string
 }
+
+export enum Short {
+  'default' = 'Short',
+  'newest' = 'Newest',
+  'asc' = 'Price (Low - High)',
+  'desc' = 'Price (High - Low)',
+}
