@@ -9,7 +9,15 @@ export type Product = {
   category: string
 }
 
-export enum Short {
+export enum Size {
+  xs = 'MS',
+  s = 'S',
+  m = 'M',
+  l = 'L',
+  xl = 'XL',
+}
+
+export enum Sort {
   'default' = 'Short',
   'newest' = 'Newest',
   'asc' = 'Price (Low - High)',

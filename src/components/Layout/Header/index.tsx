@@ -4,9 +4,10 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { TabContext, TabList } from '@mui/lab'
 import { Box, Menu, MenuItem, Tab, colors } from '@mui/material'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
 import MenuIconButton from '../../ui/MenuIconButton'
+import CategoryHeader from './CategoryHeader'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -44,14 +45,16 @@ const useStyles = makeStyles()(() => ({
 export default function Header() {
   const { classes } = useStyles()
   const [value, setValue] = useState('')
+  const navigate = useNavigate()
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
+  const [anchorUserMenu, setAnchorUserMenu] = useState<null | HTMLElement>(null)
+  const [anchorTab, setAnchorTab] = useState<HTMLDivElement | null>(null)
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget)
+    setAnchorUserMenu(event.currentTarget)
   }
   const handleClose = () => {
-    setAnchorEl(null)
+    setAnchorUserMenu(null)
   }
 
   return (
@@ -63,40 +66,49 @@ export default function Header() {
         />
       </Link>
       <TabContext value={value}>
-        <Box>
-          <TabList
-            onMouseLeave={() => setValue('')}
-            aria-label="lab API tabs example">
-            <Tab
-              label="Ao"
-              value="ao"
-              className={classes.tabList}
-              onMouseEnter={() => setValue('ao')}
-            />
-            <Tab
-              label="Quan"
-              value="quan"
-              className={classes.tabList}
-              onMouseEnter={() => setValue('quan')}
-            />
-            <Tab
-              label="Phu Kien"
-              value="phu-kien"
-              className={classes.tabList}
-              onMouseEnter={() => setValue('phu-kien')}
-            />
-          </TabList>
-        </Box>
+        <TabList
+          onMouseEnter={(e) => setAnchorTab(e.currentTarget)}
+          onMouseLeave={() => {
+            setValue(''), setAnchorTab(null)
+          }}
+          aria-label="lab API tabs example">
+          <Tab
+            label="Ao"
+            value="ao"
+            className={classes.tabList}
+            onMouseEnter={() => setValue('ao')}
+            onClick={() => navigate('/collections/ao-nam')}
+          />
+          <Tab
+            label="Quan"
+            value="quan"
+            className={classes.tabList}
+            onMouseEnter={() => setValue('quan')}
+            onClick={() => navigate('/collections/quan-nam')}
+          />
+          <Tab
+            label="Phu Kien"
+            value="phu-kien"
+            className={classes.tabList}
+            onMouseEnter={() => setValue('phu-kien')}
+            onClick={() => navigate('/collections/phu-kien')}
+          />
+        </TabList>
       </TabContext>
+      <CategoryHeader
+        anchorEl={anchorTab}
+        handleClose={() => setAnchorTab(null)}
+        currentTab={value}
+      />
       <Box>
         <MenuIconButton icon={SearchIcon} />
         <MenuIconButton icon={PersonIcon} onClick={handleClick} />
         <MenuIconButton icon={ShoppingCartIcon} />
       </Box>
       <Menu
-        anchorEl={anchorEl}
+        anchorEl={anchorUserMenu}
         id="account-menu"
-        open={open}
+        open={Boolean(anchorUserMenu)}
         onClose={handleClose}
         onClick={handleClose}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}

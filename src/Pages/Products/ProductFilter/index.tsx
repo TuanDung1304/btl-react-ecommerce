@@ -9,14 +9,17 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
 import { makeStyles } from 'tss-react/mui'
 import { Box, Grid } from '@mui/material'
-import { useColorsFilter } from './hooks'
+import { useColorsFilter } from '../hooks'
+import SizeFilter from './SizeFilter'
+import PriceFilter from './PriceFilter'
+import ColorFilter from './ColorFilter'
 
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '310px',
+    maxWidth: '250px',
   },
   circleWrapper: {
     width: 26,
@@ -28,7 +31,7 @@ const useStyles = makeStyles()((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  colorPicker: {
+  color: {
     width: 20,
     height: 20,
     borderRadius: '50%',
@@ -72,59 +75,53 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }))
 
-const ColorPicker = ({ color }: { color: string }) => {
-  const { classes } = useStyles()
-  return <Box className={classes.colorPicker} bgcolor={color} />
-}
-
 export default function CustomizedAccordions() {
   const { classes } = useStyles()
-  const [expanded, setExpanded] = React.useState<string | false>('panel1')
-  const colors = useColorsFilter()
+  const [expanded, setExpanded] = React.useState<string[]>([])
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
-      setExpanded(newExpanded ? panel : false)
+      setExpanded(
+        newExpanded
+          ? [...expanded, panel]
+          : expanded.filter((item) => item !== panel),
+      )
     }
+
+  const isExpended = (panel: string) => {
+    return expanded.includes(panel)
+  }
 
   return (
     <Box className={classes.root}>
       <Accordion
-        expanded={expanded === 'panel1'}
+        expanded={isExpended('panel1')}
         onChange={handleChange('panel1')}>
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <Typography>Color</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Grid container rowGap={1}>
-            {colors.map((color) => (
-              <Grid xs={2}>
-                <Box className={classes.circleWrapper}>
-                  <ColorPicker color={color} />
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
+          <ColorFilter />
         </AccordionDetails>
       </Accordion>
       <Accordion
-        expanded={expanded === 'panel2'}
+        expanded={isExpended('panel2')}
         onChange={handleChange('panel2')}>
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
           <Typography>Size</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>123</Typography>
+          <SizeFilter />
         </AccordionDetails>
       </Accordion>
       <Accordion
-        expanded={expanded === 'panel3'}
+        expanded={isExpended('panel3')}
         onChange={handleChange('panel3')}>
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
           <Typography>Price</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>123</Typography>
+          <PriceFilter />
         </AccordionDetails>
       </Accordion>
     </Box>

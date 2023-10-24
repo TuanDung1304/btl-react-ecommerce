@@ -5,7 +5,7 @@ import { Box } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useSearchParams } from 'react-router-dom'
-import { Short } from './type'
+import { Sort } from './type'
 import { useEffect, useState } from 'react'
 const useStyles = makeStyles()(() => ({
   root: {
@@ -17,22 +17,22 @@ const useStyles = makeStyles()(() => ({
 export default function ProductSort() {
   const { classes } = useStyles()
   const [searchParams, setSearchParams] = useSearchParams()
-  const [title, setTitle] = useState<Short>(Short.default)
+  const [title, setTitle] = useState<Sort>(Sort.default)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleClick = (param: keyof typeof Short) => {
-    setTitle(Short[param])
+  const handleClick = (param: keyof typeof Sort) => {
+    setTitle(Sort[param])
     setSearchParams(param === 'default' ? '' : `short=${param}`)
     setAnchorEl(null)
   }
 
   useEffect(() => {
     if (!searchParams.get('short')) {
-      setTitle(Short['default'])
+      setTitle(Sort['default'])
       setSearchParams('')
     }
   }, [searchParams, setSearchParams])
