@@ -35,7 +35,7 @@ const routes: RouteConfig[] = [
     layout: MainLayout,
   },
   {
-    path: '/collections/:type',
+    path: '/collections/:collection',
     component: <Products />,
     layout: MainLayout,
   },

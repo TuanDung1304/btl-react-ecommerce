@@ -2,9 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './main.css'
-import { ThemeProvider, createTheme } from '@mui/material'
+import { ThemeProvider, colors, createTheme } from '@mui/material'
+import { Provider } from 'react-redux'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { store } from './store/index.ts'
 
 const theme = createTheme({
   typography: {
@@ -14,12 +16,17 @@ const theme = createTheme({
     fontWeightRegular: 400,
     fontWeightMedium: 500,
   },
+  palette: {
+    // primary: {},
+  },
 })
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>,
 )
