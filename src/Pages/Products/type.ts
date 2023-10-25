@@ -7,6 +7,7 @@ export type Product = {
   model: string
   type: CategoryType
   category: string
+  id: number
 }
 
 export enum Size {

@@ -1,18 +1,17 @@
-import * as React from 'react'
-import { styled } from '@mui/material/styles'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp'
+import { Box } from '@mui/material'
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion'
+import MuiAccordionDetails from '@mui/material/AccordionDetails'
 import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from '@mui/material/AccordionSummary'
-import MuiAccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
+import * as React from 'react'
 import { makeStyles } from 'tss-react/mui'
-import { Box, Grid } from '@mui/material'
-import { useColorsFilter } from '../hooks'
-import SizeFilter from './SizeFilter'
-import PriceFilter from './PriceFilter'
 import ColorFilter from './ColorFilter'
+import PriceFilter from './PriceFilter'
+import SizeFilter from './SizeFilter'
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -20,6 +19,9 @@ const useStyles = makeStyles()((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     maxWidth: '250px',
+    position: 'sticky',
+    top: '120px',
+    height: 'fit-content',
   },
   circleWrapper: {
     width: 26,
@@ -75,7 +77,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }))
 
-export default function CustomizedAccordions() {
+export default function ProductFilter() {
   const { classes } = useStyles()
   const [expanded, setExpanded] = React.useState<string[]>([])
 
