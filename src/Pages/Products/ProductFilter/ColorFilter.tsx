@@ -1,7 +1,8 @@
 import { Box, Grid } from '@mui/material'
-import { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from 'tss-react/mui'
+import { RootState } from '../../../store'
+import { setFilter } from '../../../store/filterSlice'
 import { useColorsFilter } from '../hooks'
 
 const useStyles = makeStyles()((theme) => ({
@@ -28,16 +29,18 @@ const useStyles = makeStyles()((theme) => ({
 export default function ColorFilter() {
   const { classes, cx } = useStyles()
   const colors = useColorsFilter()
-  const [selectedColor, setSelectedColor] = useState<string>('')
-  const [searchParams, setSearchParams] = useSearchParams()
+  const { color: selectedColor } = useSelector(
+    (state: RootState) => state.filter,
+  )
+  const dispatch = useDispatch()
 
   const handleSelect = (color: string) => {
-    setSelectedColor(selectedColor === color ? '' : color)
+    dispatch(setFilter({ color }))
   }
 
   return (
     <Grid container rowGap={1}>
-      {colors.map((color, index) => (
+      {colors.map((color) => (
         <Grid xs={2}>
           <Box
             className={cx(classes.circleWrapper, {

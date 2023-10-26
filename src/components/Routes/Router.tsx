@@ -10,6 +10,7 @@ import Login from '../../Pages/Auth/Login'
 import Register from '../../Pages/Auth/Register'
 import Products from '../../Pages/Products'
 import Home from '../../Pages/Home'
+import ProductDetail from '../../Pages/ProductDetail'
 
 export interface RouteConfig {
   title?: string
@@ -37,6 +38,11 @@ const routes: RouteConfig[] = [
   {
     path: '/collections/:collection',
     component: <Products />,
+    layout: MainLayout,
+  },
+  {
+    path: '/products/:id',
+    component: <ProductDetail />,
     layout: MainLayout,
   },
 ]

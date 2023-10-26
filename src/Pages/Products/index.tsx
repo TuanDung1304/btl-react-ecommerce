@@ -31,7 +31,6 @@ export default function Products() {
   const { classes } = useStyles()
   const { collection = 'ao-nam' } = useParams()
   const [tab, setTab] = useState(collection)
-  const category = getCategory(tab)
 
   useEffect(() => {
     setTab(collection)
@@ -51,7 +50,7 @@ export default function Products() {
           <ProductSort />
           <Box className={classes.productFilterWrapper}>
             <ProductFilter />
-            <ProductList category={category.url} />
+            <ProductList />
           </Box>
         </Box>
       </TabContext>

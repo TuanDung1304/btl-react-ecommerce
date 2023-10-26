@@ -1,11 +1,11 @@
+import { ThemeProvider, createTheme } from '@mui/material'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
+import 'slick-carousel/slick/slick-theme.css'
+import 'slick-carousel/slick/slick.css'
 import App from './App.tsx'
 import './main.css'
-import { ThemeProvider, colors, createTheme } from '@mui/material'
-import { Provider } from 'react-redux'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
 import { store } from './store/index.ts'
 
 const theme = createTheme({

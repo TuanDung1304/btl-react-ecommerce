@@ -7,13 +7,13 @@ export interface Filter {
   size?: keyof typeof Size
   min: number
   max: number
-  shortBy: keyof typeof Sort
+  sortBy: keyof typeof Sort
 }
 
 const initialState: Filter = {
   max: 5000000,
   min: 0,
-  shortBy: 'default',
+  sortBy: 'default',
 }
 
 const filterSlice = createSlice({

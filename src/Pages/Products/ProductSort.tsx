@@ -1,12 +1,12 @@
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import { Box } from '@mui/material'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import { Box } from '@mui/material'
+import { useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import { useSearchParams } from 'react-router-dom'
+import { useProductFilter } from './functions'
 import { Sort } from './type'
-import { useEffect, useState } from 'react'
 const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
@@ -16,31 +16,23 @@ const useStyles = makeStyles()(() => ({
 
 export default function ProductSort() {
   const { classes } = useStyles()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const [title, setTitle] = useState<Sort>(Sort.default)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
+  const { filter, setProductFilter } = useProductFilter()
+
   const handleClick = (param: keyof typeof Sort) => {
-    setTitle(Sort[param])
-    setSearchParams(param === 'default' ? '' : `short=${param}`)
+    setProductFilter({ sortBy: param })
     setAnchorEl(null)
   }
-
-  useEffect(() => {
-    if (!searchParams.get('short')) {
-      setTitle(Sort['default'])
-      setSearchParams('')
-    }
-  }, [searchParams, setSearchParams])
 
   return (
     <Box className={classes.root}>
       <Button onClick={handleOpen} color="error">
-        {title}
+        {Sort[filter.sortBy]}
         <KeyboardArrowDownIcon />
       </Button>
       <Menu

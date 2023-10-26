@@ -4,7 +4,7 @@ import { makeStyles } from 'tss-react/mui'
 
 interface Props {
   to: string
-  children: ReactNode
+  children?: ReactNode
   underline?: boolean
   color?: string
 }
