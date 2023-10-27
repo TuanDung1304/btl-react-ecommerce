@@ -4,7 +4,6 @@ import {
   PHU_KIEN_CATEGORIES,
   QUAN_CATEGORIES,
 } from '../../Categories/categories'
-import { Link as RouterLink } from 'react-router-dom'
 import { Grid, Link, Typography } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 
@@ -54,7 +53,7 @@ export default function CategoryLinks({ type }: Props) {
           lineHeight={'19px'}>
           MY ACCOUNT
         </Typography>
-        <Link component={RouterLink} to={`/account`} className={classes.link}>
+        <Link href={`/account`} className={classes.link}>
           MY ORDERS
         </Link>
       </Grid>
@@ -66,16 +65,12 @@ export default function CategoryLinks({ type }: Props) {
   return (
     <Grid item xs={3} className={classes.gridCol}>
       <Link
-        component={RouterLink}
-        to={`/collections/${titleCategory.url}`}
+        href={`/collections/${titleCategory.url}`}
         className={cx(classes.link, classes.label)}>
         {type}
       </Link>
       {restCategories.map((category) => (
-        <Link
-          component={RouterLink}
-          to={`/collections/${category.url}`}
-          className={classes.link}>
+        <Link href={`/collections/${category.url}`} className={classes.link}>
           {category.name}
         </Link>
       ))}
