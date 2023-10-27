@@ -24,14 +24,13 @@ const useStyles = makeStyles()(() => ({
     textDecoration: 'none',
     color: 'black',
     fontWeight: 500,
-    fontFamily: 'Roboto',
     letterSpacing: 3.5,
   },
   ao: {
-    objectPosition: '0 -50px',
-  },
-  quan: {
-    objectPosition: '0 -393px',
+    marginTop: -16,
+    '& img': {
+      paddingTop: 16,
+    },
   },
 }))
 
@@ -39,20 +38,18 @@ interface Props {
   url: string
   content: 'AO' | 'QUAN' | 'PHU KIEN'
   img: string
+  xs?: number
 }
 
-export default function CategoryGridItem({ url, content, img }: Props) {
+export default function CategoryGridItem({ url, content, img, xs = 6 }: Props) {
   const { classes, cx } = useStyles()
 
   return (
-    <Grid item xs={6} className={classes.root}>
-      <img
-        src={img}
-        className={cx(classes.categoryImg, {
-          [classes.ao]: content === 'AO',
-          [classes.quan]: content === 'QUAN',
-        })}
-      />
+    <Grid
+      item
+      xs={xs}
+      className={cx(classes.root, { [classes.ao]: content === 'AO' })}>
+      <img src={img} className={cx(classes.categoryImg)} />
       <Box component={Link} className={classes.categoryButton} to={url}>
         {content}
       </Box>

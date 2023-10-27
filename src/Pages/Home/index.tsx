@@ -93,31 +93,32 @@ export default function Home() {
   return (
     <Box className={classes.root}>
       <Box className={classes.banner}>
-        <img src="src/assets/home.webp" />
+        <img src="https://theme.hstatic.net/200000053174/1001115888/14/breadcrumb_bg.jpg?v=1219" />
       </Box>
       <Grid container className={classes.categoryGrid} spacing={3}>
         <Grid
           item
           container
-          xs={6}
+          xs={5}
           direction="column"
-          height={'100%'}
-          rowSpacing={2}>
-          <CategoryGridItem
-            url="collections/ao-nam"
-            content="AO"
-            img="src/assets/ao-quan-cate.webp"
-          />
+          rowSpacing={2}
+          height={'100%'}>
           <CategoryGridItem
             url="collections/quan-nam"
             content="QUAN"
-            img="src/assets/ao-quan-cate.webp"
+            img="https://product.hstatic.net/200000053174/product/3_7538c367131e4065a9d62aa1923c9649_master.jpg"
+          />
+          <CategoryGridItem
+            url="collections/phu-kien"
+            content="PHU KIEN"
+            img="https://product.hstatic.net/200000053174/product/5gdat005den01-999k__copy__40410e3ca1a646e9a9a07b819c0fc472_master_44a2be43b7ae4722b08c2d01bac70e57_master.jpg"
           />
         </Grid>
         <CategoryGridItem
-          url="collections/phu-kien"
-          content="PHU KIEN"
-          img="src/assets/phu-kien-cate.webp"
+          xs={7}
+          url="collections/ao-nam"
+          content="AO"
+          img="https://product.hstatic.net/200000053174/product/4_3186947308904dc98f995fe951ff5db8_master.jpg"
         />
       </Grid>
 
