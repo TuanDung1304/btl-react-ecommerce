@@ -10,7 +10,7 @@ import { store } from './store/index.ts'
 
 const theme = createTheme({
   typography: {
-    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
+    fontFamily: `"Quicksand", sans-serif`,
     fontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,
