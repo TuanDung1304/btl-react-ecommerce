@@ -18,6 +18,10 @@ const useStyles = makeStyles()((theme) => ({
       width: '50px',
       borderLeft: '1px solid rgba(0, 0, 0, 0.12) !important',
     },
+    '& .Mui-selected': {
+      color: theme.palette.primary.main,
+      fontWeight: 700,
+    },
   },
 }))
 
