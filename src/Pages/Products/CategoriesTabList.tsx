@@ -26,9 +26,5 @@ export default function CategoriesTabList({ tab }: Props) {
     />
   ))
 
-  return (
-    <Tabs value={tab} aria-label="lab API tabs example">
-      {tabs}
-    </Tabs>
-  )
+  return <Tabs value={tab}>{tabs}</Tabs>
 }
