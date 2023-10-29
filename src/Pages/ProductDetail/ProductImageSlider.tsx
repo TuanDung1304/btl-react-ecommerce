@@ -1,11 +1,10 @@
 import { Box } from '@mui/material'
-import React from 'react'
 import { makeStyles } from 'tss-react/mui'
 
 const useStyles = makeStyles()(() => ({
   root: {
-    width: 433,
-    height: 555,
+    width: 370,
+    height: 450,
 
     '& img': {
       width: '100%',
