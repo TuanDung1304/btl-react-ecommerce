@@ -3,6 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 import CategoryGridItem from './CategoryGridItem'
 import CollectionGridItem from './CollectionGridItem'
 import BestSellerSlider from './BestSellerSlider'
+import { CategoryType } from '../../components/Categories/categories'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -105,19 +106,19 @@ export default function Home() {
           height={'100%'}>
           <CategoryGridItem
             url="collections/quan-nam"
-            content="QUAN"
+            content={CategoryType.Quan}
             img="https://product.hstatic.net/200000053174/product/3_7538c367131e4065a9d62aa1923c9649_master.jpg"
           />
           <CategoryGridItem
             url="collections/phu-kien"
-            content="PHU KIEN"
+            content={CategoryType.PhuKien}
             img="https://product.hstatic.net/200000053174/product/5gdat005den01-999k__copy__40410e3ca1a646e9a9a07b819c0fc472_master_44a2be43b7ae4722b08c2d01bac70e57_master.jpg"
           />
         </Grid>
         <CategoryGridItem
           xs={7}
           url="collections/ao-nam"
-          content="AO"
+          content={CategoryType.Ao}
           img="https://product.hstatic.net/200000053174/product/4_3186947308904dc98f995fe951ff5db8_master.jpg"
         />
       </Grid>

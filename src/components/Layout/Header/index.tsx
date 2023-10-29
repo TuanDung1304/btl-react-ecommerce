@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
 import MenuIconButton from '../../ui/MenuIconButton'
 import CategoryHeader from './CategoryHeader'
+import { CategoryType } from '../../Categories/categories'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -70,24 +71,23 @@ export default function Header() {
           onMouseEnter={(e) => setAnchorTab(e.currentTarget)}
           onMouseLeave={() => {
             setValue(''), setAnchorTab(null)
-          }}
-          aria-label="lab API tabs example">
+          }}>
           <Tab
-            label="Ao"
+            label={CategoryType.Ao}
             value="ao"
             className={classes.tabList}
             onMouseEnter={() => setValue('ao')}
             onClick={() => navigate('/collections/ao-nam')}
           />
           <Tab
-            label="Quan"
+            label={CategoryType.Quan}
             value="quan"
             className={classes.tabList}
             onMouseEnter={() => setValue('quan')}
             onClick={() => navigate('/collections/quan-nam')}
           />
           <Tab
-            label="Phu Kien"
+            label={CategoryType.PhuKien}
             value="phu-kien"
             className={classes.tabList}
             onMouseEnter={() => setValue('phu-kien')}

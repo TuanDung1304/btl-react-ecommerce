@@ -1,6 +1,7 @@
 import { Box, Grid } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
+import { CategoryType } from '../../components/Categories/categories'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -36,7 +37,7 @@ const useStyles = makeStyles()(() => ({
 
 interface Props {
   url: string
-  content: 'AO' | 'QUAN' | 'PHU KIEN'
+  content: CategoryType
   img: string
   xs?: number
 }
@@ -48,7 +49,9 @@ export default function CategoryGridItem({ url, content, img, xs = 6 }: Props) {
     <Grid
       item
       xs={xs}
-      className={cx(classes.root, { [classes.ao]: content === 'AO' })}>
+      className={cx(classes.root, {
+        [classes.ao]: content === CategoryType.Ao,
+      })}>
       <img src={img} className={cx(classes.categoryImg)} />
       <Box component={Link} className={classes.categoryButton} to={url}>
         {content}
