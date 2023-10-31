@@ -1,16 +1,18 @@
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
 import {
   Box,
   Button,
   ButtonGroup,
   Chip,
   Divider,
-  TextField,
+  Grid,
   Typography,
 } from '@mui/material'
-import { makeStyles } from 'tss-react/mui'
-import RadioForm from './RadioForm'
 import { useState } from 'react'
+import { makeStyles } from 'tss-react/mui'
 import { isNumber } from '../../utils/functions'
+import RadioForm from './RadioForm'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -45,8 +47,10 @@ const useStyles = makeStyles()(() => ({
     padding: 15,
     fontWeight: 600,
   },
+  infoBodyTitle: {
+    minWidth: 120,
+  },
   priceBox: {
-    gap: 20,
     backgroundColor: '#f0f0f0',
     borderRadius: 8,
   },
@@ -55,18 +59,69 @@ const useStyles = makeStyles()(() => ({
     color: '#ff2c26',
     fontSize: 20,
     fontWeight: 700,
-    marginLeft: 50,
   },
   oldPrice: {
     textDecorationLine: 'line-through',
     color: '#9e9e9e',
+    margin: '0 20px',
   },
-  buttonItem: {
-    // width: 40,
+  quantityItem: {
+    width: 40,
     height: 40,
+    border: '1px solid #dbdbdb !important',
+    fontWeight: 600,
   },
-
+  quantityBtn: {
+    color: '#a4aaaf',
+    backgroundColor: 'rgba(0, 0, 0, 0.03)',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.03)',
+      color: '#000',
+    },
+  },
+  quantityInput: {
+    outline: 'none',
+    backgroundColor: 'white',
+    textAlign: 'center',
+    fontSize: 15,
+  },
   infoBody: {},
+  actionContainer: {
+    width: '100%',
+    marginTop: 10,
+    '& .MuiGrid-item:first-child .MuiButton-root': {
+      padding: '11px 28px',
+    },
+
+    '& .MuiButton-root': {
+      fontWeight: 600,
+      padding: '12px 28px',
+      letterSpacing: '1px',
+      fontSize: 15,
+    },
+
+    '& .MuiGrid-item:last-child .MuiButton-root': {
+      background: '#333333',
+
+      '&:after': {
+        content: '""',
+        position: 'absolute',
+        background: 'black',
+        borderRadius: 'inherit',
+        left: 0,
+        width: 0,
+        height: '100%',
+        transition: 'all .2s ease-in',
+        overflow: 'hidden',
+      },
+
+      '&:hover:after': {
+        background: 'black',
+        borderRadius: 'inherit',
+        width: '100%',
+      },
+    },
+  },
 }))
 
 interface Props {
@@ -122,7 +177,7 @@ export default function ProductInfo({
 
       <Box className={classes.infoBody}>
         <Box className={cx(classes.infoBobyItem, classes.priceBox)}>
-          <span>Gia:</span>
+          <span className={classes.infoBodyTitle}>Gia:</span>
           <Typography
             className={
               classes.price
@@ -142,45 +197,67 @@ export default function ProductInfo({
           )}
         </Box>
         <Box className={classes.infoBobyItem}>
-          Màu sắc:
+          <span className={classes.infoBodyTitle}>Màu sắc:</span>
           <RadioForm />
         </Box>
         <Box className={classes.infoBobyItem}>
-          Kích thước:
+          <span className={classes.infoBodyTitle}>Kích thước:</span>
           <RadioForm />
         </Box>
         <Box className={classes.infoBobyItem}>
-          Số lượng:
+          <span className={classes.infoBodyTitle}>Số lượng:</span>
           <ButtonGroup variant="contained">
             <Button
-              className={classes.buttonItem}
+              className={cx(classes.quantityBtn, classes.quantityItem)}
               size="small"
               onClick={() => {
                 if (quantity > 0) {
                   setQuantity(quantity - 1)
                 }
               }}>
-              -
+              <RemoveIcon />
             </Button>
             <input
+              className={cx(classes.quantityInput, classes.quantityItem)}
               value={quantity}
               onChange={(e) => {
                 if (!e.target.value) setQuantity(0)
-                if (isNumber(e.target.value)) {
+                if (!isNaN(Number(e.target.value))) {
                   setQuantity(Number(e.target.value))
                 }
               }}
             />
             <Button
-              className={classes.buttonItem}
+              className={cx(classes.quantityBtn, classes.quantityItem)}
               size="small"
               onClick={() => {
                 setQuantity(quantity + 1)
               }}>
-              +
+              <AddIcon />
             </Button>
           </ButtonGroup>
         </Box>
+        <Grid
+          container
+          className={classes.actionContainer}
+          rowGap={2}
+          columnSpacing={2}>
+          <Grid item xs={6}>
+            <Button fullWidth variant="outlined">
+              Them vao gio
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button fullWidth variant="contained">
+              Mua ngay
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button fullWidth variant="contained">
+              <span style={{ zIndex: 2 }}>Click vao day de nhan uu dai</span>
+            </Button>
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   )

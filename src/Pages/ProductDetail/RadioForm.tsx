@@ -5,9 +5,7 @@ import RadioGroup from '@mui/material/RadioGroup'
 import { makeStyles } from 'tss-react/mui'
 
 const useStyles = makeStyles()(() => ({
-  root: {
-    marginLeft: 30,
-  },
+  root: {},
 }))
 
 export default function RadioForm() {
