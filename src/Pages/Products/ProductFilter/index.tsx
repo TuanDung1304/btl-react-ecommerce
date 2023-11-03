@@ -82,7 +82,7 @@ export default function ProductFilter() {
   const [expanded, setExpanded] = React.useState<string[]>([])
 
   const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+    (panel: string) => (_event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(
         newExpanded
           ? [...expanded, panel]

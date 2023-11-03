@@ -7,7 +7,6 @@ import CategoriesTabList from './CategoriesTabList'
 import ProductFilter from './ProductFilter'
 import ProductList from './ProductList'
 import ProductSort from './ProductSort'
-import { getCategory } from './functions'
 
 const useStyles = makeStyles()(() => ({
   root: {
