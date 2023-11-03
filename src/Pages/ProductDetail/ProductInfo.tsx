@@ -124,6 +124,13 @@ const useStyles = makeStyles()(() => ({
   },
 }))
 
+const mauSac = [
+  { value: 'red', label: 'Đỏ' },
+  { value: 'green', label: 'Xanh lá' },
+  { value: 'grey', label: 'Xám' },
+  { value: 'black', label: 'Đen' },
+  { value: 'purple', label: 'Tím' },
+]
 interface Props {
   product: {
     name: string
@@ -198,11 +205,11 @@ export default function ProductInfo({
         </Box>
         <Box className={classes.infoBobyItem}>
           <span className={classes.infoBodyTitle}>Màu sắc:</span>
-          <RadioForm />
+          <RadioForm options={mauSac} />
         </Box>
         <Box className={classes.infoBobyItem}>
           <span className={classes.infoBodyTitle}>Kích thước:</span>
-          <RadioForm />
+          <RadioForm options={mauSac} />
         </Box>
         <Box className={classes.infoBobyItem}>
           <span className={classes.infoBodyTitle}>Số lượng:</span>
