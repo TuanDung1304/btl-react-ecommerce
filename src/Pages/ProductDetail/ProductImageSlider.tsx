@@ -2,8 +2,6 @@ import { Box } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 
 const useStyles = makeStyles()(() => ({
   root: {

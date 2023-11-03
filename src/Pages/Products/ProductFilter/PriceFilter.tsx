@@ -8,7 +8,7 @@ export default function PriceFilter() {
   const [value, setValue] = React.useState<number[]>([0, 5000000])
   const { setProductFilter } = useProductFilter()
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
+  const handleChange = (_event: Event, newValue: number | number[]) => {
     setValue(newValue as number[])
   }
 

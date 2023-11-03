@@ -14,11 +14,7 @@ interface Props {
   currentTab: string
 }
 
-export default function CategoryHeader({
-  anchorEl,
-  handleClose,
-  currentTab,
-}: Props) {
+export default function CategoryHeader({ anchorEl, currentTab }: Props) {
   const { classes } = useStyles()
 
   return (

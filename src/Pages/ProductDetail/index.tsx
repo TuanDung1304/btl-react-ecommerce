@@ -2,6 +2,7 @@ import { Box } from '@mui/material'
 import ProductImageSlider from './ProductImageSlider'
 import { makeStyles } from 'tss-react/mui'
 import ProductInfo from './ProductInfo'
+import ProductTabs from './ProductTabs'
 
 const productDetail = {
   name: 'Áo Polo trơn hiệu ứng ESTP041',
@@ -15,9 +16,9 @@ const productDetail = {
 const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
-    width: '100%',
+    flexDirection: 'column',
     padding: '30px 50px',
-    gap: 20,
+    maxWidth: 1600,
   },
   productSku: {},
 }))
@@ -26,8 +27,11 @@ export default function ProductDetail() {
 
   return (
     <Box className={classes.root}>
-      <ProductImageSlider />
-      <ProductInfo product={productDetail} />
+      <Box display={'flex'} gap={3}>
+        <ProductImageSlider />
+        <ProductInfo product={productDetail} />
+      </Box>
+      <ProductTabs />
     </Box>
   )
 }

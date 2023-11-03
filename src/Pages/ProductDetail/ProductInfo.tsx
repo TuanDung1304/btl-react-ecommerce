@@ -11,14 +11,19 @@ import {
 } from '@mui/material'
 import { useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
-import { isNumber } from '../../utils/functions'
 import RadioForm from './RadioForm'
+import ProductSubInfo from './ProductSubInfo'
 
 const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    width: '50%',
+    maxWidth: '70%',
+  },
+  infoWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '66%',
   },
   infoHeader: {
     marginBottom: 20,
@@ -149,123 +154,130 @@ export default function ProductInfo({
   const [quantity, setQuantity] = useState(1)
   return (
     <Box className={classes.root}>
-      <Box className={classes.infoHeader}>
-        <Typography className={classes.name}>{name}</Typography>
+      <Box className={classes.infoWrapper}>
+        <Box className={classes.infoHeader}>
+          <Typography className={classes.name}>{name}</Typography>
 
-        <Box className={classes.productSku}>
-          <Box className={classes.productSkuItem}>
-            Ma san pham:
-            <Typography className={classes.productSkuValue}>{model}</Typography>
-          </Box>
-          <Divider
-            orientation="vertical"
-            className={classes.productSkuDivider}
-            variant="middle"
-            flexItem
-          />
-          <Box className={classes.productSkuItem}>
-            Tinh trang:
-            <Typography className={classes.productSkuValue}>
-              {inStock ? 'Con hang' : 'Het cmn hang'}
-            </Typography>
-          </Box>
-          <Divider
-            orientation="vertical"
-            className={classes.productSkuDivider}
-            variant="middle"
-            flexItem
-          />
-          <Box className={classes.productSkuItem}>
-            Thuong hieu:
-            <Typography className={classes.productSkuValue}>{brand}</Typography>
-          </Box>
-        </Box>
-      </Box>
-
-      <Box className={classes.infoBody}>
-        <Box className={cx(classes.infoBobyItem, classes.priceBox)}>
-          <span className={classes.infoBodyTitle}>Gia:</span>
-          <Typography
-            className={
-              classes.price
-            }>{`${price.toLocaleString()}₫`}</Typography>
-          {oldPrice && (
-            <>
-              <Typography
-                className={
-                  classes.oldPrice
-                }>{`${oldPrice.toLocaleString()}₫`}</Typography>
-              <Chip
-                label={`-${Math.floor((price / oldPrice) * 100)}%`}
-                color="error"
-                size="small"
-              />
-            </>
-          )}
-        </Box>
-        <Box className={classes.infoBobyItem}>
-          <span className={classes.infoBodyTitle}>Màu sắc:</span>
-          <RadioForm options={mauSac} />
-        </Box>
-        <Box className={classes.infoBobyItem}>
-          <span className={classes.infoBodyTitle}>Kích thước:</span>
-          <RadioForm options={mauSac} />
-        </Box>
-        <Box className={classes.infoBobyItem}>
-          <span className={classes.infoBodyTitle}>Số lượng:</span>
-          <ButtonGroup variant="contained">
-            <Button
-              className={cx(classes.quantityBtn, classes.quantityItem)}
-              size="small"
-              onClick={() => {
-                if (quantity > 0) {
-                  setQuantity(quantity - 1)
-                }
-              }}>
-              <RemoveIcon />
-            </Button>
-            <input
-              className={cx(classes.quantityInput, classes.quantityItem)}
-              value={quantity}
-              onChange={(e) => {
-                if (!e.target.value) setQuantity(0)
-                if (!isNaN(Number(e.target.value))) {
-                  setQuantity(Number(e.target.value))
-                }
-              }}
+          <Box className={classes.productSku}>
+            <Box className={classes.productSkuItem}>
+              Ma san pham:
+              <Typography className={classes.productSkuValue}>
+                {model}
+              </Typography>
+            </Box>
+            <Divider
+              orientation="vertical"
+              className={classes.productSkuDivider}
+              variant="middle"
+              flexItem
             />
-            <Button
-              className={cx(classes.quantityBtn, classes.quantityItem)}
-              size="small"
-              onClick={() => {
-                setQuantity(quantity + 1)
-              }}>
-              <AddIcon />
-            </Button>
-          </ButtonGroup>
+            <Box className={classes.productSkuItem}>
+              Tinh trang:
+              <Typography className={classes.productSkuValue}>
+                {inStock ? 'Con hang' : 'Het cmn hang'}
+              </Typography>
+            </Box>
+            <Divider
+              orientation="vertical"
+              className={classes.productSkuDivider}
+              variant="middle"
+              flexItem
+            />
+            <Box className={classes.productSkuItem}>
+              Thuong hieu:
+              <Typography className={classes.productSkuValue}>
+                {brand}
+              </Typography>
+            </Box>
+          </Box>
         </Box>
-        <Grid
-          container
-          className={classes.actionContainer}
-          rowGap={2}
-          columnSpacing={2}>
-          <Grid item xs={6}>
-            <Button fullWidth variant="outlined">
-              Them vao gio
-            </Button>
+
+        <Box className={classes.infoBody}>
+          <Box className={cx(classes.infoBobyItem, classes.priceBox)}>
+            <span className={classes.infoBodyTitle}>Gia:</span>
+            <Typography
+              className={
+                classes.price
+              }>{`${price.toLocaleString()}₫`}</Typography>
+            {oldPrice && (
+              <>
+                <Typography
+                  className={
+                    classes.oldPrice
+                  }>{`${oldPrice.toLocaleString()}₫`}</Typography>
+                <Chip
+                  label={`-${Math.floor((price / oldPrice) * 100)}%`}
+                  color="error"
+                  size="small"
+                />
+              </>
+            )}
+          </Box>
+          <Box className={classes.infoBobyItem}>
+            <span className={classes.infoBodyTitle}>Màu sắc:</span>
+            <RadioForm options={mauSac} />
+          </Box>
+          <Box className={classes.infoBobyItem}>
+            <span className={classes.infoBodyTitle}>Kích thước:</span>
+            <RadioForm options={mauSac} />
+          </Box>
+          <Box className={classes.infoBobyItem}>
+            <span className={classes.infoBodyTitle}>Số lượng:</span>
+            <ButtonGroup variant="contained">
+              <Button
+                className={cx(classes.quantityBtn, classes.quantityItem)}
+                size="small"
+                onClick={() => {
+                  if (quantity > 0) {
+                    setQuantity(quantity - 1)
+                  }
+                }}>
+                <RemoveIcon />
+              </Button>
+              <input
+                className={cx(classes.quantityInput, classes.quantityItem)}
+                value={quantity}
+                onChange={(e) => {
+                  if (!e.target.value) setQuantity(0)
+                  if (!isNaN(Number(e.target.value))) {
+                    setQuantity(Number(e.target.value))
+                  }
+                }}
+              />
+              <Button
+                className={cx(classes.quantityBtn, classes.quantityItem)}
+                size="small"
+                onClick={() => {
+                  setQuantity(quantity + 1)
+                }}>
+                <AddIcon />
+              </Button>
+            </ButtonGroup>
+          </Box>
+          <Grid
+            container
+            className={classes.actionContainer}
+            rowGap={2}
+            columnSpacing={2}>
+            <Grid item xs={6}>
+              <Button fullWidth variant="outlined">
+                Them vao gio
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button fullWidth variant="contained">
+                Mua ngay
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <Button fullWidth variant="contained">
+                <span style={{ zIndex: 2 }}>Click vao day de nhan uu dai</span>
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <Button fullWidth variant="contained">
-              Mua ngay
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button fullWidth variant="contained">
-              <span style={{ zIndex: 2 }}>Click vao day de nhan uu dai</span>
-            </Button>
-          </Grid>
-        </Grid>
+        </Box>
       </Box>
+      <ProductSubInfo />
     </Box>
   )
 }

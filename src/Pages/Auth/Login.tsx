@@ -34,9 +34,7 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginForm>({ resolver: yupResolver(loginSchema) })
 
-  const onSubmit = async (data: LoginForm) => {}
-
-  const rememberAccount = () => {}
+  const onSubmit = async (_data: LoginForm) => {}
 
   useEffect(() => {
     document.title = 'Login'

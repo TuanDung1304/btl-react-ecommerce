@@ -31,7 +31,7 @@ export default function SizeFilter() {
   const dispatch = useDispatch<AppDispatch>()
 
   const handleAlignment = (
-    event: React.MouseEvent<HTMLElement>,
+    _event: React.MouseEvent<HTMLElement>,
     size?: keyof typeof Size,
   ) => {
     dispatch(setFilter({ size: size === filter.size ? undefined : size }))
