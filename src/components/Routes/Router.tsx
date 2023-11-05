@@ -5,12 +5,14 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
+  useLocation,
 } from 'react-router-dom'
 import Login from '../../Pages/Auth/Login'
 import Register from '../../Pages/Auth/Register'
 import Products from '../../Pages/Products'
 import Home from '../../Pages/Home'
 import ProductDetail from '../../Pages/ProductDetail'
+import { useDocumentTitle } from '../../hooks'
 
 export interface RouteConfig {
   title?: string
@@ -19,18 +21,21 @@ export interface RouteConfig {
   layout?: JSX.ElementType
 }
 
-const routes: RouteConfig[] = [
+export const routes: RouteConfig[] = [
   {
+    title: 'Trang chủ',
     path: '',
     component: <Home />,
     layout: MainLayout,
   },
   {
+    title: 'Đăng nhập',
     path: '/login',
     component: <Login />,
     layout: MainLayout,
   },
   {
+    title: 'Đăng ký',
     path: '/register',
     component: <Register />,
     layout: MainLayout,
@@ -54,7 +59,12 @@ export const router = createBrowserRouter(
         <Route
           key={index}
           path={path}
-          element={Layout ? <Layout>{component}</Layout> : component}></Route>
+          element={
+            <DocumentTitleProvider>
+              {Layout ? <Layout>{component}</Layout> : component}
+            </DocumentTitleProvider>
+          }
+        />
       ))}
     </>,
   ),
@@ -62,4 +72,12 @@ export const router = createBrowserRouter(
 
 export default function DefineRouter() {
   return <RouterProvider router={router} />
+}
+
+function DocumentTitleProvider({ children }: { children: ReactNode }) {
+  const location = useLocation()
+  useDocumentTitle(
+    routes.find((r) => r.path === location.pathname)?.title ?? 'Trang chủ',
+  )
+  return children
 }

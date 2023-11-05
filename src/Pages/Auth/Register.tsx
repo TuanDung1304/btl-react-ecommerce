@@ -7,9 +7,12 @@ import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { useEffect } from 'react'
+import { isAxiosError } from 'axios'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { makeStyles } from 'tss-react/mui'
+import { AuthService } from '../../api/services/auth'
+import { useNotify } from '../../components/Notify/hooks'
 import Link from '../../components/ui/Link'
 import { RegisterForm, registerSchema } from './validation'
 
@@ -25,17 +28,29 @@ const useStyles = makeStyles()(() => ({
 
 export default function Register() {
   const { classes } = useStyles()
+  const { notify } = useNotify()
+  const [loading, setLoading] = useState(false)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterForm>({ resolver: yupResolver(registerSchema) })
-  const onSubmit = (data: RegisterForm) => console.log(data)
-
-  useEffect(() => {
-    document.title = 'Register'
-  }, [])
+  const onSubmit = async (data: RegisterForm) => {
+    try {
+      setLoading(true)
+      const res = await AuthService.signup(data)
+      notify(res.message)
+    } catch (err) {
+      if (isAxiosError(err) && err.response) {
+        notify(err.response.data.message, {
+          severity: 'error',
+        })
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <Container component="main" maxWidth="sm">
@@ -44,7 +59,7 @@ export default function Register() {
           <LockOutlinedIcon fontSize="large" />
         </Avatar>
         <Typography component="h1" variant="h5">
-          REGISTER AN ACCOUNT
+          ĐĂNG KÝ TÀI KHOẢN
         </Typography>
         <Box
           component="form"
@@ -101,6 +116,7 @@ export default function Register() {
           />
           <Button
             fullWidth
+            disabled={loading}
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             type="submit">
