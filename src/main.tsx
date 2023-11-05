@@ -7,6 +7,7 @@ import 'slick-carousel/slick/slick.css'
 import App from './App.tsx'
 import './main.css'
 import { store } from './store/index.ts'
+import { NotifyContextProvider } from './components/Notify/NotifyContextProvider.tsx'
 
 const theme = createTheme({
   typography: {
@@ -25,7 +26,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <App />
+        <NotifyContextProvider>
+          <App />
+        </NotifyContextProvider>
       </ThemeProvider>
     </Provider>
   </React.StrictMode>,
