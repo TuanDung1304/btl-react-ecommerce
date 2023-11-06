@@ -14,7 +14,6 @@ export default function SimpleSnackbar({
   severity,
   autoClose = 3000,
 }: Props) {
-  console.log(autoClose)
   return (
     <Snackbar open autoHideDuration={autoClose} onClose={handleClose}>
       <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
