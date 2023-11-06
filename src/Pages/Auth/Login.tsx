@@ -14,6 +14,9 @@ import { useForm } from 'react-hook-form'
 import { makeStyles } from 'tss-react/mui'
 import Link from '../../components/ui/Link'
 import { LoginForm, loginSchema } from './validation'
+import { AuthService } from '../../api/services/auth'
+import { isAxiosError } from 'axios'
+import { useNotify } from '../../components/Notify/hooks'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -27,6 +30,7 @@ const useStyles = makeStyles()(() => ({
 
 export default function Login() {
   const { classes } = useStyles()
+  const { notify } = useNotify()
 
   const {
     register,
@@ -34,7 +38,16 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginForm>({ resolver: yupResolver(loginSchema) })
 
-  const onSubmit = async (_data: LoginForm) => {}
+  const onSubmit = async (data: LoginForm) => {
+    try {
+      const res = await AuthService.login(data)
+      notify(res.message)
+    } catch (err) {
+      if (isAxiosError(err)) {
+        notify(err.response?.data.message, { severity: 'error' })
+      }
+    }
+  }
 
   useEffect(() => {
     document.title = 'Login'
