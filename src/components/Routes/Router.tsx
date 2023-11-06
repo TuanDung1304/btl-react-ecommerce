@@ -13,6 +13,7 @@ import Products from '../../Pages/Products'
 import Home from '../../Pages/Home'
 import ProductDetail from '../../Pages/ProductDetail'
 import { useDocumentTitle } from '../../hooks'
+import CreateProduct from '../../Pages/Admin/Product/CreateProduct'
 
 export interface RouteConfig {
   title?: string
@@ -49,6 +50,11 @@ export const routes: RouteConfig[] = [
     path: '/products/:id',
     component: <ProductDetail />,
     layout: MainLayout,
+  },
+  {
+    title: 'Create Product',
+    path: '/admin/product/create',
+    component: <CreateProduct />,
   },
 ]
 

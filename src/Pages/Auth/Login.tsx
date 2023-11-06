@@ -9,7 +9,6 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { makeStyles } from 'tss-react/mui'
 import Link from '../../components/ui/Link'
@@ -48,10 +47,6 @@ export default function Login() {
       }
     }
   }
-
-  useEffect(() => {
-    document.title = 'Login'
-  }, [])
 
   return (
     <Container component="main" maxWidth="sm">
