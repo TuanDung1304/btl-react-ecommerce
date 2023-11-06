@@ -1,7 +1,12 @@
 import { Grid } from '@mui/material'
-import { initProducts } from '../Home/BestSellerSlider'
-import ProductItem from '../../components/ui/ProductItem'
+import { isAxiosError } from 'axios'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
+import { ProductService } from '../../api/services/products'
+import { useNotify } from '../../components/Notify/hooks'
+import ProductItem from '../../components/ui/ProductItem'
+import { Product } from './type'
 
 const useStyles = makeStyles()(() => ({
   root: {},
@@ -9,9 +14,32 @@ const useStyles = makeStyles()(() => ({
 
 export default function ProductList() {
   const { classes } = useStyles()
+  const params = useParams()
+  const [loading, setLoading] = useState(false)
+  const { notify } = useNotify()
+  console.log('render')
+  const [products, setProducts] = useState<Product[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true)
+        const res = await ProductService.getProducts(params.collection ?? '')
+        setProducts(res)
+      } catch (err) {
+        if (isAxiosError(err)) {
+          notify(err.response?.data.message)
+        }
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchData()
+  }, [params])
+
   return (
     <Grid container columnSpacing={3} rowSpacing={4} className={classes.root}>
-      {initProducts.slice(0, 12).map((product) => (
+      {products?.map((product) => (
         <Grid item xs={3}>
           <ProductItem product={product} />
         </Grid>
