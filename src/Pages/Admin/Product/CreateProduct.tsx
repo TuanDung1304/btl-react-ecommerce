@@ -1,6 +1,18 @@
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import { Typography, darken, lighten, styled } from '@mui/material'
-import Autocomplete from '@mui/material/Autocomplete'
+import {
+  Chip,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  SelectChangeEvent,
+  Typography,
+  darken,
+  lighten,
+  styled,
+} from '@mui/material'
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
@@ -9,6 +21,8 @@ import { useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
 import { CATEGORIES } from '../../../components/Categories/categories'
 import FilePicker from '../../../components/FileStack'
+import { Size } from '../../Products/type'
+import { COLORS, MenuProps } from './const'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -31,11 +45,23 @@ const GroupItems = styled('ul')({
   padding: 0,
 })
 
+const filter = createFilterOptions<string>()
+
 export default function CreateProduct() {
   const { classes } = useStyles()
-  const options = CATEGORIES
-
   const [openPicker, setOpenPicker] = useState(false)
+  const [sizes, setSizes] = useState<string[]>([])
+  const [colors, setColors] = useState<string[]>([])
+
+  const handleSizesChange = (event: SelectChangeEvent<string[]>) => {
+    const {
+      target: { value },
+    } = event
+    setSizes(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    )
+  }
 
   return (
     <Container component="main" maxWidth="sm">
@@ -60,11 +86,11 @@ export default function CreateProduct() {
             fullWidth
             label="Name"
             autoFocus
-            required
           />
+
           <Autocomplete
             id="categories-autocomplete"
-            options={options}
+            options={CATEGORIES}
             groupBy={(option) => option.type}
             getOptionLabel={(option) => option.name}
             sx={{ margin: '16px 0 8px' }}
@@ -93,6 +119,65 @@ export default function CreateProduct() {
             type="text"
             multiline
             rows={4}
+          />
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="demo-multiple-chip-label">Size</InputLabel>
+            <Select
+              multiple
+              value={sizes}
+              onChange={handleSizesChange}
+              input={<OutlinedInput id="select-multiple-chip" label="Size" />}
+              renderValue={(selected) => (
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                  {selected.map((value) => (
+                    <Chip key={value} label={value} />
+                  ))}
+                </Box>
+              )}
+              MenuProps={MenuProps}>
+              {Object.values(Size).map((value) => (
+                <MenuItem key={value} value={value}>
+                  {value}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Autocomplete
+            multiple
+            id="tags-standard"
+            options={COLORS}
+            value={colors}
+            onChange={(_e, newValue) => {
+              const addNew = [...newValue]
+                .filter((item) => item.includes('Add "'))[0]
+                ?.split('"')[1]
+
+              if (addNew) {
+                setColors((prev) => [...prev, addNew])
+              } else {
+                setColors(newValue)
+              }
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Colors"
+                margin="normal"
+              />
+            )}
+            filterOptions={(options, params) => {
+              const filtered = filter(options, params)
+
+              if (
+                params.inputValue !== '' &&
+                !colors.includes(params.inputValue)
+              ) {
+                filtered.push(`Add "${params.inputValue}"`)
+              }
+
+              return filtered
+            }}
           />
           <Button
             fullWidth
