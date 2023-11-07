@@ -4,6 +4,7 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  Modal,
   OutlinedInput,
   Select,
   SelectChangeEvent,
@@ -17,16 +18,30 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
 import { CATEGORIES } from '../../../components/Categories/categories'
 import FilePicker from '../../../components/FileStack'
 import { Size } from '../../Products/type'
 import { COLORS, MenuProps } from './const'
+import { CreateProductModel } from './types'
+import { flatten } from 'lodash'
+import CreateProductModels from './CreateProductModels'
 
 const useStyles = makeStyles()(() => ({
   root: {
     fontFamily: 'Roboto, sans-serif',
+  },
+  modal: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    border: '2px solid #000',
+    boxShadow: '24px',
+    bgcolor: 'background.paper',
+    p: 4,
   },
 }))
 
@@ -52,6 +67,18 @@ export default function CreateProduct() {
   const [openPicker, setOpenPicker] = useState(false)
   const [sizes, setSizes] = useState<string[]>([])
   const [colors, setColors] = useState<string[]>([])
+  const [models, setModels] = useState<CreateProductModel[]>([])
+
+  useEffect(() => {
+    const newValue = flatten(
+      sizes?.map((size) => {
+        return colors?.map((color) => {
+          return { size, color, quantity: 0 }
+        })
+      }),
+    ) as CreateProductModel[]
+    setModels(newValue)
+  }, [sizes, colors])
 
   const handleSizesChange = (event: SelectChangeEvent<string[]>) => {
     const {
@@ -121,7 +148,7 @@ export default function CreateProduct() {
             rows={4}
           />
           <FormControl fullWidth margin="normal">
-            <InputLabel id="demo-multiple-chip-label">Size</InputLabel>
+            <InputLabel id="multiple-chip-label">Size</InputLabel>
             <Select
               multiple
               value={sizes}
@@ -179,6 +206,24 @@ export default function CreateProduct() {
               return filtered
             }}
           />
+          <Typography variant="h5">Edit Product Models</Typography>
+          <Modal open={true} className={classes.modal}>
+            <>
+              {models.map((model, index) => (
+                <CreateProductModels
+                  key={index}
+                  model={model}
+                  onChange={(e) => {
+                    setModels((prev) => {
+                      const newValue = [...prev]
+                      newValue[index].quantity = Number(e.target.value)
+                      return newValue
+                    })
+                  }}
+                />
+              ))}
+            </>
+          </Modal>
           <Button
             fullWidth
             variant="contained"
