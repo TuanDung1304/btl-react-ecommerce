@@ -53,7 +53,7 @@ interface Props {
 }
 
 export default function ProductItem({ product }: Props) {
-  const { name, price, img, model, id } = product
+  const { name, price, thumbnail, id } = product
 
   const { classes } = useStyles()
   return (
@@ -62,14 +62,14 @@ export default function ProductItem({ product }: Props) {
         component={Link}
         className={classes.imgWrapper}
         to={`/products/${id}`}>
-        <img src={img} className={classes.img} />
+        <img src={thumbnail} className={classes.img} />
       </Box>
       <Typography className={classes.brand}>Biluxury</Typography>
       <Typography
         component={Link}
         className={classes.name}
         to={`/products/${id}`}>
-        {name + ' ' + model}
+        {name}
       </Typography>
       <Typography
         className={classes.price}>{`${price.toLocaleString()}₫`}</Typography>
