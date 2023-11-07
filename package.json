@@ -34,6 +34,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.16.0",
     "react-slick": "^0.29.0",
+    "react-use": "^17.4.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.0.8",
     "tss-react": "^4.9.2",

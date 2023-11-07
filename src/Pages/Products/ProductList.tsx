@@ -15,23 +15,18 @@ const useStyles = makeStyles()(() => ({
 export default function ProductList() {
   const { classes } = useStyles()
   const params = useParams()
-  const [loading, setLoading] = useState(false)
   const { notify } = useNotify()
-  console.log('render')
   const [products, setProducts] = useState<Product[]>([])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true)
         const res = await ProductService.getProducts(params.collection ?? '')
         setProducts(res)
       } catch (err) {
         if (isAxiosError(err)) {
           notify(err.response?.data.message)
         }
-      } finally {
-        setLoading(false)
       }
     }
     fetchData()

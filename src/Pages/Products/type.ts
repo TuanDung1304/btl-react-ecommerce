@@ -1,5 +1,3 @@
-import { CategoryType } from '../../components/Categories/categories'
-
 export type Product = {
   id: number
   name: string
@@ -16,6 +14,7 @@ export enum Size {
   m = 'M',
   l = 'L',
   xl = 'XL',
+  xxl = 'XXL',
 }
 
 export enum Sort {
