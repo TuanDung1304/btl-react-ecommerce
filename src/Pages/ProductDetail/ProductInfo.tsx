@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
 import RadioForm from './RadioForm'
 import ProductSubInfo from './ProductSubInfo'
+import { ProductDetailData } from './types'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -137,18 +138,11 @@ const mauSac = [
   { value: 'purple', label: 'Tím' },
 ]
 interface Props {
-  product: {
-    name: string
-    inStock: number
-    model: string
-    brand: string
-    price: number
-    oldPrice?: number
-  }
+  product: ProductDetailData
 }
 
 export default function ProductInfo({
-  product: { brand, inStock, model, name, price, oldPrice },
+  product: { id, name, price, discountedPrice },
 }: Props) {
   const { classes, cx } = useStyles()
   const [quantity, setQuantity] = useState(1)
@@ -161,9 +155,7 @@ export default function ProductInfo({
           <Box className={classes.productSku}>
             <Box className={classes.productSkuItem}>
               Ma san pham:
-              <Typography className={classes.productSkuValue}>
-                {model}
-              </Typography>
+              <Typography className={classes.productSkuValue}>{id}</Typography>
             </Box>
             <Divider
               orientation="vertical"
@@ -174,7 +166,7 @@ export default function ProductInfo({
             <Box className={classes.productSkuItem}>
               Tinh trang:
               <Typography className={classes.productSkuValue}>
-                {inStock ? 'Con hang' : 'Het cmn hang'}
+                {true ? 'Con hang' : 'Het cmn hang'}
               </Typography>
             </Box>
             <Divider
@@ -186,7 +178,7 @@ export default function ProductInfo({
             <Box className={classes.productSkuItem}>
               Thuong hieu:
               <Typography className={classes.productSkuValue}>
-                {brand}
+                Biluxury
               </Typography>
             </Box>
           </Box>
@@ -195,18 +187,17 @@ export default function ProductInfo({
         <Box className={classes.infoBody}>
           <Box className={cx(classes.infoBobyItem, classes.priceBox)}>
             <span className={classes.infoBodyTitle}>Gia:</span>
-            <Typography
-              className={
-                classes.price
-              }>{`${price.toLocaleString()}₫`}</Typography>
-            {oldPrice && (
+            <Typography className={classes.price}>{`${(
+              discountedPrice ?? price
+            ).toLocaleString()}₫`}</Typography>
+            {discountedPrice && (
               <>
                 <Typography
                   className={
                     classes.oldPrice
-                  }>{`${oldPrice.toLocaleString()}₫`}</Typography>
+                  }>{`${discountedPrice.toLocaleString()}₫`}</Typography>
                 <Chip
-                  label={`-${Math.floor((price / oldPrice) * 100)}%`}
+                  label={`-${Math.floor((price / discountedPrice) * 100)}%`}
                   color="error"
                   size="small"
                 />
