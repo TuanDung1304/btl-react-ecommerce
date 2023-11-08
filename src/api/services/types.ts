@@ -19,3 +19,8 @@ export interface LoginData {
     accessToken: string
   }
 }
+
+export interface CreateProductData {
+  message: string
+  id: number
+}

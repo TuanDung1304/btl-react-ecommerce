@@ -42,6 +42,7 @@ interface Props {
   onSubmit: (
     e?: React.BaseSyntheticEvent<object, any, any> | undefined,
   ) => Promise<void>
+  setFirstSubmit: (value: boolean) => void
 }
 
 export default function EditProductModels({
@@ -50,8 +51,18 @@ export default function EditProductModels({
   onClose,
   open,
   onSubmit,
+  setFirstSubmit,
 }: Props) {
   const { classes } = useStyles()
+
+  const handleContinue = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    onSubmit(e)
+    setFirstSubmit(true)
+    onClose()
+  }
+
   return (
     <Dialog fullWidth maxWidth="sm" open={open} onClose={onClose}>
       <DialogTitle onClose={onClose}>Edit Product Models</DialogTitle>
@@ -90,7 +101,7 @@ export default function EditProductModels({
           <Button variant="outlined" sx={{ mb: 2 }} onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="contained" sx={{ mb: 2 }} onClick={onSubmit}>
+          <Button variant="contained" sx={{ mb: 2 }} onClick={handleContinue}>
             Create
           </Button>
         </Box>
