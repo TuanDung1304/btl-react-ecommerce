@@ -2,9 +2,9 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import {
   Chip,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
-  Modal,
   OutlinedInput,
   Select,
   SelectChangeEvent,
@@ -18,30 +18,20 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
-import { useEffect, useState } from 'react'
+import { flatten } from 'lodash'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { makeStyles } from 'tss-react/mui'
 import { CATEGORIES } from '../../../components/Categories/categories'
-import FilePicker from '../../../components/FileStack'
+import { useFilestack } from '../../../hooks'
 import { Size } from '../../Products/type'
+import EditProductModels from './EditProductModels'
 import { COLORS, MenuProps } from './const'
-import { CreateProductModel } from './types'
-import { flatten } from 'lodash'
-import CreateProductModels from './CreateProductModels'
+import { CreateProductForm, CreateProductModel } from './types'
 
 const useStyles = makeStyles()(() => ({
   root: {
     fontFamily: 'Roboto, sans-serif',
-  },
-  modal: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    border: '2px solid #000',
-    boxShadow: '24px',
-    bgcolor: 'background.paper',
-    p: 4,
   },
 }))
 
@@ -64,60 +54,103 @@ const filter = createFilterOptions<string>()
 
 export default function CreateProduct() {
   const { classes } = useStyles()
-  const [openPicker, setOpenPicker] = useState(false)
+  const picker = useFilestack()
+  const thumbnailPicker = picker({
+    onUploadDone: (file) => console.log(file),
+  })
+
+  const { register, handleSubmit, setValue, watch, getValues } =
+    useForm<CreateProductForm>()
+  const models = watch('productModels')
+
+  const [open, setOpen] = useState(false)
   const [sizes, setSizes] = useState<string[]>([])
   const [colors, setColors] = useState<string[]>([])
-  const [models, setModels] = useState<CreateProductModel[]>([])
 
   useEffect(() => {
-    const newValue = flatten(
+    const allModels = flatten(
       sizes?.map((size) => {
         return colors?.map((color) => {
           return { size, color, quantity: 0 }
         })
       }),
     ) as CreateProductModel[]
-    setModels(newValue)
+    const oldModels = getValues('productModels')
+
+    const newModels = allModels.map<CreateProductModel>((model) => {
+      const oldModel = oldModels.find(
+        (oldModel) =>
+          oldModel.color === model.color && oldModel.size === model.size,
+      )
+      return oldModel ?? model
+    })
+
+    setValue('productModels', newModels)
   }, [sizes, colors])
 
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   const handleSizesChange = (event: SelectChangeEvent<string[]>) => {
-    const {
-      target: { value },
-    } = event
-    setSizes(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    )
+    const value = event.target.value
+    setSizes(typeof value === 'string' ? value.split(',') : value)
+  }
+
+  const handleProductModelsEdit = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    key: string,
+  ) => {
+    const index = models.findIndex((model) => model.size + model.color === key)
+    const newModels = [
+      ...models.slice(0, index),
+      { ...models[index], quantity: Number(e.target.value) },
+      ...models.slice(index + 1),
+    ]
+
+    setValue('productModels', newModels)
+  }
+
+  const onSubmit = (data: CreateProductForm) => {
+    console.log(data)
   }
 
   return (
     <Container component="main" maxWidth="sm">
       <Box className={classes.root}>
-        <Box component="form" noValidate sx={{ mt: 1 }}>
+        <Box sx={{ mt: 1 }}>
           <Typography variant="h5">Create Product</Typography>
           <Button
-            component="label"
+            sx={{ mt: 2 }}
             variant="contained"
-            onClick={() => setOpenPicker(!openPicker)}
+            onClick={() => thumbnailPicker.open()}
             startIcon={<CloudUploadIcon />}>
             Upload thumbnail
           </Button>
-          <FilePicker
-            onClose={() => setOpenPicker(false)}
-            open={openPicker}
-            multiFiles
-          />
+
+          <Button
+            sx={{ mt: 2 }}
+            variant="contained"
+            onClick={() => thumbnailPicker.open()}
+            startIcon={<CloudUploadIcon />}>
+            Upload thumbnail
+          </Button>
+
           <TextField
             id="name"
             margin="normal"
             fullWidth
             label="Name"
             autoFocus
+            {...register('name')}
           />
-
           <Autocomplete
             id="categories-autocomplete"
             options={CATEGORIES}
+            value={CATEGORIES.find(
+              (category) => category.url === watch('categoryId'),
+            )}
+            onChange={(_e, option) => setValue('categoryId', option?.url)}
             groupBy={(option) => option.type}
             getOptionLabel={(option) => option.name}
             sx={{ margin: '16px 0 8px' }}
@@ -137,6 +170,7 @@ export default function CreateProduct() {
             label="Price"
             fullWidth
             type="number"
+            {...register('price')}
           />
           <TextField
             id="text"
@@ -146,6 +180,7 @@ export default function CreateProduct() {
             type="text"
             multiline
             rows={4}
+            {...register('description')}
           />
           <FormControl fullWidth margin="normal">
             <InputLabel id="multiple-chip-label">Size</InputLabel>
@@ -206,31 +241,29 @@ export default function CreateProduct() {
               return filtered
             }}
           />
-          <Typography variant="h5">Edit Product Models</Typography>
-          <Modal open={true} className={classes.modal}>
-            <>
-              {models.map((model, index) => (
-                <CreateProductModels
-                  key={index}
-                  model={model}
-                  onChange={(e) => {
-                    setModels((prev) => {
-                      const newValue = [...prev]
-                      newValue[index].quantity = Number(e.target.value)
-                      return newValue
-                    })
-                  }}
-                />
-              ))}
-            </>
-          </Modal>
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            type="submit">
-            Create
-          </Button>
+          <EditProductModels
+            models={models}
+            open={open}
+            onClose={handleClose}
+            onChange={handleProductModelsEdit}
+            onSubmit={handleSubmit(onSubmit)}
+          />
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Button fullWidth variant="outlined" sx={{ mt: 3, mb: 2 }}>
+                Cancel
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={() => setOpen(true)}>
+                Continue
+              </Button>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>

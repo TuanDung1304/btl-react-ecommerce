@@ -5,3 +5,15 @@ export type CreateProductModel = {
   size: Size
   quantity: number
 }
+
+export type CreateProductForm = {
+  name: string
+  price: number
+  categoryId?: string
+  description?: string
+  images: {
+    url: string
+  }[]
+  productModels: CreateProductModel[]
+  thumbnail: string
+}
