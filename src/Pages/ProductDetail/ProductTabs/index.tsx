@@ -22,7 +22,11 @@ const useStyles = makeStyles()(() => ({
   },
 }))
 
-export default function ProductTabs() {
+interface Props {
+  description?: string
+}
+
+export default function ProductTabs({ description }: Props) {
   const { classes } = useStyles()
   const [value, setValue] = React.useState('1')
 
@@ -44,7 +48,7 @@ export default function ProductTabs() {
             <Tab label="Cau hoi thuong gap" value="4" />
           </TabList>
         </Box>
-        <TabPanel value="1">Mo ta san pham</TabPanel>
+        <TabPanel value="1">{description}</TabPanel>
         <TabPanel value="2">
           <Refund />
         </TabPanel>

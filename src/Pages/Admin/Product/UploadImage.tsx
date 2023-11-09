@@ -58,10 +58,9 @@ interface Props {
 }
 
 export default function UploadImage({ setValue, watch, firstSubmit }: Props) {
-  console.log(firstSubmit)
   const { classes, cx } = useStyles()
 
-  const { images, thumbnail } = watch()
+  const { images = [], thumbnail } = watch()
 
   const picker = useFilestack()
   const thumbnailPicker = picker({
@@ -73,6 +72,7 @@ export default function UploadImage({ setValue, watch, firstSubmit }: Props) {
         ...images,
         ...files.filesUploaded.map((file) => ({ url: file.url })),
       ]),
+    maxFiles: 10,
   })
 
   const handleRemoveImage = (url: string) => {

@@ -2,7 +2,6 @@ import { Box } from '@mui/material'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
-import { useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
 import CheckIcon from '@mui/icons-material/Check'
 
@@ -59,31 +58,29 @@ function StyledRadio({ label, checked }: { label: string; checked: boolean }) {
   )
 }
 
-export default function RadioForm({
-  options,
-}: {
-  options: { value: string; label: string }[]
-}) {
+interface Props {
+  onSelect: (value: string) => void
+  options: string[]
+  value?: string
+}
+
+export default function RadioForm({ options, onSelect, value }: Props) {
   const { classes } = useStyles()
-
-  const [currentValue, setCurrentValue] = useState(options[0].value)
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentValue((event.target as HTMLInputElement).value)
-  }
 
   return (
     <RadioGroup
       row
       className={classes.radioGroup}
-      value={currentValue}
-      onChange={handleChange}>
-      {options.map(({ value, label }) => (
+      value={value}
+      onChange={(e) => {
+        onSelect(e.target.value)
+      }}>
+      {options.map((option) => (
         <FormControlLabel
-          key={value}
-          value={value}
+          key={option}
+          value={option}
           control={<Radio />}
-          label={<StyledRadio label={label} checked={currentValue === value} />}
+          label={<StyledRadio label={option} checked={value === option} />}
         />
       ))}
     </RadioGroup>
