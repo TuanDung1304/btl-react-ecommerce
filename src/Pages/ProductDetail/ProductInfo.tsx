@@ -8,6 +8,7 @@ import {
   Divider,
   Grid,
   Typography,
+  colors,
 } from '@mui/material'
 import { useMemo, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
@@ -16,6 +17,7 @@ import ProductSubInfo from './ProductSubInfo'
 import { ProductDetailData } from './types'
 import { uniq } from 'lodash'
 import { sortSizes } from './functions'
+import { discountPercent } from '../../utils/functions'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -64,7 +66,7 @@ const useStyles = makeStyles()(() => ({
   },
 
   price: {
-    color: '#ff2c26',
+    color: colors.red[500],
     fontSize: 20,
     fontWeight: 700,
   },
@@ -206,8 +208,8 @@ export default function ProductInfo({
                     classes.oldPrice
                   }>{`${price.toLocaleString()}₫`}</Typography>
                 <Chip
-                  label={`-${Math.floor((1 - discountedPrice / price) * 100)}%`}
-                  sx={{ backgroundColor: '#ff2c26', color: 'white' }}
+                  label={discountPercent(price, discountedPrice)}
+                  sx={{ backgroundColor: colors.red[500], color: 'white' }}
                   size="small"
                 />
               </>
