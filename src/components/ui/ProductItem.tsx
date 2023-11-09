@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Chip, Typography, colors } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 import { Product } from '../../Pages/Products/type'
 import { Link } from 'react-router-dom'
+import { discountPercent } from '../../utils/functions'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -13,6 +14,7 @@ const useStyles = makeStyles()(() => ({
     height: '380px',
     overflow: 'hidden',
     display: 'block',
+    position: 'relative',
   },
   img: {
     width: '100%',
@@ -29,6 +31,8 @@ const useStyles = makeStyles()(() => ({
   name: {
     display: 'block',
     fontSize: 13,
+    fontWeight: 500,
+    fontFamily: 'roboto',
     letterSpacing: 0.3,
     lineHeight: '18px',
     whiteSpace: 'nowrap',
@@ -41,10 +45,19 @@ const useStyles = makeStyles()(() => ({
     },
   },
   price: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 500,
     marginTop: 4,
     lineHeight: '20px',
+    fontFamily: 'roboto',
+  },
+  percentChip: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: colors.red[500],
+    color: colors.grey[50],
+    fontWeight: 600,
   },
 }))
 
@@ -53,7 +66,7 @@ interface Props {
 }
 
 export default function ProductItem({ product }: Props) {
-  const { name, price, thumbnail, id } = product
+  const { name, price, thumbnail, id, discountedPrice } = product
 
   const { classes } = useStyles()
   return (
@@ -63,6 +76,12 @@ export default function ProductItem({ product }: Props) {
         className={classes.imgWrapper}
         to={`/products/${id}`}>
         <img src={thumbnail} className={classes.img} />
+        {discountedPrice && (
+          <Chip
+            className={classes.percentChip}
+            label={discountPercent(price, discountedPrice)}
+          />
+        )}
       </Box>
       <Typography className={classes.brand}>Biluxury</Typography>
       <Typography
@@ -71,8 +90,9 @@ export default function ProductItem({ product }: Props) {
         to={`/products/${id}`}>
         {name}
       </Typography>
-      <Typography
-        className={classes.price}>{`${price.toLocaleString()}₫`}</Typography>
+      <Typography className={classes.price}>{`${(
+        discountedPrice ?? price
+      ).toLocaleString()}₫`}</Typography>
     </Box>
   )
 }
