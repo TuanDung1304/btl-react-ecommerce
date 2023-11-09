@@ -9,11 +9,13 @@ import {
   Grid,
   Typography,
 } from '@mui/material'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
 import RadioForm from './RadioForm'
 import ProductSubInfo from './ProductSubInfo'
 import { ProductDetailData } from './types'
+import { uniq } from 'lodash'
+import { sortSizes } from './functions'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -130,22 +132,29 @@ const useStyles = makeStyles()(() => ({
   },
 }))
 
-const mauSac = [
-  { value: 'red', label: 'Đỏ' },
-  { value: 'green', label: 'Xanh lá' },
-  { value: 'grey', label: 'Xám' },
-  { value: 'black', label: 'Đen' },
-  { value: 'purple', label: 'Tím' },
-]
 interface Props {
   product: ProductDetailData
 }
 
 export default function ProductInfo({
-  product: { id, name, price, discountedPrice },
+  product: { id, name, price, discountedPrice, productModels },
 }: Props) {
   const { classes, cx } = useStyles()
   const [quantity, setQuantity] = useState(1)
+  const [color, setColor] = useState<string>()
+  const [size, setSize] = useState<string>()
+
+  const modelInstock = useMemo(() => {
+    return (
+      productModels.find(
+        (model) => model.color === color && model.size === size,
+      )?.quantity ?? 0
+    )
+  }, [color, size, productModels])
+
+  const disableBtn =
+    !color || !size || quantity > modelInstock || quantity === 0
+
   return (
     <Box className={classes.root}>
       <Box className={classes.infoWrapper}>
@@ -164,9 +173,9 @@ export default function ProductInfo({
               flexItem
             />
             <Box className={classes.productSkuItem}>
-              Tinh trang:
+              Con lai:
               <Typography className={classes.productSkuValue}>
-                {true ? 'Con hang' : 'Het cmn hang'}
+                {modelInstock}
               </Typography>
             </Box>
             <Divider
@@ -195,10 +204,10 @@ export default function ProductInfo({
                 <Typography
                   className={
                     classes.oldPrice
-                  }>{`${discountedPrice.toLocaleString()}₫`}</Typography>
+                  }>{`${price.toLocaleString()}₫`}</Typography>
                 <Chip
-                  label={`-${Math.floor((price / discountedPrice) * 100)}%`}
-                  color="error"
+                  label={`-${Math.floor((1 - discountedPrice / price) * 100)}%`}
+                  sx={{ backgroundColor: '#ff2c26', color: 'white' }}
                   size="small"
                 />
               </>
@@ -206,11 +215,21 @@ export default function ProductInfo({
           </Box>
           <Box className={classes.infoBobyItem}>
             <span className={classes.infoBodyTitle}>Màu sắc:</span>
-            <RadioForm options={mauSac} />
+            <RadioForm
+              options={uniq(productModels.map((model) => model.color))}
+              onSelect={setColor}
+              value={color}
+            />
           </Box>
           <Box className={classes.infoBobyItem}>
             <span className={classes.infoBodyTitle}>Kích thước:</span>
-            <RadioForm options={mauSac} />
+            <RadioForm
+              options={sortSizes(
+                uniq(productModels.map((model) => model.size)),
+              )}
+              onSelect={setSize}
+              value={size}
+            />
           </Box>
           <Box className={classes.infoBobyItem}>
             <span className={classes.infoBodyTitle}>Số lượng:</span>
@@ -251,12 +270,12 @@ export default function ProductInfo({
             rowGap={2}
             columnSpacing={2}>
             <Grid item xs={6}>
-              <Button fullWidth variant="outlined">
+              <Button fullWidth variant="outlined" disabled={disableBtn}>
                 Them vao gio
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <Button fullWidth variant="contained">
+              <Button fullWidth variant="contained" disabled={disableBtn}>
                 Mua ngay
               </Button>
             </Grid>

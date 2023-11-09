@@ -40,7 +40,7 @@ export default function ProductDetail() {
         <ProductImageSlider images={product?.images} />
         {product && <ProductInfo product={product} />}
       </Box>
-      <ProductTabs />
+      <ProductTabs description={product?.description} />
     </Box>
   )
 }
