@@ -2,7 +2,7 @@ import { Box, Chip, Typography, colors } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 import { Product } from '../../Pages/Products/type'
 import { Link } from 'react-router-dom'
-import { discountPercent } from '../../utils/functions'
+import { getDiscountPercent } from '../../utils/functions'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -44,12 +44,21 @@ const useStyles = makeStyles()(() => ({
       textDecoration: 'underline',
     },
   },
+  priceWrapper: {
+    marginTop: 4,
+    display: 'flex',
+  },
   price: {
     fontSize: 13,
     fontWeight: 500,
-    marginTop: 4,
     lineHeight: '20px',
     fontFamily: 'roboto',
+  },
+  oldPrice: {
+    fontSize: 13,
+    textDecorationLine: 'line-through',
+    color: '#9e9e9e',
+    marginLeft: 10,
   },
   percentChip: {
     position: 'absolute',
@@ -67,7 +76,7 @@ interface Props {
 
 export default function ProductItem({ product }: Props) {
   const { name, price, thumbnail, id, discountedPrice } = product
-
+  const discountedPercent = getDiscountPercent(price, discountedPrice as number)
   const { classes } = useStyles()
   return (
     <Box className={classes.root}>
@@ -79,7 +88,7 @@ export default function ProductItem({ product }: Props) {
         {discountedPrice && (
           <Chip
             className={classes.percentChip}
-            label={discountPercent(price, discountedPrice)}
+            label={`-${discountedPercent}`}
           />
         )}
       </Box>
@@ -88,11 +97,19 @@ export default function ProductItem({ product }: Props) {
         component={Link}
         className={classes.name}
         to={`/products/${id}`}>
+        {discountedPrice && `[Giam ${discountedPercent}] `}
         {name}
       </Typography>
-      <Typography className={classes.price}>{`${(
-        discountedPrice ?? price
-      ).toLocaleString()}₫`}</Typography>
+      <Box className={classes.priceWrapper}>
+        <Typography className={classes.price}>
+          {`${(discountedPrice ?? price).toLocaleString()}₫`}
+        </Typography>
+        {discountedPrice && (
+          <Typography className={classes.oldPrice}>
+            {`${price.toLocaleString()}₫`}
+          </Typography>
+        )}
+      </Box>
     </Box>
   )
 }
