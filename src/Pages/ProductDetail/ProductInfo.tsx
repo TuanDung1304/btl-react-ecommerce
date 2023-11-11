@@ -17,7 +17,7 @@ import ProductSubInfo from './ProductSubInfo'
 import { ProductDetailData } from './types'
 import { uniq } from 'lodash'
 import { sortSizes } from './functions'
-import { discountPercent } from '../../utils/functions'
+import { getDiscountPercent } from '../../utils/functions'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -208,7 +208,7 @@ export default function ProductInfo({
                     classes.oldPrice
                   }>{`${price.toLocaleString()}₫`}</Typography>
                 <Chip
-                  label={discountPercent(price, discountedPrice)}
+                  label={`-${getDiscountPercent(price, discountedPrice)}`}
                   sx={{ backgroundColor: colors.red[500], color: 'white' }}
                   size="small"
                 />
