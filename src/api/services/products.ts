@@ -1,12 +1,15 @@
 import axiosApiInstance from '..'
-import { Product } from '../../Pages/Products/type'
 import { CreateProductForm } from '../../Pages/Admin/Product/types'
-import { CreateProductData } from './types'
+import { CreateProductData, ProductsData } from './types'
 import { ProductDetailData } from '../../Pages/ProductDetail/types'
+import { Filter } from '../../store/filterSlice'
 
 export const ProductService = {
-  async getProducts(param: string) {
-    const res = await axiosApiInstance.get<Product[]>(`/collections/${param}`)
+  async getProducts(param: string, filter: Filter) {
+    const res = await axiosApiInstance.post<ProductsData>(
+      `/collections/${param}`,
+      filter,
+    )
     return res.data
   },
   async getProductDetail(id: number) {
