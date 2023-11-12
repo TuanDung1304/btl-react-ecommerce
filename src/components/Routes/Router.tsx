@@ -14,6 +14,8 @@ import Home from '../../Pages/Home'
 import ProductDetail from '../../Pages/ProductDetail'
 import { useDocumentTitle } from '../../hooks'
 import CreateProduct from '../../Pages/Admin/Product/CreateProduct'
+import AuthRoute from './AuthRoute'
+import PrivateRoute from './PrivateRoute'
 
 export interface RouteConfig {
   title?: string
@@ -32,29 +34,49 @@ export const routes: RouteConfig[] = [
   {
     title: 'Đăng nhập',
     path: '/login',
-    component: <Login />,
+    component: (
+      <AuthRoute>
+        <Login />
+      </AuthRoute>
+    ),
     layout: MainLayout,
   },
   {
     title: 'Đăng ký',
     path: '/register',
-    component: <Register />,
+    component: (
+      <AuthRoute>
+        <Register />
+      </AuthRoute>
+    ),
     layout: MainLayout,
   },
   {
     path: '/collections/:collection',
-    component: <Products />,
+    component: (
+      <PrivateRoute>
+        <Products />
+      </PrivateRoute>
+    ),
     layout: MainLayout,
   },
   {
     path: '/products/:id',
-    component: <ProductDetail />,
+    component: (
+      <PrivateRoute>
+        <ProductDetail />
+      </PrivateRoute>
+    ),
     layout: MainLayout,
   },
   {
     title: 'Create Product',
     path: '/admin/product/create',
-    component: <CreateProduct />,
+    component: (
+      <PrivateRoute role={0}>
+        <CreateProduct />
+      </PrivateRoute>
+    ),
   },
 ]
 

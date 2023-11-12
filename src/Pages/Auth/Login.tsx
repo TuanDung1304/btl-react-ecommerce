@@ -16,6 +16,8 @@ import { LoginForm, loginSchema } from './validation'
 import { AuthService } from '../../api/services/auth'
 import { isAxiosError } from 'axios'
 import { useNotify } from '../../components/Notify/hooks'
+import { useCurrentUser, useTokens } from '../../hooks'
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -30,6 +32,9 @@ const useStyles = makeStyles()(() => ({
 export default function Login() {
   const { classes } = useStyles()
   const { notify } = useNotify()
+  const navigate = useNavigate()
+  const { setAccessToken, setRefreshToken } = useTokens()
+  const { setUser } = useCurrentUser()
 
   const {
     register,
@@ -40,6 +45,10 @@ export default function Login() {
   const onSubmit = async (data: LoginForm) => {
     try {
       const res = await AuthService.login(data)
+      setAccessToken(res.tokens.accessToken)
+      setRefreshToken(res.tokens.refreshToken)
+      setUser(res.user)
+      navigate('/')
       notify(res.message)
     } catch (err) {
       if (isAxiosError(err)) {

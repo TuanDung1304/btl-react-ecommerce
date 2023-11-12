@@ -70,7 +70,10 @@ export default function CategoryLinks({ type }: Props) {
         {type}
       </Link>
       {restCategories.map((category) => (
-        <Link href={`/collections/${category.url}`} className={classes.link}>
+        <Link
+          href={`/collections/${category.url}`}
+          className={classes.link}
+          key={category.url}>
           {category.name}
         </Link>
       ))}
