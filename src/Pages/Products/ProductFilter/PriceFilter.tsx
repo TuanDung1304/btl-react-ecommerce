@@ -13,7 +13,7 @@ export default function PriceFilter() {
   }
 
   const handleChangeCommited = () => {
-    setProductFilter({ min: value[0], max: value[1] })
+    setProductFilter({ min: value[0], max: value[1], page: 1 })
   }
 
   return (
