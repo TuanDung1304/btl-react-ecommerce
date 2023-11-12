@@ -1,3 +1,5 @@
+import { Product } from '../../Pages/Products/type'
+
 export interface RegisterData {
   message: string
   user: {
@@ -23,4 +25,9 @@ export interface LoginData {
 export interface CreateProductData {
   message: string
   id: number
+}
+
+export interface ProductsData {
+  products: Product[]
+  totalPage: number
 }

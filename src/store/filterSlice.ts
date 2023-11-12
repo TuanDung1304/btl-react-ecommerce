@@ -8,21 +8,27 @@ export interface Filter {
   min: number
   max: number
   sortBy: keyof typeof Sort
+  page: number
+  perPage: number
+  totalPage: number
 }
 
 const initialState: Filter = {
   max: 5000000,
   min: 0,
   sortBy: 'default',
+  page: 1,
+  perPage: 8,
+  totalPage: 0,
 }
 
 const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    setFilter(_state, action: PayloadAction<Partial<Filter>>) {
+    setFilter(state, action: PayloadAction<Partial<Filter>>) {
       return {
-        ..._state,
+        ...state,
         ...action.payload,
       }
     },
