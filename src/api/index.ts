@@ -17,10 +17,18 @@ const axiosApiInstance = axios.create({
   baseURL: BASE_URL,
 })
 
+let isRefreshToken = false
+
 const onRequest = (
   config: InternalAxiosRequestConfig,
 ): InternalAxiosRequestConfig => {
   const newConfig = { ...config }
+  const token = isRefreshToken
+    ? localStorage.getItem('refresh_token')
+    : localStorage.getItem('access_token')
+  console.log(token)
+
+  newConfig.headers.Authorization = `Bearer ${token}`
 
   return newConfig
 }

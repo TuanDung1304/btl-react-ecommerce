@@ -11,8 +11,9 @@ export interface LoginData {
   message: string
   user: {
     email: string
-    id: string
+    id: number
     firstName: string
+    lastName: string
     avatar: string
     role: number
   }

@@ -9,6 +9,7 @@ import { makeStyles } from 'tss-react/mui'
 import MenuIconButton from '../../ui/MenuIconButton'
 import CategoryHeader from './CategoryHeader'
 import { CategoryType } from '../../Categories/categories'
+import { useCurrentUser } from '../../../hooks'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -47,6 +48,8 @@ export default function Header() {
   const { classes } = useStyles()
   const [value, setValue] = useState('')
   const navigate = useNavigate()
+  const { user } = useCurrentUser()
+  console.log(user)
 
   const [anchorUserMenu, setAnchorUserMenu] = useState<null | HTMLElement>(null)
   const [anchorTab, setAnchorTab] = useState<HTMLDivElement | null>(null)
@@ -115,16 +118,38 @@ export default function Header() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         sx={{ width: 200 }}
         slotProps={{ paper: { sx: { width: '150px' } } }}>
-        <MenuItem onClick={handleClose} className={classes.menuItem}>
-          <Link to="/login" className={classes.menuLink}>
-            Login
-          </Link>
-        </MenuItem>
-        <MenuItem onClick={handleClose} className={classes.menuItem}>
-          <Link to="/register" className={classes.menuLink}>
-            Sign up
-          </Link>
-        </MenuItem>
+        {user.email ? (
+          <>
+            <MenuItem onClick={handleClose} className={classes.menuItem}>
+              <Link to="/profile" className={classes.menuLink}>
+                Profile
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose} className={classes.menuItem}>
+              <Link to="/my-order" className={classes.menuLink}>
+                My Orders
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose} className={classes.menuItem}>
+              <Link to="/logout" className={classes.menuLink}>
+                Logout
+              </Link>
+            </MenuItem>
+          </>
+        ) : (
+          <>
+            <MenuItem onClick={handleClose} className={classes.menuItem}>
+              <Link to="/login" className={classes.menuLink}>
+                Login
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={handleClose} className={classes.menuItem}>
+              <Link to="/register" className={classes.menuLink}>
+                Sign up
+              </Link>
+            </MenuItem>
+          </>
+        )}
       </Menu>
     </Box>
   )
