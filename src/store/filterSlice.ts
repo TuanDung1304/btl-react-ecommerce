@@ -10,7 +10,6 @@ export interface Filter {
   sortBy: keyof typeof Sort
   page: number
   perPage: number
-  totalPage: number
 }
 
 const initialState: Filter = {
@@ -19,7 +18,6 @@ const initialState: Filter = {
   sortBy: 'default',
   page: 1,
   perPage: 8,
-  totalPage: 0,
 }
 
 const filterSlice = createSlice({

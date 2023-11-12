@@ -14,7 +14,6 @@ export enum Size {
   m = 'M',
   l = 'L',
   xl = 'XL',
-  xxl = 'XXL',
 }
 
 export enum Sort {

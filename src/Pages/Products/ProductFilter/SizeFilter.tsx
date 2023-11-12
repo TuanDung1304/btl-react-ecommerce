@@ -1,11 +1,9 @@
-import * as React from 'react'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
+import * as React from 'react'
 import { makeStyles } from 'tss-react/mui'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '../../../store'
-import { setFilter } from '../../../store/filterSlice'
 import { Size } from '../type'
+import { useProductFilter } from '../functions'
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -27,14 +25,12 @@ const useStyles = makeStyles()((theme) => ({
 
 export default function SizeFilter() {
   const { classes } = useStyles()
-  const filter = useSelector((state: RootState) => state.filter)
-  const dispatch = useDispatch<AppDispatch>()
-
+  const { filter, setProductFilter } = useProductFilter()
   const handleAlignment = (
     _event: React.MouseEvent<HTMLElement>,
     size?: keyof typeof Size,
   ) => {
-    dispatch(setFilter({ size: size === filter.size ? undefined : size }))
+    setProductFilter({ size: size === filter.size ? undefined : size })
   }
 
   return (
@@ -44,11 +40,11 @@ export default function SizeFilter() {
       onChange={handleAlignment}
       aria-label="text alignment"
       className={classes.root}>
-      <ToggleButton value="xs">XS</ToggleButton>
-      <ToggleButton value="s">S</ToggleButton>
-      <ToggleButton value="m">M</ToggleButton>
-      <ToggleButton value="l">L</ToggleButton>
-      <ToggleButton value="xl">XL</ToggleButton>
+      <ToggleButton value="XS">XS</ToggleButton>
+      <ToggleButton value="S">S</ToggleButton>
+      <ToggleButton value="M">M</ToggleButton>
+      <ToggleButton value="L">L</ToggleButton>
+      <ToggleButton value="XL">XL</ToggleButton>
     </ToggleButtonGroup>
   )
 }

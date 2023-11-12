@@ -1,9 +1,7 @@
 import { Box, Grid } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from 'tss-react/mui'
-import { RootState } from '../../../store'
-import { setFilter } from '../../../store/filterSlice'
 import { useColorsFilter } from '../hooks'
+import { useProductFilter } from '../functions'
 
 const useStyles = makeStyles()((theme) => ({
   circleWrapper: {
@@ -29,13 +27,13 @@ const useStyles = makeStyles()((theme) => ({
 export default function ColorFilter() {
   const { classes, cx } = useStyles()
   const colors = useColorsFilter()
-  const { color: selectedColor } = useSelector(
-    (state: RootState) => state.filter,
-  )
-  const dispatch = useDispatch()
+  const {
+    filter: { color: selectedColor },
+    setProductFilter,
+  } = useProductFilter()
 
   const handleSelect = (color: string) => {
-    dispatch(setFilter({ color }))
+    setProductFilter({ color })
   }
 
   return (

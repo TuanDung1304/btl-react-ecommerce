@@ -29,24 +29,23 @@ export default function ProductList() {
   const { filter, setProductFilter } = useProductFilter()
   const { notify } = useNotify()
   const params = useParams()
-  console.log(filter)
   const [products, setProducts] = useState<Product[]>([])
+  const [totalPages, setTotalPages] = useState(0)
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('fetch')
       try {
         const res = await ProductService.getProducts(
           params.collection ?? '',
           filter,
         )
         setProducts(res.products)
-        if (filter.totalPage !== res.totalPage) {
-          setProductFilter({ totalPage: res.totalPage })
+        if (totalPages !== res.totalPage) {
+          setTotalPages(res.totalPage)
         }
       } catch (err) {
         if (isAxiosError(err)) {
-          notify(err.response?.data.message)
+          notify(err.response?.data.message, { severity: 'error' })
         }
       }
     }
@@ -64,7 +63,7 @@ export default function ProductList() {
       </Grid>
       <Stack spacing={2} marginTop={4}>
         <Pagination
-          count={filter.totalPage}
+          count={totalPages}
           page={filter.page}
           variant="outlined"
           shape="rounded"
