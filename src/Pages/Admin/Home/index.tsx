@@ -1,80 +1,69 @@
 import { Box } from '@mui/material'
-import BarChartBox from '../../../components/barChartBox/BarChartBox'
-import BigChartBox from '../../../components/bigChartBox/BigChartBox'
-import ChartBox from '../../../components/chartBox/ChartBox'
-import PieChartBox from '../../../components/pieCartBox/PieChartBox'
-import {
-  barChartBoxRevenue,
-  barChartBoxVisit,
-  chartBoxConversion,
-  chartBoxProduct,
-  chartBoxRevenue,
-  chartBoxUser,
-} from '../../../data'
+import { useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
-import TopBox from '../../../components/topBox/TopBox'
+import Navbar from './Navbar'
+import Sidebar from './Sidebar'
+import Product from '../product/Product'
+import { useParams } from 'react-router-dom'
+import Dashboard from '../Dashboard'
 
 const useStyles = makeStyles()(() => ({
   root: {
-    display: 'grid',
-    gap: '20px',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gridAutoRows: 'minmax(180px, auto)',
-    gridAutoFlow: 'dense',
-
-    '&>div': {
-      padding: '20px',
-      borderRadius: '10px',
-      border: '2px solid #384256',
+    '*': {
+      fontFamily: 'Inter',
     },
+    backgroundColor: '#2a3447',
+    color: 'white',
+    minHeight: '100vh',
   },
-  box1: {
-    gridColumn: 'span 1',
-    gridRow: 'span 3',
-  },
-  box4: {
-    gridColumn: 'span 1',
-    gridRow: 'span 3',
-  },
-  box7: {
-    gridColumn: 'span 2',
-    gridRow: 'span 2',
+  contentContainer: {
+    padding: '5px 20px',
+    flex: 1,
   },
 }))
 
-const Home = () => {
+interface TabPanelProps {
+  children?: React.ReactNode
+  index: string
+  value: string
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}>
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
+  )
+}
+
+export default function AdminHome() {
   const { classes } = useStyles()
+  const params = useParams()
+  const [value, setValue] = useState(
+    `/admin/${params?.page}` ?? '/admin/dashboard',
+  )
+
   return (
     <Box className={classes.root}>
-      <Box className={classes.box1}>
-        <TopBox />
-      </Box>
-      <Box>
-        <ChartBox {...chartBoxUser} />
-      </Box>
-      <Box>
-        <ChartBox {...chartBoxProduct} />
-      </Box>
-      <Box className={classes.box4}>
-        <PieChartBox />
-      </Box>
-      <Box>
-        <ChartBox {...chartBoxConversion} />
-      </Box>
-      <Box>
-        <ChartBox {...chartBoxRevenue} />
-      </Box>
-      <Box className={classes.box7}>
-        <BigChartBox />
-      </Box>
-      <Box>
-        <BarChartBox {...barChartBoxVisit} />
-      </Box>
-      <Box>
-        <BarChartBox {...barChartBoxRevenue} />
+      <Navbar />
+      <Box display={'flex'}>
+        <Sidebar value={value} setValue={setValue} />
+        <Box className={classes.contentContainer}>
+          <TabPanel value={value} index={'/admin/dashboard'}>
+            <Dashboard />
+          </TabPanel>
+          <TabPanel value={value} index={'/admin/products'}>
+            <Product />
+          </TabPanel>
+        </Box>
       </Box>
     </Box>
   )
 }
-
-export default Home

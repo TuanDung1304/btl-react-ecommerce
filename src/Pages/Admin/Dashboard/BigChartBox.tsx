@@ -71,9 +71,9 @@ const BigChartBox = () => {
   const { classes } = useStyles()
 
   return (
-    <div className="bigChartBox">
+    <div className={classes.root}>
       <h1>Revenue Analytics</h1>
-      <div className="chart">
+      <div className={classes.chart}>
         <ResponsiveContainer width="99%" height="100%">
           <AreaChart
             data={data}

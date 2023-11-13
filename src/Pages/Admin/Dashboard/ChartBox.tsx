@@ -1,7 +1,51 @@
 import { Link } from 'react-router-dom'
 import { Line, LineChart, ResponsiveContainer, Tooltip } from 'recharts'
+import { makeStyles } from 'tss-react/mui'
 
-type Props = {
+const useStyles = makeStyles()(() => ({
+  root: {
+    display: 'flex',
+    height: '100%',
+  },
+  boxInfo: {
+    flex: '3',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  title: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
+  h1: {
+    fontSize: 20,
+  },
+  chartInfo: {
+    flex: '2',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  chart: {
+    width: '100%',
+    height: '100%',
+  },
+  texts: {
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'right',
+  },
+  percentage: {
+    fontWeight: 'bold',
+    fontSize: '20px',
+  },
+  duration: {
+    fontSize: '14px',
+  },
+}))
+
+interface Props {
   color: string
   icon: string
   title: string
@@ -11,11 +55,13 @@ type Props = {
   chartData: object[]
 }
 
-const ChartBox = (props: Props) => {
+export default function ChartBox(props: Props) {
+  const { classes } = useStyles()
+
   return (
-    <div className="chartBox">
-      <div className="boxInfo">
-        <div className="title">
+    <div className={classes.root}>
+      <div className={classes.boxInfo}>
+        <div className={classes.title}>
           <img src={props.icon} alt="" />
           <span>{props.title}</span>
         </div>
@@ -24,8 +70,8 @@ const ChartBox = (props: Props) => {
           View all
         </Link>
       </div>
-      <div className="chartInfo">
-        <div className="chart">
+      <div className={classes.chartInfo}>
+        <div className={classes.chart}>
           <ResponsiveContainer width="99%" height="100%">
             <LineChart data={props.chartData}>
               <Tooltip
@@ -43,17 +89,15 @@ const ChartBox = (props: Props) => {
             </LineChart>
           </ResponsiveContainer>
         </div>
-        <div className="texts">
+        <div className={classes.texts}>
           <span
-            className="percentage"
+            className={classes.percentage}
             style={{ color: props.percentage < 0 ? 'tomato' : 'limegreen' }}>
             {props.percentage}%
           </span>
-          <span className="duration">this month</span>
+          <span className={classes.duration}>this month</span>
         </div>
       </div>
     </div>
   )
 }
-
-export default ChartBox

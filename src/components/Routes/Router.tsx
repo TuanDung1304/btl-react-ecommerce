@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import MainLayout from '../Layout'
 import {
   Route,
   RouterProvider,
@@ -7,13 +6,14 @@ import {
   createRoutesFromElements,
   useLocation,
 } from 'react-router-dom'
+import CreateProduct from '../../Pages/Admin/Product/CreateProduct'
 import Login from '../../Pages/Auth/Login'
 import Register from '../../Pages/Auth/Register'
-import Products from '../../Pages/Products'
 import Home from '../../Pages/Home'
 import ProductDetail from '../../Pages/ProductDetail'
+import Products from '../../Pages/Products'
 import { useDocumentTitle } from '../../hooks'
-import CreateProduct from '../../Pages/Admin/Product/CreateProduct'
+import MainLayout from '../Layout'
 import AuthRoute from './AuthRoute'
 import PrivateRoute from './PrivateRoute'
 import AdminHome from '../../Pages/Admin/Home'
@@ -72,7 +72,7 @@ export const routes: RouteConfig[] = [
   },
   {
     title: 'Admin Dashboard',
-    path: '/admin',
+    path: '/admin/:page',
     component: (
       <PrivateRoute role={0}>
         <AdminHome />
