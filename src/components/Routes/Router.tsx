@@ -16,6 +16,7 @@ import { useDocumentTitle } from '../../hooks'
 import CreateProduct from '../../Pages/Admin/Product/CreateProduct'
 import AuthRoute from './AuthRoute'
 import PrivateRoute from './PrivateRoute'
+import AdminHome from '../../Pages/Admin/Home'
 
 export interface RouteConfig {
   title?: string
@@ -68,6 +69,15 @@ export const routes: RouteConfig[] = [
       </PrivateRoute>
     ),
     layout: MainLayout,
+  },
+  {
+    title: 'Admin Dashboard',
+    path: '/admin',
+    component: (
+      <PrivateRoute role={0}>
+        <AdminHome />
+      </PrivateRoute>
+    ),
   },
   {
     title: 'Create Product',
