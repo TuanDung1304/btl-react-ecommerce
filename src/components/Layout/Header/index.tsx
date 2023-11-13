@@ -2,14 +2,17 @@ import PersonIcon from '@mui/icons-material/Person'
 import SearchIcon from '@mui/icons-material/Search'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { TabContext, TabList } from '@mui/lab'
-import { Box, Menu, MenuItem, Tab, colors } from '@mui/material'
+import { Box, Menu, MenuItem, Tab, Typography, colors } from '@mui/material'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
 import MenuIconButton from '../../ui/MenuIconButton'
 import CategoryHeader from './CategoryHeader'
 import { CategoryType } from '../../Categories/categories'
-import { useCurrentUser } from '../../../hooks'
+import { useCurrentUser, useTokens } from '../../../hooks'
+import { AuthService } from '../../../api/services/auth'
+import { useNotify } from '../../Notify/hooks'
+import { isAxiosError } from 'axios'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -47,9 +50,26 @@ const useStyles = makeStyles()(() => ({
 export default function Header() {
   const { classes } = useStyles()
   const [value, setValue] = useState('')
+  const { notify } = useNotify()
   const navigate = useNavigate()
-  const { user } = useCurrentUser()
-  console.log(user)
+  const { user, removeUser } = useCurrentUser()
+  const { removeTokens } = useTokens()
+
+  const logout = async () => {
+    setAnchorUserMenu(null)
+    try {
+      const res = await AuthService.logout()
+      notify(res.message)
+    } catch (e) {
+      if (isAxiosError(e)) {
+        notify(e.response?.data.message, { severity: 'error' })
+      }
+    } finally {
+      removeTokens()
+      removeUser()
+      navigate('/')
+    }
+  }
 
   const [anchorUserMenu, setAnchorUserMenu] = useState<null | HTMLElement>(null)
   const [anchorTab, setAnchorTab] = useState<HTMLDivElement | null>(null)
@@ -130,10 +150,8 @@ export default function Header() {
                 My Orders
               </Link>
             </MenuItem>
-            <MenuItem onClick={handleClose} className={classes.menuItem}>
-              <Link to="/logout" className={classes.menuLink}>
-                Logout
-              </Link>
+            <MenuItem onClick={logout} className={classes.menuItem}>
+              <Typography className={classes.menuLink}>Logout</Typography>
             </MenuItem>
           </>
         ) : (

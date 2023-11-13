@@ -2,7 +2,11 @@ import { useCallback, useEffect } from 'react'
 import { client as filestack } from 'filestack-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from './store'
-import { User, setUser as setUserState } from './store/useSlice'
+import {
+  User,
+  setUser as setUserState,
+  removeUser as removeUserState,
+} from './store/useSlice'
 
 export const useDocumentTitle = (title: string) => {
   return useEffect(() => {
@@ -29,15 +33,31 @@ export const useTokens = () => {
   }
   const refreshToken = localStorage.getItem('refresh_token')
 
-  return { accessToken, setAccessToken, refreshToken, setRefreshToken }
+  const removeTokens = () => {
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
+  }
+
+  return {
+    accessToken,
+    setAccessToken,
+    refreshToken,
+    setRefreshToken,
+    removeTokens,
+  }
 }
 
 export const useCurrentUser = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const user = useSelector((state: RootState) => state.user)
 
   const setUser = (user: User) => {
     dispatch(setUserState(user))
   }
-  const user = useSelector((state: RootState) => state.user)
-  return { user, setUser }
+
+  const removeUser = () => {
+    dispatch(removeUserState())
+  }
+
+  return { user, setUser, removeUser }
 }

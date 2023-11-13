@@ -4,6 +4,7 @@ import axios, {
   CreateAxiosDefaults,
   InternalAxiosRequestConfig,
 } from 'axios'
+import { AuthService } from './services/auth'
 const BASE_URL = 'http://localhost:3333'
 
 const axiosConfig: CreateAxiosDefaults = {
@@ -26,7 +27,6 @@ const onRequest = (
   const token = isRefreshToken
     ? localStorage.getItem('refresh_token')
     : localStorage.getItem('access_token')
-  console.log(token)
 
   newConfig.headers.Authorization = `Bearer ${token}`
 
@@ -41,7 +41,25 @@ const onResponse = (response: AxiosResponse) => {
   return response
 }
 
-const onResponseError = (error: AxiosError) => {
+const onResponseError = async (error: AxiosError): Promise<AxiosError> => {
+  const { response, config } = error
+  if (response?.status === 401 && !isRefreshToken) {
+    isRefreshToken = true
+
+    try {
+      const res = await AuthService.refreshTokens()
+      if (res.accessToken && config) {
+        localStorage.setItem('access_token', res.accessToken)
+        return axiosApiInstance(config)
+      }
+    } catch (error) {
+      localStorage.removeItem('access_token')
+      localStorage.removeItem('refresh_token')
+    } finally {
+      isRefreshToken = false
+    }
+  }
+
   return Promise.reject(error)
 }
 

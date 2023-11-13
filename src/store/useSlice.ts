@@ -33,8 +33,10 @@ const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     setUser(_, action: PayloadAction<User>) {
-      console.log(action)
       return action.payload
+    },
+    removeUser() {
+      return initialState
     },
   },
   extraReducers(builder) {
@@ -49,5 +51,5 @@ const userSlice = createSlice({
   },
 })
 
-export const { setUser } = userSlice.actions
+export const { setUser, removeUser } = userSlice.actions
 export default userSlice.reducer
