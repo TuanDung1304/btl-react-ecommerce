@@ -23,6 +23,11 @@ export interface LoginData {
   }
 }
 
+export type RefreshTokensData = {
+  message: string
+  accessToken: string
+}
+
 export interface CreateProductData {
   message: string
   id: number
