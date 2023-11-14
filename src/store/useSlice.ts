@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { UserService } from '../api/services/user'
+import { Role } from '../api/services/types'
 
 export interface User {
   id: number
   email: string
   firstName: string
   lastName: string
-  role: number
+  role: Role
   avatar: string
 }
 
@@ -15,7 +16,7 @@ const initialState: User = {
   email: '',
   firstName: '',
   lastName: '',
-  role: 1,
+  role: Role.User,
   avatar: '',
 }
 

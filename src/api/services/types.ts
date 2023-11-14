@@ -7,6 +7,12 @@ export interface RegisterData {
     id: number
   }
 }
+
+export enum Role {
+  Admin = 'Admin',
+  User = 'User',
+}
+
 export interface LoginData {
   message: string
   user: {
@@ -15,7 +21,7 @@ export interface LoginData {
     firstName: string
     lastName: string
     avatar: string
-    role: number
+    role: Role
   }
   tokens: {
     refreshToken: string
@@ -36,4 +42,17 @@ export interface CreateProductData {
 export interface ProductsData {
   products: Product[]
   totalPage: number
+}
+
+export interface ListUsersData {
+  id: number
+  email: string
+  firstName: string
+  lastName: string
+  phone: string
+  address: string
+  avatar: string
+  birthday: Date
+  role: Role
+  createdAt: Date
 }
