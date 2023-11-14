@@ -1,4 +1,4 @@
-import { Size } from '../../Products/type'
+import { Size } from '../../../Products/type'
 
 export type CreateProductModel = {
   color: string

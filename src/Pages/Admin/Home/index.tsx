@@ -8,11 +8,12 @@ import Dashboard from '../Dashboard'
 import { TabContext, TabPanel } from '@mui/lab'
 import { ROUTES } from '../../../components/Routes/Router'
 import User from '../user/User'
-import Products from '../products/Products'
 import Users from '../Users'
+import Products from '../Products'
 
 const useStyles = makeStyles()(() => ({
   root: {
+    width: '100%',
     '*': {
       fontFamily: 'Inter',
     },
@@ -21,15 +22,16 @@ const useStyles = makeStyles()(() => ({
     minHeight: '100vh',
   },
   contentContainer: {
-    padding: '5px 20px',
     flex: 1,
+    '& .MuiTabPanel-root': {
+      paddingTop: 10,
+    },
   },
 }))
 
 export default function AdminHome() {
   const { classes } = useStyles()
   const location = useLocation()
-  console.log(location)
   const [value, setValue] = useState(
     location.pathname ?? ROUTES.admin.dashboard,
   )
@@ -44,15 +46,16 @@ export default function AdminHome() {
             <TabPanel value={ROUTES.admin.dashboard}>
               <Dashboard />
             </TabPanel>
+            <TabPanel value={ROUTES.admin.users}>
+              <Users />
+            </TabPanel>
             <TabPanel value={ROUTES.admin.products}>
               <Products />
             </TabPanel>
             <TabPanel value={ROUTES.admin.profile}>
               <User />
             </TabPanel>
-            <TabPanel value={ROUTES.admin.users}>
-              <Users />
-            </TabPanel>
+            <TabPanel value={ROUTES.admin.orders}>Orders</TabPanel>
           </Box>
         </TabContext>
       </Box>

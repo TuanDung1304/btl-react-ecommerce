@@ -5,8 +5,8 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form'
 import { makeStyles } from 'tss-react/mui'
-import { useFilestack } from '../../../hooks'
 import { CreateProductForm } from './types'
+import { useFilestack } from '../../../../hooks'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles()(() => ({
   },
   deleteImageBtn: {
     position: 'absolute',
-    width: 25,
+    width: '25px !important',
     height: 25,
     top: 2,
     right: 2,

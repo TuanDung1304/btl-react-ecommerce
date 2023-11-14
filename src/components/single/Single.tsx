@@ -6,20 +6,20 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from "recharts";
-import "./single.scss";
+} from 'recharts'
+import './single.scss'
 
 type Props = {
-  id: number;
-  img?: string;
-  title: string;
-  info: object;
+  id: number
+  img?: string
+  title: string
+  info: object
   chart?: {
-    dataKeys: { name: string; color: string }[];
-    data: object[];
-  };
-  activities?: { time: string; text: string }[];
-};
+    dataKeys: { name: string; color: string }[]
+    data: object[]
+  }
+  activities?: { time: string; text: string }[]
+}
 
 const Single = (props: Props) => {
   return (
@@ -53,8 +53,7 @@ const Single = (props: Props) => {
                   right: 30,
                   left: 20,
                   bottom: 5,
-                }}
-              >
+                }}>
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
@@ -87,7 +86,7 @@ const Single = (props: Props) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Single;
+export default Single

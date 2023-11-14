@@ -8,7 +8,6 @@ import {
   OutlinedInput,
   Select,
   SelectChangeEvent,
-  Typography,
   darken,
   lighten,
   styled,
@@ -22,15 +21,15 @@ import { flatten } from 'lodash'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { makeStyles } from 'tss-react/mui'
-import { CATEGORIES } from '../../../components/Categories/categories'
-import { Size } from '../../Products/type'
 import EditProductModels from './EditProductModels'
 import UploadImage from './UploadImage'
 import { COLORS, MenuProps } from './const'
 import { CreateProductForm, CreateProductModel } from './types'
-import { ProductService } from '../../../api/services/products'
-import { useNotify } from '../../../components/Notify/hooks'
 import { isAxiosError } from 'axios'
+import { CATEGORIES } from '../../../../components/Categories/categories'
+import { ProductService } from '../../../../api/services/products'
+import { useNotify } from '../../../../components/Notify/hooks'
+import { Size } from '../../../Products/type'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -78,7 +77,11 @@ const GroupItems = styled('ul')({
 
 const filter = createFilterOptions<string>()
 
-export default function CreateProduct() {
+interface Props {
+  onClose: () => void
+}
+
+export default function CreateProduct({ onClose }: Props) {
   const { classes } = useStyles()
   const { notify } = useNotify()
   const {
@@ -94,7 +97,7 @@ export default function CreateProduct() {
   // to validate input after first submit
   const [firstSubmit, setFirstSubmit] = useState(false)
 
-  const [open, setOpen] = useState(false)
+  const [openEditModels, setOpenEditModels] = useState(false)
   const [sizes, setSizes] = useState<string[]>([])
   const [colors, setColors] = useState<string[]>([])
 
@@ -118,10 +121,6 @@ export default function CreateProduct() {
 
     setValue('productModels', newModels)
   }, [sizes, colors])
-
-  const handleClose = () => {
-    setOpen(false)
-  }
 
   const handleSizesChange = (event: SelectChangeEvent<string[]>) => {
     const value = event.target.value
@@ -150,6 +149,7 @@ export default function CreateProduct() {
       })
 
       notify(res.message)
+      onClose()
     } catch (err) {
       if (isAxiosError(err)) {
         notify(err.response?.data.message, { severity: 'error' })
@@ -158,10 +158,11 @@ export default function CreateProduct() {
   }
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container
+      component="main"
+      sx={{ overflowY: 'auto', overflowX: 'hidden', width: 600 }}>
       <Box className={classes.root}>
         <Box sx={{ mt: 1 }}>
-          <Typography variant="h5">Create Product</Typography>
           <UploadImage
             setValue={setValue}
             watch={watch}
@@ -295,8 +296,8 @@ export default function CreateProduct() {
           />
           <EditProductModels
             models={models}
-            open={open}
-            onClose={handleClose}
+            open={openEditModels}
+            onClose={() => setOpenEditModels(false)}
             onChange={handleProductModelsEdit}
             onSubmit={handleSubmit(onSubmit)}
             setFirstSubmit={setFirstSubmit}
@@ -312,7 +313,7 @@ export default function CreateProduct() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                onClick={() => setOpen(true)}>
+                onClick={() => setOpenEditModels(true)}>
                 Continue
               </Button>
             </Grid>
