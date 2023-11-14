@@ -7,9 +7,9 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import { ChangeEvent } from 'react'
 import { makeStyles } from 'tss-react/mui'
-import { Dialog } from '../../../components/Dialog'
-import DialogTitle from '../../../components/Dialog/DialogTitle'
 import { CreateProductModel } from './types'
+import DialogTitle from '../../../../components/Dialog/DialogTitle'
+import { Dialog } from '../../../../components/Dialog'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -64,10 +64,10 @@ export default function EditProductModels({
   }
 
   return (
-    <Dialog fullWidth maxWidth="sm" open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose}>
       <DialogTitle onClose={onClose}>Edit Product Models</DialogTitle>
       <Divider />
-      <Box sx={{ px: 3, pt: 3, maxHeight: 500, overflow: 'auto' }}>
+      <Box sx={{ px: 3, pt: 3, maxHeight: 500, width: 500, overflow: 'auto' }}>
         <TableContainer className={classes.root}>
           <Table>
             <TableHead>

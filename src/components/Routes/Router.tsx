@@ -6,7 +6,6 @@ import {
   createRoutesFromElements,
   useLocation,
 } from 'react-router-dom'
-import CreateProduct from '../../Pages/Admin/Product/CreateProduct'
 import Login from '../../Pages/Auth/Login'
 import Register from '../../Pages/Auth/Register'
 import Home from '../../Pages/Home'
@@ -77,15 +76,6 @@ export const routes: RouteConfig[] = [
     component: (
       <PrivateRoute role={Role.Admin}>
         <AdminHome />
-      </PrivateRoute>
-    ),
-  },
-  {
-    title: 'Create Product',
-    path: '/admin/product/create',
-    component: (
-      <PrivateRoute role={Role.Admin}>
-        <CreateProduct />
       </PrivateRoute>
     ),
   },

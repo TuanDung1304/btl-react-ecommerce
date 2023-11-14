@@ -1,4 +1,4 @@
-import { CreateProductForm } from '../Admin/Product/types'
+import { CreateProductForm } from '../Admin/Products/CreateProduct/types'
 
 export interface ProductDetailData extends CreateProductForm {
   id: number

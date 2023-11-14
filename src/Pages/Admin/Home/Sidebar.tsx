@@ -8,7 +8,6 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
 import { Link } from 'react-router-dom'
 import { useMemo } from 'react'
 import { ROUTES } from '../../../components/Routes/Router'
-import { AdminPath } from '../../../components/Routes/types'
 
 const useStyles = makeStyles()(() => ({
   root: {

@@ -4,122 +4,6 @@ import { makeStyles } from 'tss-react/mui'
 import ProductItem from '../../components/ui/ProductItem'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { Product } from '../Products/type'
-
-export const initProducts = [
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury 123213213213123123123123123213123',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-  {
-    img: 'https://product.hstatic.net/200000053174/product/7_7a6560a0e4f84c40bd5229028f78ecb8_master.jpg',
-    price: 999000,
-    name: 'Áo Khoác Gió 2 Lớp Biluxury',
-    model: '6AG2T011XPA',
-    id: 1,
-  },
-] as Product[]
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -161,7 +45,7 @@ export default function BestSellerSlider() {
         Bestsellers
       </Typography>
       <Slider {...settings} className={classes.slider}>
-        {initProducts.slice(8).map((product, index) => (
+        {[].map((product, index) => (
           <ProductItem product={product} key={index} />
         ))}
       </Slider>
