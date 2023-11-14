@@ -1,12 +1,14 @@
 import { Box, Tab, Tabs } from '@mui/material'
-import { useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
 import HomeIcon from '@mui/icons-material/Home'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import CategoryIcon from '@mui/icons-material/Category'
 import GroupIcon from '@mui/icons-material/Group'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useMemo } from 'react'
+import { ROUTES } from '../../../components/Routes/Router'
+import { AdminPath } from '../../../components/Routes/types'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -41,31 +43,36 @@ interface Props {
 
 export default function Sidebar({ setValue, value }: Props) {
   const { classes } = useStyles()
-  const navigate = useNavigate()
 
-  const tabs = [
-    { icon: <HomeIcon />, label: 'Home Page', url: '/admin/dashboard' },
-    { icon: <AccountCircleIcon />, label: 'Profile', url: '/admin/profile' },
-    { icon: <GroupIcon />, label: 'Users', url: '/admin/users' },
-    { icon: <CategoryIcon />, label: 'Products', url: '/admin/products' },
-    {
-      icon: <ShoppingCartCheckoutIcon />,
-      label: 'Orders',
-      url: '/admin/orders',
-    },
-  ]
+  const tabs = useMemo(() => {
+    const tabs = [
+      { icon: <HomeIcon />, label: 'Dashboard', url: ROUTES.admin.dashboard },
+      {
+        icon: <AccountCircleIcon />,
+        label: 'Profile',
+        url: ROUTES.admin.profile,
+      },
+      { icon: <GroupIcon />, label: 'Users', url: ROUTES.admin.users },
+      { icon: <CategoryIcon />, label: 'Products', url: ROUTES.admin.products },
+      {
+        icon: <ShoppingCartCheckoutIcon />,
+        label: 'Orders',
+        url: ROUTES.admin.orders,
+      },
+    ]
+    return tabs
+  }, [])
 
   return (
     <Box className={classes.root}>
       <Tabs
         className={classes.tabs}
         orientation="vertical"
-        variant="scrollable"
         value={value}
         onChange={(_e, value) => setValue(value)}
         sx={{ borderRight: 1, borderColor: 'divider' }}>
         {tabs.map((tab) => (
-          <Tab {...tab} onClick={() => navigate(tab.url)} value={tab.url} />
+          <Tab {...tab} value={tab.url} component={Link} to={tab.url} />
         ))}
       </Tabs>
     </Box>

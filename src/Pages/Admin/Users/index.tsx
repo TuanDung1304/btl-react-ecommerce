@@ -1,12 +1,23 @@
 import { GridColDef } from '@mui/x-data-grid'
 import DataTable from '../../../components/dataTable/DataTable'
-import './users.scss'
 import { useCallback, useEffect, useState } from 'react'
 import { useNotify } from '../../../components/Notify/hooks'
 import { ListUsersData } from '../../../api/services/types'
 import { UserService } from '../../../api/services/user'
 import { isAxiosError } from 'axios'
 import moment from 'moment'
+import { makeStyles } from 'tss-react/mui'
+import { Button } from '@mui/material'
+
+const useStyles = makeStyles()(() => ({
+  root: {},
+  info: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '20px',
+    marginBottom: '20px',
+  },
+}))
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -58,6 +69,7 @@ const columns: GridColDef[] = [
 ]
 
 const Users = () => {
+  const { classes } = useStyles()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -85,7 +97,7 @@ const Users = () => {
 
   return (
     <div className="users">
-      <div className="info">
+      <div className={classes.info}>
         <h1>Users</h1>
         <button onClick={() => setOpen(true)}>Add New User</button>
       </div>
@@ -96,7 +108,7 @@ const Users = () => {
       ) : (
         <DataTable slug="users" columns={columns} rows={users} />
       )}
-      {/* {open && <Add slug="user" columns={columns} setOpen={setOpen} />} */}
+      {open && <Button>Add new user</Button>}
     </div>
   )
 }

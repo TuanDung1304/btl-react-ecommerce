@@ -17,6 +17,7 @@ import MainLayout from '../Layout'
 import AuthRoute from './AuthRoute'
 import PrivateRoute from './PrivateRoute'
 import AdminHome from '../../Pages/Admin/Home'
+import { Role } from '../../api/services/types'
 
 export interface RouteConfig {
   title?: string
@@ -74,7 +75,7 @@ export const routes: RouteConfig[] = [
     title: 'Admin Dashboard',
     path: '/admin/:page',
     component: (
-      <PrivateRoute role={0}>
+      <PrivateRoute role={Role.Admin}>
         <AdminHome />
       </PrivateRoute>
     ),
@@ -83,7 +84,7 @@ export const routes: RouteConfig[] = [
     title: 'Create Product',
     path: '/admin/product/create',
     component: (
-      <PrivateRoute role={0}>
+      <PrivateRoute role={Role.Admin}>
         <CreateProduct />
       </PrivateRoute>
     ),
@@ -107,6 +108,16 @@ export const router = createBrowserRouter(
     </>,
   ),
 )
+
+export const ROUTES = {
+  admin: {
+    dashboard: '/admin/dashboard',
+    profile: '/admin/profile',
+    users: '/admin/users',
+    products: '/admin/products',
+    orders: '/admin/orders',
+  },
+}
 
 export default function DefineRouter() {
   return <RouterProvider router={router} />
