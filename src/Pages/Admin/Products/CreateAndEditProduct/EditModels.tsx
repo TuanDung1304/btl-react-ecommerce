@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import { ChangeEvent } from 'react'
 import { makeStyles } from 'tss-react/mui'
-import { CreateProductModel } from './types'
+import { ProductModel } from './types'
 import DialogTitle from '../../../../components/Dialog/DialogTitle'
 import { Dialog } from '../../../../components/Dialog'
 
@@ -32,7 +32,7 @@ const useStyles = makeStyles()(() => ({
 }))
 
 interface Props {
-  models: CreateProductModel[]
+  models: ProductModel[]
   onChange: (
     value: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     key: string,
@@ -43,6 +43,7 @@ interface Props {
     e?: React.BaseSyntheticEvent<object, any, any> | undefined,
   ) => Promise<void>
   setFirstSubmit: (value: boolean) => void
+  action: string
 }
 
 export default function EditProductModels({
@@ -52,6 +53,7 @@ export default function EditProductModels({
   open,
   onSubmit,
   setFirstSubmit,
+  action,
 }: Props) {
   const { classes } = useStyles()
 
@@ -102,7 +104,7 @@ export default function EditProductModels({
             Cancel
           </Button>
           <Button variant="contained" sx={{ mb: 2 }} onClick={handleContinue}>
-            Create
+            {action}
           </Button>
         </Box>
       </Box>

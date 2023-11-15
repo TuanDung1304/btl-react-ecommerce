@@ -2,7 +2,7 @@ import axiosApiInstance from '..'
 import { CreateProductData, ListProductsData, ProductsData } from './types'
 import { ProductDetailData } from '../../Pages/ProductDetail/types'
 import { Filter } from '../../store/filterSlice'
-import { CreateProductForm } from '../../Pages/Admin/Products/CreateProduct/types'
+import { ProductForm } from '../../Pages/Admin/Products/CreateAndEditProduct/types'
 
 export const ProductService = {
   async getProducts(param: string, filter: Filter) {
@@ -22,9 +22,16 @@ export const ProductService = {
     const res = await axiosApiInstance.get<ProductDetailData>(`products/${id}`)
     return res.data
   },
-  async createProducts(data: CreateProductForm) {
+  async createProduct(data: ProductForm) {
     const res = await axiosApiInstance.post<CreateProductData>(
       `/products/create`,
+      data,
+    )
+    return res.data
+  },
+  async updateProduct(data: ProductForm, id: number) {
+    const res = await axiosApiInstance.post<CreateProductData>(
+      `/products/edit/${id}`,
       data,
     )
     return res.data

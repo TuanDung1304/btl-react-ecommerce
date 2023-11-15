@@ -1,6 +1,5 @@
-import { CreateProductForm } from '../Admin/Products/CreateProduct/types'
+import { ProductForm } from '../Admin/Products/CreateAndEditProduct/types'
 
-export interface ProductDetailData extends CreateProductForm {
+export interface ProductDetailData extends ProductForm {
   id: number
-  discountedPrice?: number
 }

@@ -14,7 +14,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, Props>(
   ({ onClose, onKeyDown, disableBackdropClick, ...props }, ref) => {
     return (
       <MUIDialog
-        onClose={(event, reason) => {
+        onClose={(_event, reason) => {
           if (
             onClose &&
             (!disableBackdropClick || reason !== 'backdropClick')

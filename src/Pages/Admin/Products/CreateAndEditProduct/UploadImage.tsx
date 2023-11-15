@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form'
 import { makeStyles } from 'tss-react/mui'
-import { CreateProductForm } from './types'
+import { ProductForm } from './types'
 import { useFilestack } from '../../../../hooks'
 
 const useStyles = makeStyles()(() => ({
@@ -32,6 +32,7 @@ const useStyles = makeStyles()(() => ({
   },
   imageListItem: {
     position: 'relative',
+    overflow: 'hidden',
     '&:hover button': {
       backgroundColor: 'white',
     },
@@ -49,11 +50,19 @@ const useStyles = makeStyles()(() => ({
     marginTop: -8,
     marginLeft: 12,
   },
+  listImageItemWrapper: {
+    height: 200,
+    position: 'relative',
+  },
+  image: {
+    width: '100%',
+    objectFit: 'contain',
+  },
 }))
 
 interface Props {
-  watch: UseFormWatch<CreateProductForm>
-  setValue: UseFormSetValue<CreateProductForm>
+  watch: UseFormWatch<ProductForm>
+  setValue: UseFormSetValue<ProductForm>
   firstSubmit: boolean
 }
 
@@ -61,6 +70,7 @@ export default function UploadImage({ setValue, watch, firstSubmit }: Props) {
   const { classes, cx } = useStyles()
 
   const { images = [], thumbnail } = watch()
+  console.log(images)
 
   const picker = useFilestack()
   const thumbnailPicker = picker({
@@ -122,11 +132,12 @@ export default function UploadImage({ setValue, watch, firstSubmit }: Props) {
         </Typography>
       )}
       {!!images?.length && (
-        <ImageList sx={{ width: 500, maxHeight: 450 }} cols={3} rowHeight={164}>
+        <ImageList sx={{ maxHeight: 500 }} cols={3} rowHeight={200}>
           {images.map((item) => (
             <ImageListItem key={item.url} className={classes.imageListItem}>
               <img
-                src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
+                src={`${item.url}`}
+                className={classes.image}
                 loading="lazy"
               />
               <IconButton

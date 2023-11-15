@@ -13,10 +13,10 @@ import Products from '../Products'
 
 const useStyles = makeStyles()(() => ({
   root: {
-    width: '100%',
     '*': {
       fontFamily: 'Inter',
     },
+    width: '100%',
     backgroundColor: '#2a3447',
     color: 'white',
     minHeight: '100vh',

@@ -1,4 +1,3 @@
-import { Box, Button } from '@mui/material'
 import {
   DataGrid,
   GridColDef,
@@ -43,27 +42,13 @@ const useStyles = makeStyles()(() => ({
   },
 }))
 
-function ActionButtons(
-  params: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>,
-) {
-  const { classes } = useStyles()
-
-  return (
-    <Box className={classes.actionButtonGroup}>
-      <Button variant="contained" color="success">
-        Edit
-      </Button>
-      <Button variant="contained" color="error">
-        Delete
-      </Button>
-    </Box>
-  )
-}
-
 type Props = {
   columns: GridColDef[]
   rows: object[]
   slug: string
+  rowAction?: (
+    props: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>,
+  ) => JSX.Element
 }
 
 export default function DataTable(props: Props) {
@@ -73,7 +58,8 @@ export default function DataTable(props: Props) {
     field: 'action',
     headerName: 'Action',
     width: 155,
-    renderCell: ActionButtons,
+    renderCell: props.rowAction,
+    sortable: false,
   }
 
   return (
