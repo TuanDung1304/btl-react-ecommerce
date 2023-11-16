@@ -127,7 +127,7 @@ export default function ProductFormMutation({
     })
 
     setValue('productModels', newModels)
-  }, [sizes, colors])
+  }, [sizes, colors, getValues, setValue])
 
   const handleSizesChange = (event: SelectChangeEvent<string[]>) => {
     const value = event.target.value
@@ -297,7 +297,7 @@ export default function ProductFormMutation({
             onChange={handleProductModelsEdit}
             onSubmit={handleSubmit(onSubmit)}
             setFirstSubmit={setFirstSubmit}
-            action={Boolean(initForm) ? 'Update' : 'Create'}
+            action={initForm ? 'Update' : 'Create'}
           />
           <Grid container spacing={2}>
             <Grid item xs={6}>

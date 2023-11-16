@@ -34,7 +34,7 @@ export default function Products() {
 
   useEffect(() => {
     setProductFilter({ page: 1 })
-  }, [collection])
+  }, [collection, setProductFilter])
 
   return (
     <Box className={classes.root}>

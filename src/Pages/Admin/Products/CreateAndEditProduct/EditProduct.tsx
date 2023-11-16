@@ -14,15 +14,6 @@ export default function EditProduct({ onClose, productId }: Props) {
   const { notifyError, notify } = useNotify()
   const [product, setProduct] = useState<ProductDetailData>()
 
-  const fetchProduct = async () => {
-    try {
-      const res = await ProductService.getProductDetail(productId)
-      setProduct(res)
-    } catch (e) {
-      notifyError(e)
-    }
-  }
-
   const initValue = useMemo<ProductForm | undefined>(() => {
     return product
       ? {
@@ -39,26 +30,37 @@ export default function EditProduct({ onClose, productId }: Props) {
   }, [product])
 
   useEffect(() => {
-    fetchProduct()
-  }, [productId])
-
-  const onSubmit = useCallback(async (data: ProductForm) => {
-    try {
-      // console.log(data)
-      const res = await ProductService.updateProduct(
-        {
-          ...data,
-          price: Number(data.price),
-        },
-        productId,
-      )
-
-      notify(res.message)
-      onClose()
-    } catch (err) {
-      notifyError(err)
+    const fetchProduct = async () => {
+      try {
+        const res = await ProductService.getProductDetail(productId)
+        setProduct(res)
+      } catch (e) {
+        notifyError(e)
+      }
     }
-  }, [])
+    fetchProduct()
+  }, [notifyError, productId])
+
+  const onSubmit = useCallback(
+    async (data: ProductForm) => {
+      try {
+        // console.log(data)
+        const res = await ProductService.updateProduct(
+          {
+            ...data,
+            price: Number(data.price),
+          },
+          productId,
+        )
+
+        notify(res.message)
+        onClose()
+      } catch (err) {
+        notifyError(err)
+      }
+    },
+    [notify, notifyError, onClose, productId],
+  )
   return (
     <>
       {initValue && (

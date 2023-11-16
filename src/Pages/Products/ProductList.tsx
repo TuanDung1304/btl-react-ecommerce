@@ -50,7 +50,7 @@ export default function ProductList() {
       }
     }
     fetchData()
-  }, [params, filter])
+  }, [params, filter, totalPages, notify])
 
   return (
     <Box className={classes.root}>
