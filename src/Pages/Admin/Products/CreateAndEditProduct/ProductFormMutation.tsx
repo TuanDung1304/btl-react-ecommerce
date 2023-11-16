@@ -17,19 +17,16 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
-import { flatten } from 'lodash'
+import { flatten, uniq } from 'lodash'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { makeStyles } from 'tss-react/mui'
-import EditProductModels from './EditProductModels'
+import { CATEGORIES } from '../../../../components/Categories/categories'
+import { Size } from '../../../Products/type'
+import EditProductModels from './EditModels'
 import UploadImage from './UploadImage'
 import { COLORS, MenuProps } from './const'
-import { CreateProductForm, CreateProductModel } from './types'
-import { isAxiosError } from 'axios'
-import { CATEGORIES } from '../../../../components/Categories/categories'
-import { ProductService } from '../../../../api/services/products'
-import { useNotify } from '../../../../components/Notify/hooks'
-import { Size } from '../../../Products/type'
+import { ProductForm, ProductModel } from './types'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -79,27 +76,36 @@ const filter = createFilterOptions<string>()
 
 interface Props {
   onClose: () => void
+  initForm?: ProductForm
+  onSubmit: (form: ProductForm) => Promise<void>
 }
 
-export default function CreateProduct({ onClose }: Props) {
+export default function ProductFormMutation({
+  onClose,
+  initForm,
+  onSubmit,
+}: Props) {
   const { classes } = useStyles()
-  const { notify } = useNotify()
   const {
     register,
     handleSubmit,
     setValue,
     watch,
     getValues,
+
     formState: { errors },
-  } = useForm<CreateProductForm>()
+  } = useForm<ProductForm>({ defaultValues: initForm })
   const { productModels: models, categoryId } = watch()
 
   // to validate input after first submit
   const [firstSubmit, setFirstSubmit] = useState(false)
-
   const [openEditModels, setOpenEditModels] = useState(false)
-  const [sizes, setSizes] = useState<string[]>([])
-  const [colors, setColors] = useState<string[]>([])
+  const [sizes, setSizes] = useState<string[]>(
+    uniq(initForm?.productModels.map((model) => model.size)) ?? [],
+  )
+  const [colors, setColors] = useState<string[]>(
+    uniq(initForm?.productModels.map((model) => model.color)) ?? [],
+  )
 
   useEffect(() => {
     const allModels = flatten(
@@ -108,15 +114,16 @@ export default function CreateProduct({ onClose }: Props) {
           return { size, color, quantity: 0 }
         })
       }),
-    ) as CreateProductModel[]
-    const oldModels = getValues('productModels')
+    ) as ProductModel[]
+    const currentModels = getValues('productModels')
 
-    const newModels = allModels.map<CreateProductModel>((model) => {
-      const oldModel = oldModels.find(
-        (oldModel) =>
-          oldModel.color === model.color && oldModel.size === model.size,
+    const newModels = allModels.map<ProductModel>((model) => {
+      const currentModel = currentModels.find(
+        (currentModel) =>
+          currentModel.color === model.color &&
+          currentModel.size === model.size,
       )
-      return oldModel ?? model
+      return currentModel ?? model
     })
 
     setValue('productModels', newModels)
@@ -141,26 +148,15 @@ export default function CreateProduct({ onClose }: Props) {
     setValue('productModels', newModels)
   }
 
-  const onSubmit = async (data: CreateProductForm) => {
-    try {
-      const res = await ProductService.createProducts({
-        ...data,
-        price: Number(data.price),
-      })
-
-      notify(res.message)
-      onClose()
-    } catch (err) {
-      if (isAxiosError(err)) {
-        notify(err.response?.data.message, { severity: 'error' })
-      }
-    }
-  }
-
   return (
     <Container
       component="main"
-      sx={{ overflowY: 'auto', overflowX: 'hidden', width: 600 }}>
+      sx={{
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        width: 600,
+        maxHeight: 800,
+      }}>
       <Box className={classes.root}>
         <Box sx={{ mt: 1 }}>
           <UploadImage
@@ -301,10 +297,15 @@ export default function CreateProduct({ onClose }: Props) {
             onChange={handleProductModelsEdit}
             onSubmit={handleSubmit(onSubmit)}
             setFirstSubmit={setFirstSubmit}
+            action={Boolean(initForm) ? 'Update' : 'Create'}
           />
           <Grid container spacing={2}>
             <Grid item xs={6}>
-              <Button fullWidth variant="outlined" sx={{ mt: 3, mb: 2 }}>
+              <Button
+                fullWidth
+                variant="outlined"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={onClose}>
                 Cancel
               </Button>
             </Grid>

@@ -1,16 +1,17 @@
-import { useCallback, useEffect, useState } from 'react'
-import DataTable from '../../../components/DataTable/DataTable'
+import { Box, Button, Divider } from '@mui/material'
 import { GridColDef } from '@mui/x-data-grid'
+import { isAxiosError } from 'axios'
+import moment from 'moment'
+import { useCallback, useEffect, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
-import { useNotify } from '../../../components/Notify/hooks'
 import { ProductService } from '../../../api/services/products'
 import { ListProductsData } from '../../../api/services/types'
-import { isAxiosError } from 'axios'
-import { Box, Button, Divider } from '@mui/material'
-import moment from 'moment'
+import DataTable from '../../../components/DataTable/DataTable'
 import { Dialog } from '../../../components/Dialog'
 import DialogTitle from '../../../components/Dialog/DialogTitle'
-import CreateProduct from './CreateProduct/CreateProduct'
+import { useNotify } from '../../../components/Notify/hooks'
+import CreateProduct from './CreateAndEditProduct/CreateProduct'
+import ProductActionButtons from '../../../components/DataTable/ProductActionButtons'
 
 const useStyles = makeStyles()(() => ({
   root: {},
@@ -28,6 +29,7 @@ const columns: GridColDef[] = [
     field: 'img',
     headerName: 'Image',
     width: 100,
+    sortable: false,
     renderCell: (params) => {
       return <img src={params.row.thumbnail} alt="" />
     },
@@ -113,7 +115,12 @@ const Products = () => {
           Add New Product
         </Button>
       </Box>
-      <DataTable slug="products" columns={columns} rows={products} />
+      <DataTable
+        slug="products"
+        columns={columns}
+        rows={products}
+        rowAction={ProductActionButtons}
+      />
       <Dialog open={open}>
         <DialogTitle onClose={handleClose}>Create Product</DialogTitle>
         <Divider />

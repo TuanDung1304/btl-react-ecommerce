@@ -68,7 +68,7 @@ export default function ProductList() {
           variant="outlined"
           shape="rounded"
           className={classes.pagination}
-          onChange={(e, value) => setProductFilter({ page: value })}
+          onChange={(_e, value) => setProductFilter({ page: value })}
         />
       </Stack>
     </Box>

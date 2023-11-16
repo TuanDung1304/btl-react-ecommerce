@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { useNotifyContext } from './NotifyContextProvider'
 import { ShowNotificationOptions } from './types'
+import { isAxiosError } from 'axios'
 
 export const useNotify = () => {
   const notifyContext = useNotifyContext()
@@ -14,5 +15,11 @@ export const useNotify = () => {
     [notifyContext],
   )
 
-  return { notify }
+  const notifyError = useCallback((error: unknown) => {
+    if (isAxiosError(error)) {
+      notify(error.response?.data.message, { severity: 'error' })
+    }
+  }, [])
+
+  return { notify, notifyError }
 }
