@@ -1,6 +1,6 @@
 import { GridColDef } from '@mui/x-data-grid'
 import DataTable from '../../../components/DataTable/DataTable'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNotify } from '../../../components/Notify/hooks'
 import { ListUsersData } from '../../../api/services/types'
 import { UserService } from '../../../api/services/user'
@@ -75,20 +75,19 @@ const Users = () => {
 
   const [users, setUsers] = useState<ListUsersData[]>([])
 
-  const fetch = useCallback(async () => {
-    try {
-      const res = await UserService.getListUsers()
-      setUsers(res)
-    } catch (err) {
-      if (isAxiosError(err)) {
-        notify(err.response?.data.message, { severity: 'error' })
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await UserService.getListUsers()
+        setUsers(res)
+      } catch (err) {
+        if (isAxiosError(err)) {
+          notify(err.response?.data.message, { severity: 'error' })
+        }
       }
     }
-  }, [])
-
-  useEffect(() => {
     fetch()
-  }, [])
+  }, [notify])
 
   return (
     <>

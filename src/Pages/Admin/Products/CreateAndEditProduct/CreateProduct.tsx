@@ -11,19 +11,22 @@ interface Props {
 export default function CreateProduct({ onClose }: Props) {
   const { notifyError, notify } = useNotify()
 
-  const onSubmit = useCallback(async (data: ProductForm) => {
-    try {
-      const res = await ProductService.createProduct({
-        ...data,
-        price: Number(data.price),
-      })
+  const onSubmit = useCallback(
+    async (data: ProductForm) => {
+      try {
+        const res = await ProductService.createProduct({
+          ...data,
+          price: Number(data.price),
+        })
 
-      notify(res.message)
-      onClose()
-    } catch (err) {
-      notifyError(err)
-    }
-  }, [])
+        notify(res.message)
+        onClose()
+      } catch (err) {
+        notifyError(err)
+      }
+    },
+    [notify, notifyError, onClose],
+  )
 
   return <ProductFormMutation onClose={onClose} onSubmit={onSubmit} />
 }

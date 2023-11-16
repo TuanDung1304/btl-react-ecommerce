@@ -2,7 +2,7 @@ import { Box, Button, Divider } from '@mui/material'
 import { GridColDef } from '@mui/x-data-grid'
 import { isAxiosError } from 'axios'
 import moment from 'moment'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
 import { ProductService } from '../../../api/services/products'
 import { ListProductsData } from '../../../api/services/types'
@@ -92,20 +92,19 @@ const Products = () => {
     setOpen(false)
   }
 
-  const fetch = useCallback(async () => {
-    try {
-      const res = await ProductService.getProductsList()
-      setProducts(res)
-    } catch (error) {
-      if (isAxiosError(error)) {
-        notify(error.response?.data.message, { severity: 'error' })
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await ProductService.getProductsList()
+        setProducts(res)
+      } catch (error) {
+        if (isAxiosError(error)) {
+          notify(error.response?.data.message, { severity: 'error' })
+        }
       }
     }
-  }, [])
-
-  useEffect(() => {
     fetch()
-  }, [])
+  }, [notify])
 
   return (
     <>

@@ -16,11 +16,14 @@ export const useDocumentTitle = (title: string) => {
 
 export const useFilestack = () => {
   const client = filestack.init('AdycHUcHuRhacN6VSzxRYz')
-  return useCallback((props?: filestack.PickerOptions) => {
-    return client.picker({
-      ...props,
-    })
-  }, [])
+  return useCallback(
+    (props?: filestack.PickerOptions) => {
+      return client.picker({
+        ...props,
+      })
+    },
+    [client],
+  )
 }
 
 export const useTokens = () => {

@@ -15,11 +15,14 @@ export const useNotify = () => {
     [notifyContext],
   )
 
-  const notifyError = useCallback((error: unknown) => {
-    if (isAxiosError(error)) {
-      notify(error.response?.data.message, { severity: 'error' })
-    }
-  }, [])
+  const notifyError = useCallback(
+    (error: unknown) => {
+      if (isAxiosError(error)) {
+        notify(error.response?.data.message, { severity: 'error' })
+      }
+    },
+    [notify],
+  )
 
   return { notify, notifyError }
 }

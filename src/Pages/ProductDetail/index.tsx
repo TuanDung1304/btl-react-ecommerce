@@ -3,10 +3,11 @@ import ProductImageSlider from './ProductImageSlider'
 import { makeStyles } from 'tss-react/mui'
 import ProductInfo from './ProductInfo'
 import ProductTabs from './ProductTabs'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ProductService } from '../../api/services/products'
 import { useParams } from 'react-router-dom'
 import { ProductDetailData } from './types'
+import { useNotify } from '../../components/Notify/hooks'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -20,19 +21,21 @@ const useStyles = makeStyles()(() => ({
 export default function ProductDetail() {
   const { classes } = useStyles()
   const param = useParams()
+  const { notifyError } = useNotify()
 
   const [product, setProduct] = useState<ProductDetailData>()
 
-  const fetchData = useCallback(async () => {
-    try {
-      const res = await ProductService.getProductDetail(Number(param.id) ?? 0)
-      setProduct(res)
-    } catch (err) {}
-  }, [param])
-
   useEffect(() => {
-    fetchData()
-  }, [param])
+    const fetch = async () => {
+      try {
+        const res = await ProductService.getProductDetail(Number(param.id) ?? 0)
+        setProduct(res)
+      } catch (err) {
+        notifyError(err)
+      }
+    }
+    fetch()
+  }, [notifyError, param.id])
 
   return (
     <Box className={classes.root}>
