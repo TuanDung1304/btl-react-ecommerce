@@ -1,6 +1,7 @@
 import { Size } from '../../../Products/type'
 
 export type ProductModel = {
+  id: number
   color: string
   size: Size
   quantity: number

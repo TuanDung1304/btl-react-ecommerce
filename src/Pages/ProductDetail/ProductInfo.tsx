@@ -10,7 +10,7 @@ import {
   Typography,
   colors,
 } from '@mui/material'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
 import RadioForm from './RadioForm'
 import ProductSubInfo from './ProductSubInfo'
@@ -18,6 +18,8 @@ import { ProductDetailData } from './types'
 import { uniq } from 'lodash'
 import { sortSizes } from './functions'
 import { getDiscountPercent } from '../../utils/functions'
+import { CartService } from '../../api/services/cart'
+import { useNotify } from '../../components/Notify/hooks'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -142,11 +144,27 @@ export default function ProductInfo({
   product: { id, name, price, discountedPrice, productModels },
 }: Props) {
   const { classes, cx } = useStyles()
+  const { notifyError, notify } = useNotify()
   const [quantity, setQuantity] = useState(1)
   const [color, setColor] = useState<string>()
   const [size, setSize] = useState<string>()
 
-  const modelInstock = useMemo(() => {
+  const addToCart = useCallback(async () => {
+    try {
+      const selectedModel = productModels.find(
+        (model) => model.color === color && model.size === size,
+      )
+      const res = await new CartService().addToCart({
+        quantity,
+        modelId: selectedModel?.id ?? 0,
+      })
+      notify(res.message)
+    } catch (err) {
+      notifyError(err)
+    }
+  }, [color, notify, notifyError, productModels, quantity, size])
+
+  const modelInStock = useMemo(() => {
     return (
       productModels.find(
         (model) => model.color === color && model.size === size,
@@ -155,7 +173,7 @@ export default function ProductInfo({
   }, [color, size, productModels])
 
   const disableBtn =
-    !color || !size || quantity > modelInstock || quantity === 0
+    !color || !size || quantity > modelInStock || quantity === 0
 
   return (
     <Box className={classes.root}>
@@ -177,7 +195,7 @@ export default function ProductInfo({
             <Box className={classes.productSkuItem}>
               Con lai:
               <Typography className={classes.productSkuValue}>
-                {modelInstock}
+                {modelInStock}
               </Typography>
             </Box>
             <Divider
@@ -272,7 +290,11 @@ export default function ProductInfo({
             rowGap={2}
             columnSpacing={2}>
             <Grid item xs={6}>
-              <Button fullWidth variant="outlined" disabled={disableBtn}>
+              <Button
+                fullWidth
+                variant="outlined"
+                disabled={disableBtn}
+                onClick={addToCart}>
                 Them vao gio
               </Button>
             </Grid>

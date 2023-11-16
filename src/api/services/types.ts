@@ -68,3 +68,11 @@ export interface ListProductsData {
   inStock: number
   modelsCount: number
 }
+
+export interface AddCartData {
+  cartItem: {
+    id: number
+    quantity: number
+  }
+  message: string
+}

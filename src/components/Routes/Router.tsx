@@ -17,6 +17,7 @@ import AuthRoute from './AuthRoute'
 import PrivateRoute from './PrivateRoute'
 import AdminHome from '../../Pages/Admin/Home'
 import { Role } from '../../api/services/types'
+import Cart from '../../Pages/Cart'
 
 export interface RouteConfig {
   title?: string
@@ -66,6 +67,16 @@ export const routes: RouteConfig[] = [
     component: (
       <PrivateRoute>
         <ProductDetail />
+      </PrivateRoute>
+    ),
+    layout: MainLayout,
+  },
+  {
+    title: 'Gio hang',
+    path: '/cart',
+    component: (
+      <PrivateRoute>
+        <Cart />
       </PrivateRoute>
     ),
     layout: MainLayout,
