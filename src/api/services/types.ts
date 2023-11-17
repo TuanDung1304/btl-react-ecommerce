@@ -76,3 +76,23 @@ export interface AddCartData {
   }
   message: string
 }
+
+export interface CartItemData {
+  cartItems: {
+    id: number
+    quantity: number
+    productModel: {
+      id: number
+      quantity: number
+      color: string
+      size: string
+      product: {
+        id: number
+        name: string
+        price: number
+        thumbnail: string
+        discountedPrice: number
+      }
+    }
+  }[]
+}

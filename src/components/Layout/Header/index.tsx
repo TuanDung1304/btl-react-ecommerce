@@ -126,7 +126,7 @@ export default function Header() {
       <Box>
         <MenuIconButton icon={SearchIcon} />
         <MenuIconButton icon={PersonIcon} onClick={handleClick} />
-        <MenuIconButton icon={ShoppingCartIcon} />
+        <MenuIconButton component={Link} icon={ShoppingCartIcon} to={'/cart'} />
       </Box>
       <Menu
         anchorEl={anchorUserMenu}

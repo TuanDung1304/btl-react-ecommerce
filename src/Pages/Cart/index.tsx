@@ -1,5 +1,10 @@
 import { Box, Button, Divider, Grid, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
+import { CartService } from '../../api/services/cart'
+import { useNotify } from '../../components/Notify/hooks'
+import { CartItemData } from '../../api/services/types'
+import CartItem from './CartItem'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -12,6 +17,11 @@ const useStyles = makeStyles()(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  cartItemContainer: {
+    padding: 20,
+    border: '2px solid #e7e7e7',
+    borderRadius: 8,
   },
   infoContainer: {
     display: 'flex',
@@ -58,6 +68,23 @@ const useStyles = makeStyles()(() => ({
 
 export default function Cart() {
   const { classes } = useStyles()
+  const { notifyError } = useNotify()
+  const [cartItems, setCartItems] = useState<CartItemData['cartItems']>([])
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await CartService.getCart()
+        setCartItems(res.cartItems)
+      } catch (err) {
+        notifyError(err)
+      }
+    }
+
+    fetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <Grid container className={classes.root} columnSpacing={3}>
       <Grid item md={7.5} xs={12} minHeight={1500}>
@@ -69,7 +96,12 @@ export default function Cart() {
             Bạn đang có <strong>5 sản phẩm</strong> trong giỏ hàng
           </Typography>
         </Box>
-        <Divider />
+        <Divider sx={{ marginY: 2.5 }} />
+        <Box className={classes.cartItemContainer}>
+          {cartItems.map((item) => (
+            <CartItem cartItem={item} />
+          ))}
+        </Box>
       </Grid>
       <Grid item md={4.5} xs={12}>
         <Box className={classes.infoContainer}>

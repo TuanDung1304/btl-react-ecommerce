@@ -154,7 +154,7 @@ export default function ProductInfo({
       const selectedModel = productModels.find(
         (model) => model.color === color && model.size === size,
       )
-      const res = await new CartService().addToCart({
+      const res = await CartService.addToCart({
         quantity,
         modelId: selectedModel?.id ?? 0,
       })

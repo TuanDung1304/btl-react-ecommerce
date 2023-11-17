@@ -55,29 +55,21 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/collections/:collection',
-    component: (
-      <PrivateRoute>
-        <Products />
-      </PrivateRoute>
-    ),
+    component: <Products />,
     layout: MainLayout,
   },
   {
     path: '/products/:id',
-    component: (
-      <PrivateRoute>
-        <ProductDetail />
-      </PrivateRoute>
-    ),
+    component: <ProductDetail />,
     layout: MainLayout,
   },
   {
     title: 'Gio hang',
     path: '/cart',
     component: (
-      <PrivateRoute>
-        <Cart />
-      </PrivateRoute>
+      // <PrivateRoute>
+      <Cart />
+      // </PrivateRoute>
     ),
     layout: MainLayout,
   },
