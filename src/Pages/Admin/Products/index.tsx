@@ -84,7 +84,7 @@ const columns: GridColDef[] = [
 
 const Products = () => {
   const { classes } = useStyles()
-  const { notify } = useNotify()
+  const { notifyError } = useNotify()
   const [open, setOpen] = useState(false)
   const [products, setProducts] = useState<ListProductsData[]>([])
 
@@ -98,13 +98,11 @@ const Products = () => {
         const res = await ProductService.getProductsList()
         setProducts(res)
       } catch (error) {
-        if (isAxiosError(error)) {
-          notify(error.response?.data.message, { severity: 'error' })
-        }
+        notifyError(error)
       }
     }
     fetch()
-  }, [notify])
+  }, [notifyError])
 
   return (
     <>

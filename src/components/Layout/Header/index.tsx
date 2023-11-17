@@ -50,7 +50,7 @@ const useStyles = makeStyles()(() => ({
 export default function Header() {
   const { classes } = useStyles()
   const [value, setValue] = useState('')
-  const { notify } = useNotify()
+  const { notify, notifyError } = useNotify()
   const navigate = useNavigate()
   const { user, removeUser } = useCurrentUser()
   const { removeTokens } = useTokens()
@@ -61,9 +61,7 @@ export default function Header() {
       const res = await AuthService.logout()
       notify(res.message)
     } catch (e) {
-      if (isAxiosError(e)) {
-        notify(e.response?.data.message, { severity: 'error' })
-      }
+      notifyError(e)
     } finally {
       removeTokens()
       removeUser()
