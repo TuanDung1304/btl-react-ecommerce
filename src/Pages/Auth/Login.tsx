@@ -31,7 +31,7 @@ const useStyles = makeStyles()(() => ({
 
 export default function Login() {
   const { classes } = useStyles()
-  const { notify } = useNotify()
+  const { notify, notifyError } = useNotify()
   const navigate = useNavigate()
   const { setAccessToken, setRefreshToken } = useTokens()
   const { setUser } = useCurrentUser()
@@ -51,9 +51,7 @@ export default function Login() {
       navigate('/')
       notify(res.message)
     } catch (err) {
-      if (isAxiosError(err)) {
-        notify(err.response?.data.message, { severity: 'error' })
-      }
+      notifyError(err)
     }
   }
 

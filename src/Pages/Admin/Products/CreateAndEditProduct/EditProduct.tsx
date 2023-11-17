@@ -44,7 +44,6 @@ export default function EditProduct({ onClose, productId }: Props) {
   const onSubmit = useCallback(
     async (data: ProductForm) => {
       try {
-        // console.log(data)
         const res = await ProductService.updateProduct(
           {
             ...data,
