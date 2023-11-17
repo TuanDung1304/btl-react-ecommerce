@@ -28,7 +28,7 @@ const useStyles = makeStyles()(() => ({
 
 export default function Register() {
   const { classes } = useStyles()
-  const { notify } = useNotify()
+  const { notify, notifyError } = useNotify()
   const [loading, setLoading] = useState(false)
 
   const {
@@ -42,11 +42,7 @@ export default function Register() {
       const res = await AuthService.signup(data)
       notify(res.message)
     } catch (err) {
-      if (isAxiosError(err) && err.response) {
-        notify(err.response.data.message, {
-          severity: 'error',
-        })
-      }
+      notifyError(err)
     } finally {
       setLoading(false)
     }

@@ -18,7 +18,9 @@ export const useNotify = () => {
   const notifyError = useCallback(
     (error: unknown) => {
       if (isAxiosError(error)) {
-        notify(error.response?.data.message, { severity: 'error' })
+        notify(error.response?.data.message ?? error.message, {
+          severity: 'error',
+        })
       }
     },
     [notify],

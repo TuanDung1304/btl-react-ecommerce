@@ -71,7 +71,7 @@ const Users = () => {
   const { classes } = useStyles()
   const [open, setOpen] = useState(false)
 
-  const { notify } = useNotify()
+  const { notifyError } = useNotify()
 
   const [users, setUsers] = useState<ListUsersData[]>([])
 
@@ -81,13 +81,11 @@ const Users = () => {
         const res = await UserService.getListUsers()
         setUsers(res)
       } catch (err) {
-        if (isAxiosError(err)) {
-          notify(err.response?.data.message, { severity: 'error' })
-        }
+        notifyError(err)
       }
     }
     fetch()
-  }, [notify])
+  }, [notifyError])
 
   return (
     <>

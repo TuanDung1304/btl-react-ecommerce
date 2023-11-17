@@ -27,7 +27,7 @@ const useStyles = makeStyles()(() => ({
 export default function ProductList() {
   const { classes } = useStyles()
   const { filter, setProductFilter } = useProductFilter()
-  const { notify } = useNotify()
+  const { notifyError } = useNotify()
   const params = useParams()
   const [products, setProducts] = useState<Product[]>([])
   const [totalPages, setTotalPages] = useState(0)
@@ -44,13 +44,11 @@ export default function ProductList() {
           setTotalPages(res.totalPage)
         }
       } catch (err) {
-        if (isAxiosError(err)) {
-          notify(err.response?.data.message, { severity: 'error' })
-        }
+        notifyError(err)
       }
     }
     fetchData()
-  }, [params, filter, totalPages, notify])
+  }, [params, filter, totalPages, notifyError])
 
   return (
     <Box className={classes.root}>
