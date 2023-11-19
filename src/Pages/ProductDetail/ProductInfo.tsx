@@ -1,9 +1,6 @@
-import AddIcon from '@mui/icons-material/Add'
-import RemoveIcon from '@mui/icons-material/Remove'
 import {
   Box,
   Button,
-  ButtonGroup,
   Chip,
   Divider,
   Grid,
@@ -20,6 +17,7 @@ import { sortSizes } from './functions'
 import { getDiscountPercent } from '../../utils/functions'
 import { CartService } from '../../api/services/cart'
 import { useNotify } from '../../components/Notify/hooks'
+import AdjustQuantity from '../../components/AdjustQuantity'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -76,26 +74,6 @@ const useStyles = makeStyles()(() => ({
     textDecorationLine: 'line-through',
     color: '#9e9e9e',
     margin: '0 20px',
-  },
-  quantityItem: {
-    width: 40,
-    height: 40,
-    border: '1px solid #dbdbdb !important',
-    fontWeight: 600,
-  },
-  quantityBtn: {
-    color: '#a4aaaf',
-    backgroundColor: 'rgba(0, 0, 0, 0.03)',
-    '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.03)',
-      color: '#000',
-    },
-  },
-  quantityInput: {
-    outline: 'none',
-    backgroundColor: 'white',
-    textAlign: 'center',
-    fontSize: 15,
   },
   infoBody: {},
   actionContainer: {
@@ -253,36 +231,7 @@ export default function ProductInfo({
           </Box>
           <Box className={classes.infoBobyItem}>
             <span className={classes.infoBodyTitle}>Số lượng:</span>
-            <ButtonGroup variant="contained">
-              <Button
-                className={cx(classes.quantityBtn, classes.quantityItem)}
-                size="small"
-                onClick={() => {
-                  if (quantity > 0) {
-                    setQuantity(quantity - 1)
-                  }
-                }}>
-                <RemoveIcon />
-              </Button>
-              <input
-                className={cx(classes.quantityInput, classes.quantityItem)}
-                value={quantity}
-                onChange={(e) => {
-                  if (!e.target.value) setQuantity(0)
-                  if (!isNaN(Number(e.target.value))) {
-                    setQuantity(Number(e.target.value))
-                  }
-                }}
-              />
-              <Button
-                className={cx(classes.quantityBtn, classes.quantityItem)}
-                size="small"
-                onClick={() => {
-                  setQuantity(quantity + 1)
-                }}>
-                <AddIcon />
-              </Button>
-            </ButtonGroup>
+            <AdjustQuantity quantity={quantity} setQuantity={setQuantity} />
           </Box>
           <Grid
             container

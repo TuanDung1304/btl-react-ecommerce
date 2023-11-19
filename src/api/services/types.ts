@@ -78,6 +78,8 @@ export interface AddCartData {
 }
 
 export interface CartItemData {
+  totalPrice: number
+  totalItem: number
   cartItems: {
     id: number
     quantity: number

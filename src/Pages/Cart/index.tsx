@@ -19,7 +19,7 @@ const useStyles = makeStyles()(() => ({
     alignItems: 'center',
   },
   cartItemContainer: {
-    padding: 20,
+    padding: '8px 10px',
     border: '2px solid #e7e7e7',
     borderRadius: 8,
   },
@@ -70,12 +70,16 @@ export default function Cart() {
   const { classes } = useStyles()
   const { notifyError } = useNotify()
   const [cartItems, setCartItems] = useState<CartItemData['cartItems']>([])
+  const [totalItems, setTotalItems] = useState(0)
+  const [price, setPrice] = useState(0)
 
   useEffect(() => {
     const fetch = async () => {
       try {
         const res = await CartService.getCart()
         setCartItems(res.cartItems)
+        setTotalItems(res.totalItem)
+        setPrice(res.totalPrice)
       } catch (err) {
         notifyError(err)
       }
@@ -93,7 +97,7 @@ export default function Cart() {
             Giỏ hàng của bạn
           </Typography>
           <Typography>
-            Bạn đang có <strong>5 sản phẩm</strong> trong giỏ hàng
+            Bạn đang có <strong>{totalItems} sản phẩm</strong> trong giỏ hàng
           </Typography>
         </Box>
         <Divider sx={{ marginY: 2.5 }} />
@@ -115,7 +119,7 @@ export default function Cart() {
                 Tổng tiền:
               </Typography>
               <Typography fontWeight={700} color={'red'} fontSize={22}>
-                1990000d
+                {price}₫
               </Typography>
             </Box>
             <Divider />
