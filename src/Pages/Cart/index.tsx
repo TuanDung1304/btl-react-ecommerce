@@ -1,9 +1,8 @@
 import { Box, Button, Divider, Grid, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { makeStyles } from 'tss-react/mui'
 import { CartService } from '../../api/services/cart'
 import { useNotify } from '../../components/Notify/hooks'
-import { CartItemData } from '../../api/services/types'
 import CartItem from './CartItem'
 
 const useStyles = makeStyles()(() => ({
@@ -69,25 +68,17 @@ const useStyles = makeStyles()(() => ({
 export default function Cart() {
   const { classes } = useStyles()
   const { notifyError } = useNotify()
-  const [cartItems, setCartItems] = useState<CartItemData['cartItems']>([])
-  const [totalItems, setTotalItems] = useState(0)
-  const [price, setPrice] = useState(0)
-
-  useEffect(() => {
-    const fetch = async () => {
+  const { data } = useQuery({
+    queryKey: ['cartdata'],
+    queryFn: async () => {
       try {
         const res = await CartService.getCart()
-        setCartItems(res.cartItems)
-        setTotalItems(res.totalItem)
-        setPrice(res.totalPrice)
+        return res
       } catch (err) {
         notifyError(err)
       }
-    }
-
-    fetch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    },
+  })
 
   return (
     <Grid container className={classes.root} columnSpacing={3}>
@@ -97,14 +88,13 @@ export default function Cart() {
             Giỏ hàng của bạn
           </Typography>
           <Typography>
-            Bạn đang có <strong>{totalItems} sản phẩm</strong> trong giỏ hàng
+            Bạn đang có <strong>{data?.totalItem} sản phẩm</strong> trong giỏ
+            hàng
           </Typography>
         </Box>
         <Divider sx={{ marginY: 2.5 }} />
         <Box className={classes.cartItemContainer}>
-          {cartItems.map((item) => (
-            <CartItem cartItem={item} />
-          ))}
+          {data?.cartItems.map((item) => <CartItem cartItem={item} />)}
         </Box>
       </Grid>
       <Grid item md={4.5} xs={12}>
@@ -119,7 +109,7 @@ export default function Cart() {
                 Tổng tiền:
               </Typography>
               <Typography fontWeight={700} color={'red'} fontSize={22}>
-                {price}₫
+                {data?.totalPrice}₫
               </Typography>
             </Box>
             <Divider />

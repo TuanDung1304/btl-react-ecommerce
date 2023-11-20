@@ -11,4 +11,12 @@ export const CartService = {
     const res = await axiosApiInstance.post<AddCartData>('/carts/add', data)
     return res.data
   },
+
+  async adjustQuantity(data: { cartItemId: number; quantity: number }) {
+    const res = await axiosApiInstance.post<{
+      message: string
+      quantity: number
+    }>('/carts/update', data)
+    return res.data
+  },
 }

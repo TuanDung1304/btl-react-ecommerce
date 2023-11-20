@@ -1,7 +1,10 @@
 import { Box, Typography } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
+import { CartService } from '../../api/services/cart'
 import { CartItemData } from '../../api/services/types'
 import AdjustQuantity from '../../components/AdjustQuantity'
+import { useNotify } from '../../components/Notify/hooks'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -36,8 +39,29 @@ export default function CartItem({ cartItem }: Props) {
   const { productModel, quantity } = cartItem
   const { product } = productModel
   const { classes } = useStyles()
+  const queryClient = useQueryClient()
+  const { notifyError } = useNotify()
 
-  const handleChange = (value: number) => {}
+  const { mutate } = useMutation({
+    mutationKey: ['updateCartItem'],
+    mutationFn: async (quantity: number) => {
+      try {
+        return await CartService.adjustQuantity({
+          cartItemId: cartItem.id,
+          quantity,
+        })
+      } catch (err) {
+        notifyError(err)
+      }
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['cartdata'] })
+    },
+  })
+
+  const handleChange = async (value: number) => {
+    mutate(value)
+  }
 
   return (
     <Box className={classes.root}>
@@ -57,7 +81,7 @@ export default function CartItem({ cartItem }: Props) {
       <Box className={classes.priceBox}>
         <Typography fontWeight={700}>
           {(
-            product.discountedPrice ?? product.price * quantity
+            (product.discountedPrice ?? product.price) * quantity
           ).toLocaleString()}
           ₫
         </Typography>
