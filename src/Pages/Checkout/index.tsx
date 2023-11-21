@@ -10,14 +10,16 @@ import {
   Typography,
   styled,
 } from '@mui/material'
+import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
-import { CheckoutForm, checkoutSchema } from './validation'
-import { useQuery } from '@tanstack/react-query'
 import { CartService } from '../../api/services/cart'
 import { useNotify } from '../../components/Notify/hooks'
+import { provinces } from '../../provinces'
 import CartItemPreview from './CartItemPreview'
+import { CheckoutForm, checkoutSchema } from './validation'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -98,13 +100,19 @@ export default function Checkout() {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<CheckoutForm>({ resolver: yupResolver(checkoutSchema) })
 
   const shipmentCost = 30000
 
-  const onSubmit = (data: CheckoutForm) => {}
+  const [provinceState, setProvinceState] = useState('')
+  const [districtState, setDistrictState] = useState('')
 
-  const { data, isLoading } = useQuery({
+  const onSubmit = (data: CheckoutForm) => {
+    console.log(data)
+  }
+
+  const { data } = useQuery({
     queryKey: ['cartdata'],
     queryFn: async () => {
       try {
@@ -184,14 +192,20 @@ export default function Checkout() {
                 id="province"
                 disablePortal
                 fullWidth
-                options={['Ha noi', 'Bac Ninh']}
+                size="small"
+                options={provinces.map((province) => province.name)}
+                value={provinceState}
+                onChange={(_e, newValue) => {
+                  setProvinceState(newValue ?? '')
+                  setValue('province', newValue ?? '')
+                  setValue('district', '')
+                  setDistrictState('')
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     margin="dense"
                     label="Tinh thanh"
-                    size="small"
-                    {...register('province')}
                     error={!!errors.province}
                     helperText={
                       errors.province && (
@@ -207,14 +221,22 @@ export default function Checkout() {
                 id="district"
                 disablePortal
                 fullWidth
-                options={['Ha noi', 'Bac Ninh']}
+                size="small"
+                options={
+                  provinces
+                    .find((province) => province.name === provinceState)
+                    ?.districts.map((district) => district.name) ?? []
+                }
+                value={districtState}
+                onChange={(_e, newValue) => {
+                  setValue('district', newValue ?? '')
+                  setDistrictState(newValue ?? '')
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     margin="dense"
                     label="Quan huyen"
-                    size="small"
-                    {...register('district')}
                     error={!!errors.district}
                     helperText={
                       errors.district && (
@@ -254,6 +276,7 @@ export default function Checkout() {
         <Box className={classes.side}>
           {data?.cartItems.map((item) => (
             <CartItemPreview
+              key={item.id}
               quantity={item.quantity}
               productModel={item.productModel}
             />

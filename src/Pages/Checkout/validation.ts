@@ -7,7 +7,6 @@ export interface CheckoutForm {
   address: string
   province: string
   district: string
-  shipmentMethod: string
   paymentMethod: string
 }
 
@@ -18,6 +17,5 @@ export const checkoutSchema: ObjectSchema<CheckoutForm> = object().shape({
   address: string().required('Không được bỏ trống'),
   province: string().required('Không được bỏ trống'),
   district: string().required('Không được bỏ trống'),
-  shipmentMethod: string().required('Không được bỏ trống'),
-  paymentMethod: string().required('Không được bỏ trống'),
+  paymentMethod: string().required('Không được bỏ trống').default('COD'),
 })
