@@ -22,6 +22,7 @@ export interface LoginData {
     lastName: string
     avatar: string
     role: Role
+    cartQuantity: number
   }
   tokens: {
     refreshToken: string

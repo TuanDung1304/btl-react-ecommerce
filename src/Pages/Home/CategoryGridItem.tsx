@@ -1,7 +1,7 @@
 import { Box, Grid } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
-import { CategoryType } from '../../components/Categories/categories'
+import { CategoryType } from '../../consts'
 
 const useStyles = makeStyles()(() => ({
   root: {

@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
 import { AuthService } from '../../../api/services/auth'
 import { useCurrentUser, useTokens } from '../../../hooks'
-import { CategoryType } from '../../Categories/categories'
+import { CategoryType } from '../../../consts'
 import { useNotify } from '../../Notify/hooks'
 import MenuIconButton from '../../ui/MenuIconButton'
 
@@ -47,7 +47,6 @@ const useStyles = makeStyles()(() => ({
 
 export default function Header() {
   const { classes } = useStyles()
-  const [value, setValue] = useState('')
   const { notify, notifyError } = useNotify()
   const navigate = useNavigate()
   const { user, removeUser } = useCurrentUser()
@@ -84,7 +83,7 @@ export default function Header() {
           className={classes.image}
         />
       </Link>
-      <TabContext value={value}>
+      <TabContext value="">
         <TabList>
           <Tab
             label={CategoryType.Ao}

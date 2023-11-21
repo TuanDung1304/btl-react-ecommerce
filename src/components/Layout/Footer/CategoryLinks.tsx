@@ -3,7 +3,7 @@ import {
   CategoryType,
   PHU_KIEN_CATEGORIES,
   QUAN_CATEGORIES,
-} from '../../Categories/categories'
+} from '../../../consts'
 import { Grid, Link, Typography } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 

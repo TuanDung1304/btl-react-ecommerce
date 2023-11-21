@@ -3,7 +3,7 @@ import { makeStyles } from 'tss-react/mui'
 import CategoryGridItem from './CategoryGridItem'
 import CollectionGridItem from './CollectionGridItem'
 import BestSellerSlider from './BestSellerSlider'
-import { CategoryType } from '../../components/Categories/categories'
+import { CategoryType } from '../../consts'
 
 const useStyles = makeStyles()(() => ({
   root: {

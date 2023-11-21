@@ -1,6 +1,6 @@
 import { Tab, Tabs } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { CategoryType } from '../../components/Categories/categories'
+import { CategoryType } from '../../consts'
 import { getCategoriesFromType, getCategoryTypeFromUrl } from './functions'
 
 interface Props {
