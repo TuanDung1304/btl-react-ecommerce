@@ -1,13 +1,12 @@
 import { Box, Grid, Pagination, Stack } from '@mui/material'
-import { isAxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
 import { ProductService } from '../../api/services/products'
 import { useNotify } from '../../components/Notify/hooks'
 import ProductItem from '../../components/ui/ProductItem'
-import { Product } from './type'
 import { useProductFilter } from './functions'
+import { Product } from './type'
 
 const useStyles = makeStyles()(() => ({
   root: {

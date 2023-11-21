@@ -1,13 +1,12 @@
+import { Box, Button } from '@mui/material'
 import { GridColDef } from '@mui/x-data-grid'
-import DataTable from '../../../components/DataTable/DataTable'
+import moment from 'moment'
 import { useEffect, useState } from 'react'
-import { useNotify } from '../../../components/Notify/hooks'
+import { makeStyles } from 'tss-react/mui'
 import { ListUsersData } from '../../../api/services/types'
 import { UserService } from '../../../api/services/user'
-import { isAxiosError } from 'axios'
-import moment from 'moment'
-import { makeStyles } from 'tss-react/mui'
-import { Box, Button } from '@mui/material'
+import DataTable from '../../../components/DataTable/DataTable'
+import { useNotify } from '../../../components/Notify/hooks'
 
 const useStyles = makeStyles()(() => ({
   info: {

@@ -5,7 +5,7 @@ import {
   Category,
   PHU_KIEN_CATEGORIES,
   QUAN_CATEGORIES,
-} from '../../components/Categories/categories'
+} from '../../consts'
 import { RootState } from '../../store'
 import { useCallback } from 'react'
 import { Filter, setFilter } from '../../store/filterSlice'
