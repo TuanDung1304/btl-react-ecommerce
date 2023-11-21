@@ -68,3 +68,33 @@ export interface ListProductsData {
   inStock: number
   modelsCount: number
 }
+
+export interface AddCartData {
+  cartItem: {
+    id: number
+    quantity: number
+  }
+  message: string
+}
+
+export interface CartItemData {
+  totalPrice: number
+  totalItem: number
+  cartItems: {
+    id: number
+    quantity: number
+    productModel: {
+      id: number
+      quantity: number
+      color: string
+      size: string
+      product: {
+        id: number
+        name: string
+        price: number
+        thumbnail: string
+        discountedPrice: number
+      }
+    }
+  }[]
+}

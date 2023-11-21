@@ -9,6 +9,7 @@ export interface User {
   lastName: string
   role: Role
   avatar: string
+  cartQuantity: number
 }
 
 const initialState: User = {
@@ -18,6 +19,7 @@ const initialState: User = {
   lastName: '',
   role: Role.User,
   avatar: '',
+  cartQuantity: 0,
 }
 
 export const getUser = createAsyncThunk<User>('users/profile', async () => {
@@ -48,6 +50,7 @@ const userSlice = createSlice({
       state.firstName = payload.firstName
       state.lastName = payload.lastName
       state.role = payload.role
+      state.cartQuantity = payload.cartQuantity
     })
   },
 })

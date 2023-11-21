@@ -8,7 +8,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', '@typescript-eslint'],
+  plugins: ['react-refresh', '@typescript-eslint', 'react-hooks'],
   rules: {
     '@typescript-eslint/no-unused-vars': [1, { ignoreRestSiblings: true }],
     '@typescript-eslint/no-explicit-any': 1,

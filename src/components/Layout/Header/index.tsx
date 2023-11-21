@@ -6,13 +6,11 @@ import { Box, Menu, MenuItem, Tab, Typography, colors } from '@mui/material'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
-import MenuIconButton from '../../ui/MenuIconButton'
-import CategoryHeader from './CategoryHeader'
-import { CategoryType } from '../../Categories/categories'
-import { useCurrentUser, useTokens } from '../../../hooks'
 import { AuthService } from '../../../api/services/auth'
+import { useCurrentUser, useTokens } from '../../../hooks'
+import { CategoryType } from '../../Categories/categories'
 import { useNotify } from '../../Notify/hooks'
-import { isAxiosError } from 'axios'
+import MenuIconButton from '../../ui/MenuIconButton'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -70,7 +68,6 @@ export default function Header() {
   }
 
   const [anchorUserMenu, setAnchorUserMenu] = useState<null | HTMLElement>(null)
-  const [anchorTab, setAnchorTab] = useState<HTMLDivElement | null>(null)
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorUserMenu(event.currentTarget)
@@ -88,43 +85,36 @@ export default function Header() {
         />
       </Link>
       <TabContext value={value}>
-        <TabList
-          onMouseEnter={(e) => setAnchorTab(e.currentTarget)}
-          onMouseLeave={() => {
-            setValue(''), setAnchorTab(null)
-          }}>
+        <TabList>
           <Tab
             label={CategoryType.Ao}
             value="ao"
             className={classes.tabList}
-            onMouseEnter={() => setValue('ao')}
             onClick={() => navigate('/collections/ao-nam')}
           />
           <Tab
             label={CategoryType.Quan}
             value="quan"
             className={classes.tabList}
-            onMouseEnter={() => setValue('quan')}
             onClick={() => navigate('/collections/quan-nam')}
           />
           <Tab
             label={CategoryType.PhuKien}
             value="phu-kien"
             className={classes.tabList}
-            onMouseEnter={() => setValue('phu-kien')}
             onClick={() => navigate('/collections/phu-kien')}
           />
         </TabList>
       </TabContext>
-      <CategoryHeader
-        anchorEl={anchorTab}
-        handleClose={() => setAnchorTab(null)}
-        currentTab={value}
-      />
       <Box>
         <MenuIconButton icon={SearchIcon} />
         <MenuIconButton icon={PersonIcon} onClick={handleClick} />
-        <MenuIconButton icon={ShoppingCartIcon} />
+        <MenuIconButton
+          component={Link}
+          icon={ShoppingCartIcon}
+          badge={user.cartQuantity}
+          to={'/cart'}
+        />
       </Box>
       <Menu
         anchorEl={anchorUserMenu}

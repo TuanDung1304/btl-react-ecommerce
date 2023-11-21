@@ -1,16 +1,13 @@
-import AddIcon from '@mui/icons-material/Add'
-import RemoveIcon from '@mui/icons-material/Remove'
 import {
   Box,
   Button,
-  ButtonGroup,
   Chip,
   Divider,
   Grid,
   Typography,
   colors,
 } from '@mui/material'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
 import RadioForm from './RadioForm'
 import ProductSubInfo from './ProductSubInfo'
@@ -18,6 +15,9 @@ import { ProductDetailData } from './types'
 import { uniq } from 'lodash'
 import { sortSizes } from './functions'
 import { getDiscountPercent } from '../../utils/functions'
+import { CartService } from '../../api/services/cart'
+import { useNotify } from '../../components/Notify/hooks'
+import AdjustQuantity from '../../components/AdjustQuantity'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -75,26 +75,6 @@ const useStyles = makeStyles()(() => ({
     color: '#9e9e9e',
     margin: '0 20px',
   },
-  quantityItem: {
-    width: 40,
-    height: 40,
-    border: '1px solid #dbdbdb !important',
-    fontWeight: 600,
-  },
-  quantityBtn: {
-    color: '#a4aaaf',
-    backgroundColor: 'rgba(0, 0, 0, 0.03)',
-    '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.03)',
-      color: '#000',
-    },
-  },
-  quantityInput: {
-    outline: 'none',
-    backgroundColor: 'white',
-    textAlign: 'center',
-    fontSize: 15,
-  },
   infoBody: {},
   actionContainer: {
     width: '100%',
@@ -142,11 +122,27 @@ export default function ProductInfo({
   product: { id, name, price, discountedPrice, productModels },
 }: Props) {
   const { classes, cx } = useStyles()
+  const { notifyError, notify } = useNotify()
   const [quantity, setQuantity] = useState(1)
   const [color, setColor] = useState<string>()
   const [size, setSize] = useState<string>()
 
-  const modelInstock = useMemo(() => {
+  const addToCart = useCallback(async () => {
+    try {
+      const selectedModel = productModels.find(
+        (model) => model.color === color && model.size === size,
+      )
+      const res = await CartService.addToCart({
+        quantity,
+        modelId: selectedModel?.id ?? 0,
+      })
+      notify(res.message)
+    } catch (err) {
+      notifyError(err)
+    }
+  }, [color, notify, notifyError, productModels, quantity, size])
+
+  const modelInStock = useMemo(() => {
     return (
       productModels.find(
         (model) => model.color === color && model.size === size,
@@ -155,7 +151,7 @@ export default function ProductInfo({
   }, [color, size, productModels])
 
   const disableBtn =
-    !color || !size || quantity > modelInstock || quantity === 0
+    !color || !size || quantity > modelInStock || quantity === 0
 
   return (
     <Box className={classes.root}>
@@ -177,7 +173,7 @@ export default function ProductInfo({
             <Box className={classes.productSkuItem}>
               Con lai:
               <Typography className={classes.productSkuValue}>
-                {modelInstock}
+                {modelInStock}
               </Typography>
             </Box>
             <Divider
@@ -235,36 +231,7 @@ export default function ProductInfo({
           </Box>
           <Box className={classes.infoBobyItem}>
             <span className={classes.infoBodyTitle}>Số lượng:</span>
-            <ButtonGroup variant="contained">
-              <Button
-                className={cx(classes.quantityBtn, classes.quantityItem)}
-                size="small"
-                onClick={() => {
-                  if (quantity > 0) {
-                    setQuantity(quantity - 1)
-                  }
-                }}>
-                <RemoveIcon />
-              </Button>
-              <input
-                className={cx(classes.quantityInput, classes.quantityItem)}
-                value={quantity}
-                onChange={(e) => {
-                  if (!e.target.value) setQuantity(0)
-                  if (!isNaN(Number(e.target.value))) {
-                    setQuantity(Number(e.target.value))
-                  }
-                }}
-              />
-              <Button
-                className={cx(classes.quantityBtn, classes.quantityItem)}
-                size="small"
-                onClick={() => {
-                  setQuantity(quantity + 1)
-                }}>
-                <AddIcon />
-              </Button>
-            </ButtonGroup>
+            <AdjustQuantity quantity={quantity} setQuantity={setQuantity} />
           </Box>
           <Grid
             container
@@ -272,7 +239,11 @@ export default function ProductInfo({
             rowGap={2}
             columnSpacing={2}>
             <Grid item xs={6}>
-              <Button fullWidth variant="outlined" disabled={disableBtn}>
+              <Button
+                fullWidth
+                variant="outlined"
+                disabled={disableBtn}
+                onClick={addToCart}>
                 Them vao gio
               </Button>
             </Grid>
