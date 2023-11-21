@@ -44,6 +44,7 @@ const useStyles = makeStyles<{ size: 'small' | 'medium' }>()(
 interface Props {
   quantity: number
   setQuantity: (value: number) => void
+  loading?: boolean
   size?: 'small' | 'medium'
 }
 
@@ -51,15 +52,17 @@ export default function AdjustQuantity({
   quantity,
   setQuantity,
   size = 'medium',
+  loading,
 }: Props) {
   const { classes, cx } = useStyles({ size })
   return (
     <ButtonGroup variant="contained" className={classes.root}>
       <Button
+        disabled={loading}
         className={cx(classes.quantityBtn, classes.quantityItem)}
         size="small"
         onClick={() => {
-          if (quantity > 1) {
+          if (quantity > 0) {
             setQuantity(quantity - 1)
           }
         }}>
@@ -76,6 +79,7 @@ export default function AdjustQuantity({
         }}
       />
       <Button
+        disabled={loading}
         className={cx(classes.quantityBtn, classes.quantityItem)}
         size="small"
         onClick={() => {

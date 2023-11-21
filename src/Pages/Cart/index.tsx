@@ -11,6 +11,7 @@ const useStyles = makeStyles()(() => ({
     display: 'flex',
     width: '100%',
     padding: '0 25px',
+    minHeight: 500,
   },
   header: {
     display: 'flex',
@@ -61,6 +62,7 @@ const useStyles = makeStyles()(() => ({
   },
   voucher: {
     border: '1px solid #e7e7e7',
+    padding: '8px 10px',
     minHeight: 60,
   },
 }))
@@ -82,7 +84,7 @@ export default function Cart() {
 
   return (
     <Grid container className={classes.root} columnSpacing={3}>
-      <Grid item md={7.5} xs={12} minHeight={1500}>
+      <Grid item md={7.5} xs={12}>
         <Box className={classes.header}>
           <Typography fontWeight={700} fontSize={24}>
             Giỏ hàng của bạn
@@ -93,9 +95,11 @@ export default function Cart() {
           </Typography>
         </Box>
         <Divider sx={{ marginY: 2.5 }} />
-        <Box className={classes.cartItemContainer}>
-          {data?.cartItems.map((item) => <CartItem cartItem={item} />)}
-        </Box>
+        {!!data?.cartItems.length && (
+          <Box className={classes.cartItemContainer}>
+            {data?.cartItems.map((item) => <CartItem cartItem={item} />)}
+          </Box>
+        )}
       </Grid>
       <Grid item md={4.5} xs={12}>
         <Box className={classes.infoContainer}>
@@ -109,7 +113,7 @@ export default function Cart() {
                 Tổng tiền:
               </Typography>
               <Typography fontWeight={700} color={'red'} fontSize={22}>
-                {data?.totalPrice}₫
+                {data?.totalPrice.toLocaleString()}₫
               </Typography>
             </Box>
             <Divider />
@@ -117,7 +121,10 @@ export default function Cart() {
               <li>Phí vận chuyển sẽ được tính ở trang thanh toán.</li>
               <li>Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.</li>
             </ul>
-            <Button variant="contained" className={classes.button}>
+            <Button
+              variant="contained"
+              className={classes.button}
+              disabled={!data?.cartItems.length}>
               Thanh toan
             </Button>
           </Box>

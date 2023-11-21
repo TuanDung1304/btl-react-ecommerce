@@ -83,7 +83,7 @@ export default function ProductItem({ product }: Props) {
       <Box
         component={Link}
         className={classes.imgWrapper}
-        to={`/products/${id}`}>
+        to={`/product/${id}`}>
         <img src={thumbnail} className={classes.img} />
         {discountedPrice && (
           <Chip
@@ -96,7 +96,7 @@ export default function ProductItem({ product }: Props) {
       <Typography
         component={Link}
         className={classes.name}
-        to={`/products/${id}`}>
+        to={`/product/${id}`}>
         {discountedPrice && `[Giam ${discountedPercent}] `}
         {name}
       </Typography>

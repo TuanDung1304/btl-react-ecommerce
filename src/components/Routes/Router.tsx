@@ -59,7 +59,7 @@ export const routes: RouteConfig[] = [
     layout: MainLayout,
   },
   {
-    path: '/products/:id',
+    path: '/product/:id',
     component: <ProductDetail />,
     layout: MainLayout,
   },

@@ -5,6 +5,7 @@ import { CartItemData } from '../../api/services/types'
 import AdjustQuantity from '../../components/AdjustQuantity'
 import { useNotify } from '../../components/Notify/hooks'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import Link from '../../components/ui/Link'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -42,8 +43,8 @@ export default function CartItem({ cartItem }: Props) {
   const queryClient = useQueryClient()
   const { notifyError } = useNotify()
 
-  const { mutate } = useMutation({
-    mutationKey: ['updateCartItem'],
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['updateCartItem', cartItem.id],
     mutationFn: async (quantity: number) => {
       try {
         return await CartService.adjustQuantity({
@@ -65,12 +66,20 @@ export default function CartItem({ cartItem }: Props) {
 
   return (
     <Box className={classes.root}>
-      <img
-        src={cartItem.productModel.product.thumbnail}
-        className={classes.thumbnail}
-      />
+      <Link to={`/product/${product.id}`}>
+        <img
+          src={cartItem.productModel.product.thumbnail}
+          className={classes.thumbnail}
+        />
+      </Link>
       <Box className={classes.info}>
-        <Typography fontWeight={500}>{product.name}</Typography>
+        <Typography
+          fontWeight={500}
+          component={Link}
+          underlineOnHover
+          to={`/product/${product.id}`}>
+          {product.name}
+        </Typography>
         <Typography
           fontSize={12}
           color="#777">{`${productModel.color} / ${productModel.size}`}</Typography>
@@ -89,6 +98,7 @@ export default function CartItem({ cartItem }: Props) {
           quantity={quantity}
           setQuantity={handleChange}
           size="small"
+          loading={isPending}
         />
       </Box>
     </Box>
