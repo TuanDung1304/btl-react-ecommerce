@@ -18,6 +18,7 @@ import PrivateRoute from './PrivateRoute'
 import AdminHome from '../../Pages/Admin/Home'
 import { Role } from '../../api/services/types'
 import Cart from '../../Pages/Cart'
+import Checkout from '../../Pages/Checkout'
 
 export interface RouteConfig {
   title?: string
@@ -79,6 +80,15 @@ export const routes: RouteConfig[] = [
     component: (
       <PrivateRoute role={Role.Admin}>
         <AdminHome />
+      </PrivateRoute>
+    ),
+  },
+  {
+    title: 'Thanh toan',
+    path: '/checkout',
+    component: (
+      <PrivateRoute role={Role.User}>
+        <Checkout />
       </PrivateRoute>
     ),
   },
