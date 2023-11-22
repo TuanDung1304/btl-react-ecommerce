@@ -48,6 +48,7 @@ export default function EditProduct({ onClose, productId }: Props) {
           {
             ...data,
             price: Number(data.price),
+            discountedPrice: Number(data.discountedPrice),
           },
           productId,
         )
