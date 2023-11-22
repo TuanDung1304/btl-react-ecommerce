@@ -211,6 +211,18 @@ export default function ProductFormMutation({
               required: { value: true, message: 'Khong duoc bo trong' },
             })}
           />
+          {initForm && (
+            <TextField
+              id="discountedPrice"
+              margin="normal"
+              label="Discounted Price"
+              fullWidth
+              type="number"
+              helperText={errors.discountedPrice?.message}
+              error={Boolean(errors.discountedPrice?.message)}
+              {...register('discountedPrice', {})}
+            />
+          )}
           <TextField
             id="text"
             margin="normal"

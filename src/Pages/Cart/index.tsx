@@ -90,8 +90,8 @@ export default function Cart() {
             Giỏ hàng của bạn
           </Typography>
           <Typography>
-            Bạn đang có <strong>{data?.totalItem} sản phẩm</strong> trong giỏ
-            hàng
+            Bạn đang có <strong>{data?.totalItem ?? 0} sản phẩm</strong> trong
+            giỏ hàng
           </Typography>
         </Box>
         <Divider sx={{ marginY: 2.5 }} />
