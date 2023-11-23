@@ -2,7 +2,15 @@ import PersonIcon from '@mui/icons-material/Person'
 import SearchIcon from '@mui/icons-material/Search'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { TabContext, TabList } from '@mui/lab'
-import { Box, Menu, MenuItem, Tab, Typography, colors } from '@mui/material'
+import {
+  Box,
+  Menu,
+  MenuItem,
+  Popover,
+  Tab,
+  Typography,
+  colors,
+} from '@mui/material'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
@@ -11,6 +19,8 @@ import { useCurrentUser, useTokens } from '../../../hooks'
 import { CategoryType } from '../../../consts'
 import { useNotify } from '../../Notify/hooks'
 import MenuIconButton from '../../ui/MenuIconButton'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import Notification from './Notification'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -67,6 +77,9 @@ export default function Header() {
   }
 
   const [anchorUserMenu, setAnchorUserMenu] = useState<null | HTMLElement>(null)
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
+  // eslint-disable-next-line no-extra-boolean-cast
+  const id = Boolean(anchorEl) ? 'simple-popover' : undefined
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorUserMenu(event.currentTarget)
@@ -108,6 +121,13 @@ export default function Header() {
       <Box>
         <MenuIconButton icon={SearchIcon} />
         <MenuIconButton icon={PersonIcon} onClick={handleClick} />
+        {user.email && (
+          <MenuIconButton
+            icon={NotificationsIcon}
+            badge={user.notifications.length}
+            onClick={(event) => setAnchorEl(event.currentTarget)}
+          />
+        )}
         <MenuIconButton
           component={Link}
           icon={ShoppingCartIcon}
@@ -156,6 +176,18 @@ export default function Header() {
           </>
         )}
       </Menu>
+      <Popover
+        id={id}
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={() => setAnchorEl(null)}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
+        <Notification />
+      </Popover>
     </Box>
   )
 }

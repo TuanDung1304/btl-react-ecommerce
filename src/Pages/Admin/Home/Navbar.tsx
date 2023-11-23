@@ -1,5 +1,6 @@
 import { Box } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
+import { useCurrentUser } from '../../../hooks'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -54,12 +55,13 @@ const useStyles = makeStyles()(() => ({
 
 export default function Navbar() {
   const { classes } = useStyles()
+  const { user } = useCurrentUser()
 
   return (
     <Box className={classes.root}>
       <Box className={classes.logo}>
         <img src="logo.svg" alt="" />
-        <span>lamadmin</span>
+        <span>ADMIN</span>
       </Box>
       <Box className={classes.icons}>
         <img src="/search.svg" alt="" className="icon" />
@@ -67,14 +69,13 @@ export default function Navbar() {
         <img src="/expand.svg" alt="" className="icon" />
         <Box className={classes.notification}>
           <img src="/notifications.svg" alt="" />
-          <span>1</span>
         </Box>
         <Box className={classes.user}>
           <img
             src="https://images.pexels.com/photos/11038549/pexels-photo-11038549.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
             alt=""
           />
-          <span>Jane</span>
+          <span>{user.firstName}</span>
         </Box>
         <img src="/settings.svg" alt="" className="icon" />
       </Box>
