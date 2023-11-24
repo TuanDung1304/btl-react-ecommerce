@@ -124,7 +124,7 @@ export default function Header() {
         {user.email && (
           <MenuIconButton
             icon={NotificationsIcon}
-            badge={user.notifications.length}
+            badge={user.notifications?.length}
             onClick={(event) => setAnchorEl(event.currentTarget)}
           />
         )}
@@ -186,7 +186,7 @@ export default function Header() {
           horizontal: 'right',
         }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
-        <Notification />
+        <Notification onClose={() => setAnchorEl(null)} />
       </Popover>
     </Box>
   )
