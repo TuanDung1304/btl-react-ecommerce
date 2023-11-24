@@ -4,6 +4,7 @@ import { makeStyles } from 'tss-react/mui'
 import { CartService } from '../../api/services/cart'
 import { useNotify } from '../../components/Notify/hooks'
 import CartItem from './CartItem'
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -70,6 +71,7 @@ const useStyles = makeStyles()(() => ({
 export default function Cart() {
   const { classes } = useStyles()
   const { notifyError } = useNotify()
+  const navigate = useNavigate()
   const { data } = useQuery({
     queryKey: ['cartdata'],
     queryFn: async () => {
@@ -124,7 +126,8 @@ export default function Cart() {
             <Button
               variant="contained"
               className={classes.button}
-              disabled={!data?.cartItems.length}>
+              disabled={!data?.cartItems.length}
+              onClick={() => navigate('/checkout')}>
               Thanh toan
             </Button>
           </Box>
