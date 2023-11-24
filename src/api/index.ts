@@ -10,6 +10,11 @@ const BASE_URL = 'http://localhost:3333'
 const axiosConfig: CreateAxiosDefaults = {
   headers: {
     Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Methods': '*',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Allow-Headers': '*',
   },
 }
 
