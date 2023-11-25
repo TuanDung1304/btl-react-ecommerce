@@ -3,6 +3,7 @@ import { CreateProductData, ListProductsData, ProductsData } from './types'
 import { ProductDetailData } from '../../Pages/ProductDetail/types'
 import { Filter } from '../../store/filterSlice'
 import { ProductForm } from '../../Pages/Admin/Products/CreateAndEditProduct/types'
+import { Product } from '../../Pages/Products/type'
 
 export const ProductService = {
   async getProducts(param: string, filter: Filter) {
@@ -34,6 +35,10 @@ export const ProductService = {
       `/products/edit/${id}`,
       data,
     )
+    return res.data
+  },
+  async getTrendingProducts() {
+    const res = await axiosApiInstance.get<Product[]>('/products/trending')
     return res.data
   },
 }

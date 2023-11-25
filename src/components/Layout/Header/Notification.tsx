@@ -52,7 +52,7 @@ export default function Notification({ onClose }: Props) {
       <Typography fontSize={18} fontWeight={600}>
         Thông báo
       </Typography>
-      {user.notifications.map((item) => (
+      {user?.notifications.map((item) => (
         <Box
           className={classes.item}
           onClick={() => {
