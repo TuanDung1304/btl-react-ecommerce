@@ -1,7 +1,5 @@
 import { Box, Tab, Tabs } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
-import HomeIcon from '@mui/icons-material/Home'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import CategoryIcon from '@mui/icons-material/Category'
 import GroupIcon from '@mui/icons-material/Group'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
@@ -45,12 +43,12 @@ export default function Sidebar({ setValue, value }: Props) {
 
   const tabs = useMemo(() => {
     const tabs = [
-      { icon: <HomeIcon />, label: 'Dashboard', url: ROUTES.admin.dashboard },
-      {
-        icon: <AccountCircleIcon />,
-        label: 'Profile',
-        url: ROUTES.admin.profile,
-      },
+      // { icon: <HomeIcon />, label: 'Dashboard', url: ROUTES.admin.dashboard },
+      // {
+      //   icon: <AccountCircleIcon />,
+      //   label: 'Profile',
+      //   url: ROUTES.admin.profile,
+      // },
       { icon: <GroupIcon />, label: 'Users', url: ROUTES.admin.users },
       { icon: <CategoryIcon />, label: 'Products', url: ROUTES.admin.products },
       {

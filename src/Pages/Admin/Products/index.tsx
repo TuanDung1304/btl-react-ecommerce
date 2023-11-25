@@ -15,6 +15,7 @@ import CreateProduct from './CreateAndEditProduct/CreateProduct'
 const useStyles = makeStyles()(() => ({
   root: {},
   info: {
+    maxWidth: 'calc(100vh-230px)',
     display: 'flex',
     alignItems: 'center',
     gap: '20px',
@@ -77,6 +78,12 @@ const columns: GridColDef[] = [
     field: 'inStock',
     headerName: 'In Stock',
     width: 120,
+    type: 'string',
+  },
+  {
+    field: 'inCart',
+    headerName: 'In User Cart',
+    width: 130,
     type: 'string',
   },
 ]

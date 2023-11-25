@@ -31,13 +31,13 @@ const columns: GridColDef[] = [
     field: 'firstName',
     type: 'string',
     headerName: 'First name',
-    width: 140,
+    width: 120,
   },
   {
     field: 'lastName',
     type: 'string',
     headerName: 'Last name',
-    width: 170,
+    width: 140,
   },
   {
     field: 'email',

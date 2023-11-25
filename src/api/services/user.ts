@@ -11,4 +11,10 @@ export const UserService = {
     const res = await axiosApiInstance.get<ListUsersData[]>('users/listUsers')
     return res.data
   },
+  async lastSeen() {
+    const res = await axiosApiInstance.post<{ lastSeen: Date }>(
+      '/users/userSeen',
+    )
+    return res.data
+  },
 }
