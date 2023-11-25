@@ -15,8 +15,6 @@ export const AO_CATEGORIES: Category[] = [
   { name: 'ÁO POLO', url: 'ao-polo', type: CategoryType.Ao },
   { name: 'ÁO SƠ MI', url: 'ao-so-mi', type: CategoryType.Ao },
   { name: 'ÁO KHOÁC', url: 'ao-khoac', type: CategoryType.Ao },
-  { name: 'ÁO PHÔNG', url: 'ao-phong', type: CategoryType.Ao },
-  { name: 'ÁO LEN', url: 'ao-len', type: CategoryType.Ao },
   { name: 'ÁO VEST', url: 'ao-vest', type: CategoryType.Ao },
 ]
 
@@ -31,8 +29,6 @@ export const QUAN_CATEGORIES: Category[] = [
 export const PHU_KIEN_CATEGORIES: Category[] = [
   { name: 'ALL', url: 'phu-kien', type: CategoryType.PhuKien },
   { name: 'GIẦY', url: 'giay', type: CategoryType.PhuKien },
-  { name: 'DÂY LƯNG', url: 'day-lung', type: CategoryType.PhuKien },
-  { name: 'VÍ', url: 'vi', type: CategoryType.PhuKien },
 ]
 
 export const CATEGORIES = [
