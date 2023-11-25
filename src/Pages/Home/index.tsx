@@ -2,7 +2,7 @@ import { Box, Button, Grid, Typography } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 import CategoryGridItem from './CategoryGridItem'
 import CollectionGridItem from './CollectionGridItem'
-import BestSellerSlider from './BestSellerSlider'
+import TrendingSlider from './TrendingSlider'
 import { CategoryType } from '../../consts'
 
 const useStyles = makeStyles()(() => ({
@@ -123,7 +123,7 @@ export default function Home() {
         />
       </Grid>
 
-      <BestSellerSlider />
+      <TrendingSlider />
 
       <Box className={classes.trandingNavigate}>
         <Typography>Get the Look</Typography>

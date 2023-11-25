@@ -4,6 +4,10 @@ import { makeStyles } from 'tss-react/mui'
 import ProductItem from '../../components/ui/ProductItem'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import { useEffect, useState } from 'react'
+import { Product } from '../Products/type'
+import { ProductService } from '../../api/services/products'
+import { useNotify } from '../../components/Notify/hooks'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -28,24 +32,41 @@ const useStyles = makeStyles()(() => ({
   },
 }))
 
-export default function BestSellerSlider() {
+const settings: Settings = {
+  infinite: true,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  arrows: true,
+  prevArrow: <ArrowBackIosIcon />,
+  nextArrow: <ArrowForwardIosIcon />,
+}
+
+export default function TrendingSlider() {
   const { classes } = useStyles()
-  const settings: Settings = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    arrows: true,
-    prevArrow: <ArrowBackIosIcon />,
-    nextArrow: <ArrowForwardIosIcon />,
-  }
+  const { notifyError } = useNotify()
+  const [products, setProducts] = useState<Product[]>([])
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await ProductService.getTrendingProducts()
+        setProducts(res)
+      } catch (err) {
+        notifyError(err)
+      }
+    }
+    fetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <Box className={classes.root}>
       <Typography textAlign={'center'} variant="h5" fontWeight={600}>
-        Bestsellers
+        Tranding
       </Typography>
       <Slider {...settings} className={classes.slider}>
-        {[].map((product, index) => (
+        {products.map((product, index) => (
           <ProductItem product={product} key={index} />
         ))}
       </Slider>
