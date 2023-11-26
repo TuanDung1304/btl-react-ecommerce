@@ -8,3 +8,5 @@ export const getDiscountPercent = (
 ): string => {
   return `${Math.floor((1 - discountedPrice / price) * 100)}%`
 }
+
+export const getCurrency = (value: number) => `${value.toLocaleString()}₫`

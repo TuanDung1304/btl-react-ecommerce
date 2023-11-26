@@ -20,6 +20,9 @@ import { useNotify } from '../../components/Notify/hooks'
 import { provinces } from '../../provinces'
 import CartItemPreview from './CartItemPreview'
 import { CheckoutForm, checkoutSchema } from './validation'
+import { OrderService } from '../../api/services/order'
+import { getCurrency } from '../../utils/functions'
+import { MIN_PRICE_TO_FREE_SHIP, SHIPMENT_COST } from './consts'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -95,7 +98,7 @@ const Error = styled('span')({
 export default function Checkout() {
   const { classes } = useStyles()
   const navigate = useNavigate()
-  const { notifyError } = useNotify()
+  const { notifyError, notify } = useNotify()
   const {
     register,
     handleSubmit,
@@ -103,13 +106,17 @@ export default function Checkout() {
     setValue,
   } = useForm<CheckoutForm>({ resolver: yupResolver(checkoutSchema) })
 
-  const shipmentCost = 30000
-
   const [provinceState, setProvinceState] = useState('')
   const [districtState, setDistrictState] = useState('')
 
-  const onSubmit = (data: CheckoutForm) => {
-    console.log(data)
+  const onSubmit = async (data: CheckoutForm) => {
+    try {
+      const res = await OrderService.createOrder(data)
+      notify(res.message)
+      navigate('/')
+    } catch (err) {
+      notifyError(err)
+    }
   }
 
   const { data } = useQuery({
@@ -122,6 +129,11 @@ export default function Checkout() {
       }
     },
   })
+
+  const shipmentCost =
+    data?.totalPrice && data.totalPrice > MIN_PRICE_TO_FREE_SHIP
+      ? 0
+      : SHIPMENT_COST
 
   return (
     <Box className={classes.root}>
@@ -137,7 +149,7 @@ export default function Checkout() {
                 id="name"
                 margin="dense"
                 fullWidth
-                label="Ho ten"
+                label="Họ tên"
                 size="small"
                 {...register('name')}
                 error={!!errors.name}
@@ -164,7 +176,7 @@ export default function Checkout() {
                 id="phone"
                 margin="dense"
                 fullWidth
-                label="So dien thoai"
+                label="Số điện thoại"
                 size="small"
                 {...register('phone')}
                 error={!!errors.phone}
@@ -178,7 +190,7 @@ export default function Checkout() {
                 id="address"
                 margin="dense"
                 fullWidth
-                label="Dia chi"
+                label="Địa chỉ"
                 size="small"
                 {...register('address')}
                 error={!!errors.address}
@@ -205,7 +217,7 @@ export default function Checkout() {
                   <TextField
                     {...params}
                     margin="dense"
-                    label="Tinh thanh"
+                    label="Tỉnh thành"
                     error={!!errors.province}
                     helperText={
                       errors.province && (
@@ -236,7 +248,7 @@ export default function Checkout() {
                   <TextField
                     {...params}
                     margin="dense"
-                    label="Quan huyen"
+                    label="Quận / huyện"
                     error={!!errors.district}
                     helperText={
                       errors.district && (
@@ -254,7 +266,7 @@ export default function Checkout() {
           <Box className={classes.radio}>
             <RadioButtonCheckedIcon color="primary" />
             <span style={{ flex: 1 }}>Giao hàng tận nơi</span>
-            <span>30,000₫</span>
+            <span>{getCurrency(shipmentCost)}</span>
           </Box>
           <Typography className={classes.title}>
             Phương thức thanh toán
@@ -267,7 +279,10 @@ export default function Checkout() {
             <Button variant="outlined" onClick={() => navigate('/cart')}>
               Giỏ hàng
             </Button>
-            <Button variant="contained" type="submit">
+            <Button
+              variant="contained"
+              type="submit"
+              disabled={!!data?.cartItems.length}>
               Hoàn tất đơn hàng
             </Button>
           </Box>
@@ -291,7 +306,9 @@ export default function Checkout() {
             </Box>
             <Box className={classes.summary}>
               Phí vận chuyển
-              <Typography className={classes.price}>30,000₫</Typography>
+              <Typography className={classes.price}>
+                {getCurrency(shipmentCost)}
+              </Typography>
             </Box>
           </Box>
           <Divider />

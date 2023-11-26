@@ -99,3 +99,11 @@ export interface CartItemData {
     }
   }[]
 }
+
+export interface CreateOrderData {
+  message: string
+  order: {
+    id: number
+    totalPrice: number
+  }
+}
