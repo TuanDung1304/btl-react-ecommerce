@@ -1,14 +1,12 @@
 import { Box } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
-import {
-  chartBoxConversion,
-  chartBoxProduct,
-  chartBoxRevenue,
-  chartBoxUser,
-} from '../../../data'
-import TopBox from './TopBox'
-import ChartBox from './ChartBox'
+import { AdminService } from '../../../api/services/admin'
+import { DashboardData } from '../../../api/services/types'
+import { useNotify } from '../../../components/Notify/hooks'
 import BigChartBox from './BigChartBox'
+import ChartBox from './ChartBox'
+import TopBox from './TopBox'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -40,26 +38,67 @@ const useStyles = makeStyles()(() => ({
 
 export default function Dashboard() {
   const { classes } = useStyles()
+
+  const [data, setData] = useState<DashboardData>()
+  const { notifyError } = useNotify()
+  console.log(data)
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await AdminService.getDashboardData()
+        setData(res)
+      } catch (err) {
+        notifyError(err)
+      }
+    }
+    fetch()
+  }, [])
+
   return (
-    <Box className={classes.root}>
-      <Box className={classes.topBox}>
-        <TopBox />
-      </Box>
-      <Box>
-        <ChartBox {...chartBoxUser} />
-      </Box>
-      <Box>
-        <ChartBox {...chartBoxProduct} />
-      </Box>
-      <Box>
-        <ChartBox {...chartBoxConversion} />
-      </Box>
-      <Box>
-        <ChartBox {...chartBoxRevenue} />
-      </Box>
-      <Box className={classes.bigChartBox}>
-        <BigChartBox />
-      </Box>
-    </Box>
+    <>
+      {data && (
+        <Box className={classes.root}>
+          <Box className={classes.topBox}>
+            <TopBox />
+          </Box>
+          <Box>
+            <ChartBox
+              {...data.users}
+              color="#8884d8"
+              icon=""
+              title="Total Users"
+            />
+          </Box>
+          <Box>
+            <ChartBox
+              {...data.products}
+              color="skyblue"
+              icon=""
+              title="Total Products"
+            />
+          </Box>
+          <Box>
+            <ChartBox
+              {...data.orders}
+              color="gold"
+              icon=""
+              title="Total Orders"
+            />
+          </Box>
+          <Box>
+            <ChartBox
+              {...data.profit}
+              color="teal"
+              icon=""
+              title="Total Profit"
+            />
+          </Box>
+          <Box className={classes.bigChartBox}>
+            <BigChartBox />
+          </Box>
+        </Box>
+      )}
+    </>
   )
 }
