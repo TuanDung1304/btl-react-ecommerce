@@ -3,13 +3,15 @@ import { makeStyles } from 'tss-react/mui'
 import CategoryIcon from '@mui/icons-material/Category'
 import GroupIcon from '@mui/icons-material/Group'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
+import HomeIcon from '@mui/icons-material/Home'
 import { Link } from 'react-router-dom'
 import { useMemo } from 'react'
 import { ROUTES } from '../../../components/Routes/Router'
 
 const useStyles = makeStyles()(() => ({
   root: {
-    width: '230px',
+    minWidth: '230px',
+    maxWidth: '230px',
     padding: '5px 0px 5px 20px',
   },
   tabs: {
@@ -43,12 +45,7 @@ export default function Sidebar({ setValue, value }: Props) {
 
   const tabs = useMemo(() => {
     const tabs = [
-      // { icon: <HomeIcon />, label: 'Dashboard', url: ROUTES.admin.dashboard },
-      // {
-      //   icon: <AccountCircleIcon />,
-      //   label: 'Profile',
-      //   url: ROUTES.admin.profile,
-      // },
+      { icon: <HomeIcon />, label: 'Dashboard', url: ROUTES.admin.dashboard },
       { icon: <GroupIcon />, label: 'Users', url: ROUTES.admin.users },
       { icon: <CategoryIcon />, label: 'Products', url: ROUTES.admin.products },
       {

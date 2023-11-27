@@ -2,6 +2,10 @@ import { topDealUsers } from '../../../data'
 import { makeStyles } from 'tss-react/mui'
 
 const useStyles = makeStyles()(() => ({
+  root: {
+    height: 400,
+    overflow: 'hidden',
+  },
   text: {
     marginBottom: '20px',
   },
@@ -41,7 +45,7 @@ const useStyles = makeStyles()(() => ({
 const TopBox = () => {
   const { classes } = useStyles()
   return (
-    <div>
+    <div className={classes.root}>
       <h1 className={classes.text}>Top Deals</h1>
       <div>
         {topDealUsers.map((user) => (

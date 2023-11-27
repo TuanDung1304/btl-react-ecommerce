@@ -1,14 +1,16 @@
 import { Box } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
-import {
-  chartBoxConversion,
-  chartBoxProduct,
-  chartBoxRevenue,
-  chartBoxUser,
-} from '../../../data'
-import TopBox from './TopBox'
-import ChartBox from './ChartBox'
+import { AdminService } from '../../../api/services/admin'
+import { DashboardData } from '../../../api/services/types'
+import { useNotify } from '../../../components/Notify/hooks'
 import BigChartBox from './BigChartBox'
+import ChartBox from './ChartBox'
+import TopBox from './TopBox'
+import PersonIcon from '@mui/icons-material/Person'
+import CategoryIcon from '@mui/icons-material/Category'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -26,40 +28,81 @@ const useStyles = makeStyles()(() => ({
   },
   topBox: {
     gridColumn: 'span 1',
-    gridRow: 'span 4',
-  },
-  box4: {
-    gridColumn: 'span 1',
-    gridRow: 'span 3',
+    gridRow: 'span 2',
   },
   bigChartBox: {
-    gridColumn: 'span 2',
+    gridColumn: 'span 3',
     gridRow: 'span 2',
   },
 }))
 
 export default function Dashboard() {
   const { classes } = useStyles()
+
+  const [data, setData] = useState<DashboardData>()
+  const { notifyError } = useNotify()
+  console.log(data)
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await AdminService.getDashboardData()
+        setData(res)
+      } catch (err) {
+        notifyError(err)
+      }
+    }
+    fetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
-    <Box className={classes.root}>
-      <Box className={classes.topBox}>
-        <TopBox />
-      </Box>
-      <Box>
-        <ChartBox {...chartBoxUser} />
-      </Box>
-      <Box>
-        <ChartBox {...chartBoxProduct} />
-      </Box>
-      <Box>
-        <ChartBox {...chartBoxConversion} />
-      </Box>
-      <Box>
-        <ChartBox {...chartBoxRevenue} />
-      </Box>
-      <Box className={classes.bigChartBox}>
-        <BigChartBox />
-      </Box>
-    </Box>
+    <>
+      {data && (
+        <Box className={classes.root}>
+          <Box className={classes.topBox}>
+            <TopBox />
+          </Box>
+          <Box>
+            <ChartBox
+              {...data.users}
+              color="#8884d8"
+              title="Total Users"
+              url="/admin/users"
+              icon={<PersonIcon />}
+            />
+          </Box>
+          <Box>
+            <ChartBox
+              {...data.products}
+              color="skyblue"
+              icon={<CategoryIcon />}
+              title="Total Products"
+              url="/admin/products"
+            />
+          </Box>
+          <Box>
+            <ChartBox
+              {...data.orders}
+              color="gold"
+              icon={<ShoppingCartIcon />}
+              title="Total Orders"
+              url="/admin/orders"
+            />
+          </Box>
+          <Box>
+            <ChartBox
+              {...data.profit}
+              color="teal"
+              icon={<AttachMoneyIcon />}
+              title="Total Profit"
+            />
+          </Box>
+          <Box className={classes.bigChartBox}>
+            <BigChartBox />
+          </Box>
+        </Box>
+      )}
+    </>
   )
 }

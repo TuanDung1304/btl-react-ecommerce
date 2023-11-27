@@ -282,7 +282,7 @@ export default function Checkout() {
             <Button
               variant="contained"
               type="submit"
-              disabled={!!data?.cartItems.length}>
+              disabled={!data?.cartItems.length}>
               Hoàn tất đơn hàng
             </Button>
           </Box>
