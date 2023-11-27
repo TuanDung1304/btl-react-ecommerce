@@ -153,7 +153,7 @@ export default function Header() {
               </Link>
             </MenuItem>
             <MenuItem onClick={handleClose} className={classes.menuItem}>
-              <Link to="/my-order" className={classes.menuLink}>
+              <Link to="/my-orders" className={classes.menuLink}>
                 My Orders
               </Link>
             </MenuItem>

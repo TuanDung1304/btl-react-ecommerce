@@ -19,6 +19,7 @@ import AdminHome from '../../Pages/Admin/Home'
 import { Role } from '../../api/services/types'
 import Cart from '../../Pages/Cart'
 import Checkout from '../../Pages/Checkout'
+import Order from '../../Pages/Order'
 
 export interface RouteConfig {
   title?: string
@@ -91,6 +92,16 @@ export const routes: RouteConfig[] = [
         <Checkout />
       </PrivateRoute>
     ),
+  },
+  {
+    title: 'Don hang',
+    path: '/my-orders',
+    component: (
+      <PrivateRoute role={Role.User}>
+        <Order />
+      </PrivateRoute>
+    ),
+    layout: MainLayout,
   },
 ]
 
