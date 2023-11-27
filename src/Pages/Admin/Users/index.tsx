@@ -15,6 +15,9 @@ const useStyles = makeStyles()(() => ({
     gap: '20px',
     marginBottom: '20px',
   },
+  tableContainer: {
+    maxWidth: 'calc(100vw - 278px)',
+  },
 }))
 
 const columns: GridColDef[] = [
@@ -94,7 +97,9 @@ const Users = () => {
           Add New User
         </Button>
       </Box>
-      <DataTable slug="users" columns={columns} rows={users} />
+      <Box className={classes.tableContainer}>
+        <DataTable slug="users" columns={columns} rows={users} />
+      </Box>
     </>
   )
 }

@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Line, LineChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { makeStyles } from 'tss-react/mui'
@@ -47,12 +48,13 @@ const useStyles = makeStyles()(() => ({
 
 interface Props {
   color: string
-  icon: string
   title: string
   dataKey: string
   total: number | string
   percentage: number
   chartData: object[]
+  url?: string
+  icon: ReactNode
 }
 
 export default function ChartBox(props: Props) {
@@ -62,13 +64,17 @@ export default function ChartBox(props: Props) {
     <div className={classes.root}>
       <div className={classes.boxInfo}>
         <div className={classes.title}>
-          <img src={props.icon} alt="" />
+          {props.icon}
           <span>{props.title}</span>
         </div>
         <h1>{props.total}</h1>
-        <Link to="/" style={{ color: props.color }}>
-          View all
-        </Link>
+        {props?.url ? (
+          <Link to={props.url} style={{ color: props.color }}>
+            View all
+          </Link>
+        ) : (
+          <span></span>
+        )}
       </div>
       <div className={classes.chartInfo}>
         <div className={classes.chart}>
@@ -81,7 +87,7 @@ export default function ChartBox(props: Props) {
               />
               <Line
                 type="monotone"
-                dataKey={props.dataKey}
+                dataKey={'value'}
                 stroke={props.color}
                 strokeWidth={2}
                 dot={false}
@@ -95,7 +101,7 @@ export default function ChartBox(props: Props) {
             style={{ color: props.percentage < 0 ? 'tomato' : 'limegreen' }}>
             {props.percentage}%
           </span>
-          <span className={classes.duration}>this month</span>
+          <span className={classes.duration}>today</span>
         </div>
       </div>
     </div>

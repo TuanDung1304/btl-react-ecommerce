@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
 import Navbar from './Navbar'
 import Sidebar from './Sidebar'
@@ -35,6 +35,10 @@ export default function AdminHome() {
   const [value, setValue] = useState(
     location.pathname ?? ROUTES.admin.dashboard,
   )
+
+  useEffect(() => {
+    setValue(location.pathname)
+  }, [location.pathname])
 
   return (
     <Box className={classes.root}>

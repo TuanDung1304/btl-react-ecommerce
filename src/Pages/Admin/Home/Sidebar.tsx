@@ -10,7 +10,8 @@ import { ROUTES } from '../../../components/Routes/Router'
 
 const useStyles = makeStyles()(() => ({
   root: {
-    width: '230px',
+    minWidth: '230px',
+    maxWidth: '230px',
     padding: '5px 0px 5px 20px',
   },
   tabs: {

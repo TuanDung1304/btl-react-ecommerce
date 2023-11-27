@@ -52,25 +52,26 @@ export default function Notification({ onClose }: Props) {
       <Typography fontSize={18} fontWeight={600}>
         Thông báo
       </Typography>
-      {user?.notifications.map((item) => (
-        <Box
-          className={classes.item}
-          onClick={() => {
-            onClose()
-            navigate(`/product/${item.product.id}`)
-          }}>
-          <img src={item.product.thumbnail} />
-          <Box className={classes.content}>
-            <Typography flex={1} fontWeight={600} fontSize={14}>
-              {item.content}
-              <p>{item.product.name}</p>
-            </Typography>
-            <Typography fontSize={12}>
-              {formatTimeDifference(new Date(item.createdAt))}
-            </Typography>
+      {user?.notifications &&
+        user.notifications?.map((item) => (
+          <Box
+            className={classes.item}
+            onClick={() => {
+              onClose()
+              navigate(`/product/${item.product.id}`)
+            }}>
+            <img src={item.product.thumbnail} />
+            <Box className={classes.content}>
+              <Typography flex={1} fontWeight={600} fontSize={14}>
+                {item.content}
+                <p>{item.product.name}</p>
+              </Typography>
+              <Typography fontSize={12}>
+                {formatTimeDifference(new Date(item.createdAt))}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-      ))}
+        ))}
     </Box>
   )
 }

@@ -13,13 +13,15 @@ import { useNotify } from '../../../components/Notify/hooks'
 import CreateProduct from './CreateAndEditProduct/CreateProduct'
 
 const useStyles = makeStyles()(() => ({
-  root: {},
   info: {
-    maxWidth: 'calc(100vh-230px)',
     display: 'flex',
     alignItems: 'center',
     gap: '20px',
     marginBottom: '20px',
+  },
+  tableContainer: {
+    width: '100%',
+    maxWidth: 'calc(100vw - 278px)',
   },
 }))
 
@@ -118,12 +120,14 @@ const Products = () => {
           Add New Product
         </Button>
       </Box>
-      <DataTable
-        slug="products"
-        columns={columns}
-        rows={products}
-        rowAction={ProductActionButtons}
-      />
+      <Box className={classes.tableContainer}>
+        <DataTable
+          slug="products"
+          columns={columns}
+          rows={products}
+          rowAction={ProductActionButtons}
+        />
+      </Box>
       <Dialog open={open}>
         <DialogTitle onClose={handleClose}>Create Product</DialogTitle>
         <Divider />
