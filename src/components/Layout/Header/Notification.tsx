@@ -63,7 +63,7 @@ export default function Notification({ onClose }: Props) {
             <img src={item.product.thumbnail} />
             <Box className={classes.content}>
               <Typography flex={1} fontWeight={600} fontSize={14}>
-                {item.content}
+                Sản phẩm được giảm giá {item.content}
                 <p>{item.product.name}</p>
               </Typography>
               <Typography fontSize={12}>

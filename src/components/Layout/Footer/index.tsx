@@ -54,11 +54,7 @@ export default function Footer() {
         </Grid>
       </Box>
       <Box className={classes.about}>
-        Designed by
-        <Link to="https://sparksolutions.co" className={classes.designedBy}>
-          <img src="src/assets/SparkSolution.png" height={21} />
-        </Link>
-        . Developed by Nguyen Tuan Dung | © 2023 Hoc phan thay the
+        Developed by Nguyen Tuan Dung | © 2023 Hoc phan thay the
       </Box>
     </>
   )
