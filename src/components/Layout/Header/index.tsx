@@ -148,12 +148,12 @@ export default function Header() {
         {user.email ? (
           <>
             <MenuItem onClick={handleClose} className={classes.menuItem}>
-              <Link to="/profile" className={classes.menuLink}>
+              <Link to="/account/profile" className={classes.menuLink}>
                 Profile
               </Link>
             </MenuItem>
             <MenuItem onClick={handleClose} className={classes.menuItem}>
-              <Link to="/my-order" className={classes.menuLink}>
+              <Link to="/account/my-orders" className={classes.menuLink}>
                 My Orders
               </Link>
             </MenuItem>

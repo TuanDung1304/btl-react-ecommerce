@@ -13,6 +13,7 @@ const useStyles = makeStyles()(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    minHeight: '100vh',
   },
 }))
 
@@ -22,7 +23,9 @@ export default function MainLayout({ children }: Props) {
   return (
     <Box className={classes.root}>
       <Header />
-      {children}
+      <Box flex={1} width={'100%'}>
+        {children}
+      </Box>
       <Footer />
     </Box>
   )

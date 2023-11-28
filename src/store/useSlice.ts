@@ -21,6 +21,9 @@ export interface User {
   avatar: string
   cartQuantity: number
   notifications: Notification[]
+  address: string
+  phone: string
+  birthday: string
 }
 
 const initialState: User = {
@@ -32,6 +35,9 @@ const initialState: User = {
   avatar: '',
   cartQuantity: 0,
   notifications: [],
+  address: '',
+  birthday: '',
+  phone: '',
 }
 
 export const getUser = createAsyncThunk<User>('users/profile', async () => {
@@ -56,14 +62,7 @@ const userSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
-      state.email = payload.email
-      state.id = payload.id
-      state.avatar = payload.avatar
-      state.firstName = payload.firstName
-      state.lastName = payload.lastName
-      state.role = payload.role
-      state.cartQuantity = payload.cartQuantity
-      state.notifications = payload.notifications
+      return { ...state, ...payload }
     })
   },
 })

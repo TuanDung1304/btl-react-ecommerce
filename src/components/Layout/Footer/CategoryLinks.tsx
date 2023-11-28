@@ -53,7 +53,7 @@ export default function CategoryLinks({ type }: Props) {
           lineHeight={'19px'}>
           MY ACCOUNT
         </Typography>
-        <Link href={`/account`} className={classes.link}>
+        <Link href={`/my-orders`} className={classes.link}>
           MY ORDERS
         </Link>
       </Grid>

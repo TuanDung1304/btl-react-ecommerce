@@ -1,6 +1,7 @@
 import axiosApiInstance from '..'
 import { User } from '../../store/useSlice'
 import { ListUsersData } from './types'
+import { UpdateProfile } from '../../Pages/Account/Profile/types'
 
 export const UserService = {
   async getUserInfo() {
@@ -14,6 +15,13 @@ export const UserService = {
   async lastSeen() {
     const res = await axiosApiInstance.post<{ lastSeen: Date }>(
       '/users/userSeen',
+    )
+    return res.data
+  },
+  async updateUser(data: UpdateProfile) {
+    const res = await axiosApiInstance.post<{ message: string }>(
+      '/users/update-profile',
+      data,
     )
     return res.data
   },
