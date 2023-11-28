@@ -1,5 +1,7 @@
-import { topDealUsers } from '../../../data'
 import { makeStyles } from 'tss-react/mui'
+import { TopDeal } from '../../../api/services/types'
+import { getCurrency } from '../../../utils/functions'
+import { Box, Typography } from '@mui/material'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -42,26 +44,37 @@ const useStyles = makeStyles()(() => ({
   },
 }))
 
-const TopBox = () => {
+interface Props {
+  topUsers: TopDeal[]
+}
+
+const TopBox = ({ topUsers }: Props) => {
   const { classes } = useStyles()
+
   return (
-    <div className={classes.root}>
-      <h1 className={classes.text}>Top Deals</h1>
-      <div>
-        {topDealUsers.map((user) => (
-          <div className={classes.listItem} key={user.id}>
-            <div className={classes.user}>
-              <img src={user.img} alt="" className={classes.img} />
-              <div className={classes.userTexts}>
-                <span className={classes.username}>{user.username}</span>
-                <span className={classes.email}>{user.email}</span>
-              </div>
-            </div>
-            <span className={classes.amount}>${user.amount}</span>
-          </div>
+    <Box className={classes.root}>
+      <Typography variant="h5" className={classes.text}>
+        Top Deals
+      </Typography>
+      <Box>
+        {topUsers.map((user) => (
+          <Box className={classes.listItem} key={user.id}>
+            <Box className={classes.user}>
+              <img src={user.avatar} alt="" className={classes.img} />
+              <Box className={classes.userTexts}>
+                <Typography className={classes.username}>
+                  {`${user.firstName} ${user.lastName}`}
+                </Typography>
+                <Typography className={classes.email}>{user.email}</Typography>
+              </Box>
+            </Box>
+            <Typography className={classes.amount}>
+              {getCurrency(user.total)}
+            </Typography>
+          </Box>
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 

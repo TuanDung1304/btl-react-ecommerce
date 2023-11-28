@@ -61,7 +61,7 @@ export default function Dashboard() {
       {data && (
         <Box className={classes.root}>
           <Box className={classes.topBox}>
-            <TopBox />
+            <TopBox topUsers={data.topDeals} />
           </Box>
           <Box>
             <ChartBox
