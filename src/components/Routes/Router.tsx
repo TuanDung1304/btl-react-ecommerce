@@ -19,16 +19,19 @@ import AdminHome from '../../Pages/Admin/Home'
 import { Role } from '../../api/services/types'
 import Cart from '../../Pages/Cart'
 import Checkout from '../../Pages/Checkout'
-import Order from '../../Pages/Order'
+import Account from '../../Pages/Account'
+import Orders from '../../Pages/Account/Order'
+import Profile from '../../Pages/Account/Profile'
 
 export interface RouteConfig {
   title?: string
   path: string
   component: ReactNode
+  children?: ReactNode
   layout?: JSX.ElementType
 }
 
-export const routes: RouteConfig[] = [
+const routes: RouteConfig[] = [
   {
     title: 'Trang chủ',
     path: '',
@@ -95,20 +98,26 @@ export const routes: RouteConfig[] = [
   },
   {
     title: 'Don hang',
-    path: '/my-orders',
+    path: '/account',
     component: (
       <PrivateRoute role={Role.User}>
-        <Order />
+        <Account />
       </PrivateRoute>
     ),
     layout: MainLayout,
+    children: (
+      <>
+        <Route path="my-orders" element={<Orders />} />
+        <Route path="profile" element={<Profile />} />
+      </>
+    ),
   },
 ]
 
-export const router = createBrowserRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      {routes.map(({ layout: Layout, component, path }, index) => (
+      {routes.map(({ layout: Layout, component, path, children }, index) => (
         <Route
           key={index}
           path={path}
@@ -116,8 +125,9 @@ export const router = createBrowserRouter(
             <DocumentTitleProvider>
               {Layout ? <Layout>{component}</Layout> : component}
             </DocumentTitleProvider>
-          }
-        />
+          }>
+          {children}
+        </Route>
       ))}
     </>,
   ),
@@ -130,6 +140,14 @@ export const ROUTES = {
     users: '/admin/users',
     products: '/admin/products',
     orders: '/admin/orders',
+  },
+  client: {
+    home: '/',
+    account: {
+      profile: '/account/profile',
+      orders: '/account/my-orders',
+      changePassword: '/account/change-password',
+    },
   },
 }
 

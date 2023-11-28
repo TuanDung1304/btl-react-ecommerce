@@ -124,18 +124,19 @@ export enum ChartName {
 
 export type DashboardData = Record<ChartName, ChartData>
 
-enum OrderStatus {
+export enum OrderStatus {
   Pending = 'Pending',
   Delivering = 'Delivering',
   Completed = 'Completed',
+  Cancelled = 'Cancelled',
 }
 
-export interface MyOrder {
+export interface Order {
   id: number
   status: OrderStatus
   address: string
   totalPrice: number
-  createdAt: Date
+  createdAt: string
   cartItems: {
     quantity: number
   }[]

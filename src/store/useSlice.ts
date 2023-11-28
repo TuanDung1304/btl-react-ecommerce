@@ -21,6 +21,9 @@ export interface User {
   avatar: string
   cartQuantity: number
   notifications: Notification[]
+  address: string
+  phoneNumber: string
+  birthday: string
 }
 
 const initialState: User = {
@@ -32,6 +35,9 @@ const initialState: User = {
   avatar: '',
   cartQuantity: 0,
   notifications: [],
+  address: '',
+  birthday: '',
+  phoneNumber: '',
 }
 
 export const getUser = createAsyncThunk<User>('users/profile', async () => {

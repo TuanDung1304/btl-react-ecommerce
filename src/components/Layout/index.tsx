@@ -23,7 +23,9 @@ export default function MainLayout({ children }: Props) {
   return (
     <Box className={classes.root}>
       <Header />
-      <Box flex={1}>{children}</Box>
+      <Box flex={1} width={'100%'}>
+        {children}
+      </Box>
       <Footer />
     </Box>
   )

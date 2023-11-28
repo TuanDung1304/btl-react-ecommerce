@@ -1,6 +1,6 @@
 import axiosApiInstance from '..'
 import { CheckoutForm } from '../../Pages/Checkout/validation'
-import { CreateOrderData, MyOrder } from './types'
+import { CreateOrderData, Order } from './types'
 
 export const OrderService = {
   async createOrder(data: CheckoutForm) {
@@ -11,7 +11,7 @@ export const OrderService = {
     return res.data
   },
   async myOrders() {
-    const res = await axiosApiInstance.get<MyOrder[]>('/orders/my-orders')
+    const res = await axiosApiInstance.get<Order[]>('/orders/my-orders')
     return res.data
   },
 }
