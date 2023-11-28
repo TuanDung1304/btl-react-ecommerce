@@ -1,6 +1,6 @@
-import { InputBase, alpha, styled } from '@mui/material'
+import { TextField, alpha, styled } from '@mui/material'
 
-export const StyledInput = styled(InputBase)(({ theme }) => ({
+export const StyledInput = styled(TextField)(({ theme }) => ({
   'label + &': {
     marginTop: theme.spacing(3),
   },

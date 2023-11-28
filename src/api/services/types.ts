@@ -1,4 +1,5 @@
 import { Product } from '../../Pages/Products/type'
+import { User } from '../../store/useSlice'
 
 export interface RegisterData {
   message: string
@@ -15,15 +16,7 @@ export enum Role {
 
 export interface LoginData {
   message: string
-  user: {
-    email: string
-    id: number
-    firstName: string
-    lastName: string
-    avatar: string
-    role: Role
-    cartQuantity: number
-  }
+  user: User
   tokens: {
     refreshToken: string
     accessToken: string

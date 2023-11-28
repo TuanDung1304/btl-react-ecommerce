@@ -9,8 +9,13 @@ import {
   colors,
 } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
-import { useCurrentUser } from '../../../hooks'
+import { useCurrentUser, useFilestack } from '../../../hooks'
 import { StyledInput } from './StyledInput'
+import { useForm } from 'react-hook-form'
+import { UpdateProfile } from './types'
+import { UserService } from '../../../api/services/user'
+import { useNotify } from '../../../components/Notify/hooks'
+import moment from 'moment'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -34,11 +39,47 @@ const useStyles = makeStyles()(() => ({
   infoContainer: {},
 }))
 
-//https://assets.materialup.com/uploads/61c21fd4-9d79-4514-896c-a6f26f1fbb3d/preview.jpg
-
 export default function Profile() {
   const { classes, cx } = useStyles()
-  const { user } = useCurrentUser()
+  const { user, setUser } = useCurrentUser()
+  const { notifyError, notify } = useNotify()
+
+  const picker = useFilestack()
+  const uploadAvatar = picker({
+    maxFiles: 1,
+    async onUploadDone(file) {
+      try {
+        const res = await UserService.updateUser({
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          avatar: file.filesUploaded[0].url,
+        })
+        setUser({ ...user, avatar: file.filesUploaded[0].url })
+        notify(res.message)
+      } catch (err) {
+        notifyError(err)
+      }
+    },
+  })
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UpdateProfile>()
+
+  const onSubmit = async (data: UpdateProfile) => {
+    try {
+      data.birthday = data?.birthday
+        ? new Date(data.birthday).toISOString()
+        : undefined
+      const res = await UserService.updateUser(data)
+      notify(res.message)
+    } catch (err) {
+      notifyError(err)
+    }
+  }
 
   return (
     <Box className={classes.root}>
@@ -47,11 +88,18 @@ export default function Profile() {
         <Typography fontWeight={600} fontSize={20} marginX={2} flex={1}>
           Upload a New Photo
         </Typography>
-        <Button variant="outlined" color="secondary">
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={() => uploadAvatar.open()}>
           Update
         </Button>
       </Box>
-      <Box className={classes.box} sx={{ flexDirection: 'column' }}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        className={classes.box}
+        sx={{ flexDirection: 'column' }}>
         <Typography fontWeight={600} fontSize={22}>
           Change User Information Here
         </Typography>
@@ -59,31 +107,62 @@ export default function Profile() {
           <Grid item xs={6}>
             <FormControl variant="standard" fullWidth>
               <InputLabel shrink>First Name</InputLabel>
-              <StyledInput id="firstName" defaultValue={user?.firstName} />
+              <StyledInput
+                id="firstName"
+                defaultValue={user?.firstName}
+                {...register('firstName', { required: 'Khong duoc bo trong' })}
+                error={!!errors?.firstName}
+                helperText={errors?.firstName?.message}
+              />
             </FormControl>
           </Grid>
           <Grid item xs={6}>
             <FormControl variant="standard" fullWidth>
               <InputLabel shrink>Last Name</InputLabel>
-              <StyledInput id="lastName" defaultValue={user?.lastName} />
+              <StyledInput
+                id="lastName"
+                defaultValue={user?.lastName}
+                {...register('lastName', { required: 'Khong duoc bo trong' })}
+                error={!!errors?.lastName}
+                helperText={errors?.lastName?.message}
+              />
             </FormControl>
           </Grid>
           <Grid item xs={6}>
             <FormControl variant="standard" fullWidth>
               <InputLabel shrink>Email</InputLabel>
-              <StyledInput id="email" type="email" defaultValue={user?.email} />
+              <StyledInput
+                id="email"
+                type="email"
+                defaultValue={user?.email}
+                {...register('email', { required: 'Khong duoc bo trong' })}
+                error={!!errors?.email}
+                helperText={errors?.email?.message}
+              />
             </FormControl>
           </Grid>
           <Grid item xs={6}>
             <FormControl variant="standard" fullWidth>
               <InputLabel shrink>Phone number</InputLabel>
-              <StyledInput id="phone" defaultValue={user?.phoneNumber} />
+              <StyledInput
+                id="phone"
+                defaultValue={user?.phone}
+                {...register('phone')}
+                error={!!errors?.phone}
+                helperText={errors?.phone?.message}
+              />
             </FormControl>
           </Grid>
           <Grid item xs={6}>
             <FormControl variant="standard" fullWidth>
               <InputLabel shrink>Address</InputLabel>
-              <StyledInput id="address" defaultValue={user?.address} />
+              <StyledInput
+                id="address"
+                defaultValue={user?.address}
+                {...register('address')}
+                error={!!errors?.address}
+                helperText={errors?.address?.message}
+              />
             </FormControl>
           </Grid>
           <Grid item xs={6}>
@@ -92,12 +171,17 @@ export default function Profile() {
               <StyledInput
                 type="date"
                 id="birthday"
-                defaultValue={user?.birthday}
+                defaultValue={moment(new Date(user?.birthday)).format(
+                  'yyyy-MM-DD',
+                )}
+                {...register('birthday')}
+                error={!!errors?.birthday}
+                helperText={errors?.birthday?.message}
               />
             </FormControl>
           </Grid>
         </Grid>
-        <Button variant="contained" sx={{ marginTop: 2.5 }}>
+        <Button type="submit" variant="contained" sx={{ marginTop: 2.5 }}>
           Update Information
         </Button>
       </Box>

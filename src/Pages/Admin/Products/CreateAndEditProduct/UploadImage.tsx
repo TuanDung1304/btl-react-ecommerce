@@ -70,7 +70,6 @@ export default function UploadImage({ setValue, watch, firstSubmit }: Props) {
   const { classes, cx } = useStyles()
 
   const { images = [], thumbnail } = watch()
-  console.log(images)
 
   const picker = useFilestack()
   const thumbnailPicker = picker({
