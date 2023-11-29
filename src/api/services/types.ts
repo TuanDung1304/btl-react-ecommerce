@@ -143,3 +143,15 @@ export interface Order {
     quantity: number
   }[]
 }
+
+export interface AdminOrder {
+  id: number
+  totalModel: number
+  totalProduct: number
+  address: string
+  createdAt: Date
+  status: OrderStatus
+  province: string
+  district: string
+  totalPrice: number
+}

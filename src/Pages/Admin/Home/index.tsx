@@ -7,9 +7,9 @@ import { useLocation } from 'react-router-dom'
 import Dashboard from '../Dashboard'
 import { TabContext, TabPanel } from '@mui/lab'
 import { ROUTES } from '../../../components/Routes/Router'
-import User from '../user/User'
 import Users from '../Users'
 import Products from '../Products'
+import AdminOrders from '../Orders'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -56,10 +56,9 @@ export default function AdminHome() {
             <TabPanel value={ROUTES.admin.products}>
               <Products />
             </TabPanel>
-            <TabPanel value={ROUTES.admin.profile}>
-              <User />
+            <TabPanel value={ROUTES.admin.orders}>
+              <AdminOrders />
             </TabPanel>
-            <TabPanel value={ROUTES.admin.orders}>Orders</TabPanel>
           </Box>
         </TabContext>
       </Box>

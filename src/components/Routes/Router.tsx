@@ -136,7 +136,6 @@ const router = createBrowserRouter(
 export const ROUTES = {
   admin: {
     dashboard: '/admin/dashboard',
-    profile: '/admin/profile',
     users: '/admin/users',
     products: '/admin/products',
     orders: '/admin/orders',
