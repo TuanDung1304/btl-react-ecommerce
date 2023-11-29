@@ -96,6 +96,7 @@ export default function Dashboard() {
               color="teal"
               icon={<AttachMoneyIcon />}
               title="Doanh thu"
+              isCurrency
             />
           </Box>
           <Box className={classes.bigChartBox}>

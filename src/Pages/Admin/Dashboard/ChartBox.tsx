@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Line, LineChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { makeStyles } from 'tss-react/mui'
+import { getCurrency } from '../../../utils/functions'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -56,6 +57,7 @@ interface Props {
   chartData: object[]
   url?: string
   icon: ReactNode
+  isCurrency?: boolean
 }
 
 export default function ChartBox(props: Props) {
@@ -70,7 +72,9 @@ export default function ChartBox(props: Props) {
             {props.title}
           </Typography>
         </Box>
-        <h1>{props.total}</h1>
+        <h1>
+          {props.isCurrency ? getCurrency(Number(props.total)) : props.total}
+        </h1>
         {props?.url ? (
           <Link to={props.url} style={{ color: props.color }}>
             Xem toàn bộ
