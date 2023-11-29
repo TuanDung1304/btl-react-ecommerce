@@ -1,5 +1,5 @@
 import axiosApiInstance from '..'
-import { AdminOrder, DashboardData } from './types'
+import { AdminOrder, DashboardData, OrderStatus } from './types'
 
 export const AdminService = {
   async getDashboardData() {
@@ -7,7 +7,14 @@ export const AdminService = {
     return res.data
   },
   async getOrders() {
-    const res = await axiosApiInstance.get<AdminOrder[]>('orders/admin-orders')
+    const res = await axiosApiInstance.get<AdminOrder[]>('/orders/admin-orders')
+    return res.data
+  },
+  async updateOrderStatus(data: { orderId: number; status: OrderStatus }) {
+    const res = await axiosApiInstance.post<{ message: string }>(
+      '/orders/update-status',
+      data,
+    )
     return res.data
   },
 }

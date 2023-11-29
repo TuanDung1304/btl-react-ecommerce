@@ -154,4 +154,5 @@ export interface AdminOrder {
   province: string
   district: string
   totalPrice: number
+  userName: string
 }
