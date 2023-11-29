@@ -26,7 +26,7 @@ const subInfoItem = [
   },
   {
     url: 'https://theme.hstatic.net/200000690725/1001078549/14/product_info1_desc3_img.png?v=202',
-    content: 'TỔNG ĐÀI 24/7 : 0964942121',
+    content: 'TỔNG ĐÀI 24/7 : 0383338589',
   },
   {
     url: 'https://theme.hstatic.net/200000690725/1001078549/14/product_info2_desc1_img.png?v=202',

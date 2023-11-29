@@ -1,8 +1,11 @@
 ## Hướng dẫn cài đặt
+
 ## Clone dự án
+
 ```bash
 $ git clone https://github.com/TuanDung1304/btl-react-ecommerce.git
 ```
+
 ```bash
 $ cd btl-react-ecommerce
 ```
@@ -13,7 +16,6 @@ $ cd btl-react-ecommerce
 $ yarn
 ```
 
-
 ## Running the app - Port 5173
 
 ```bash
@@ -22,12 +24,14 @@ $ yarn run dev
 ```
 
 # Admin
+
 ```bash
 # Email: admin@gmail.com
 # Password: 123456
 ```
 
 # User
+
 ```bash
 # Email: tuandung13401@gmail.com
 # Password: 123456

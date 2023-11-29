@@ -10,6 +10,7 @@ const useStyles = makeStyles()(() => ({
   },
   text: {
     marginBottom: '20px',
+    fontWeight: 600,
   },
   listItem: {
     display: 'flex',
@@ -54,7 +55,7 @@ const TopBox = ({ topUsers }: Props) => {
   return (
     <Box className={classes.root}>
       <Typography variant="h5" className={classes.text}>
-        Top Deals
+        Top đặt hàng
       </Typography>
       <Box>
         {topUsers.map((user) => (

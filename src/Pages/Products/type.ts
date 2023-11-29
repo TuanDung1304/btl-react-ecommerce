@@ -17,8 +17,8 @@ export enum Size {
 }
 
 export enum Sort {
-  'default' = 'Short',
-  'newest' = 'Newest',
-  'asc' = 'Price (Low - High)',
-  'desc' = 'Price (High - Low)',
+  'default' = 'Sắp xếp',
+  'newest' = 'Mới nhất',
+  'asc' = 'Giá tăng dần',
+  'desc' = 'Giá giảm dần',
 }

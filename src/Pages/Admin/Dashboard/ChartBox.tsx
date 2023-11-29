@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material'
 import { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Line, LineChart, ResponsiveContainer, Tooltip } from 'recharts'
@@ -61,23 +62,25 @@ export default function ChartBox(props: Props) {
   const { classes } = useStyles()
 
   return (
-    <div className={classes.root}>
-      <div className={classes.boxInfo}>
-        <div className={classes.title}>
+    <Box className={classes.root}>
+      <Box className={classes.boxInfo}>
+        <Box className={classes.title}>
           {props.icon}
-          <span>{props.title}</span>
-        </div>
+          <Typography fontSize={18} fontWeight={600}>
+            {props.title}
+          </Typography>
+        </Box>
         <h1>{props.total}</h1>
         {props?.url ? (
           <Link to={props.url} style={{ color: props.color }}>
-            View all
+            Xem toàn bộ
           </Link>
         ) : (
           <span></span>
         )}
-      </div>
-      <div className={classes.chartInfo}>
-        <div className={classes.chart}>
+      </Box>
+      <Box className={classes.chartInfo}>
+        <Box className={classes.chart}>
           <ResponsiveContainer width="99%" height="100%">
             <LineChart data={props.chartData}>
               <Tooltip
@@ -94,16 +97,16 @@ export default function ChartBox(props: Props) {
               />
             </LineChart>
           </ResponsiveContainer>
-        </div>
-        <div className={classes.texts}>
+        </Box>
+        <Box className={classes.texts}>
           <span
             className={classes.percentage}
             style={{ color: props.percentage < 0 ? 'tomato' : 'limegreen' }}>
             {props.percentage}%
           </span>
-          <span className={classes.duration}>today</span>
-        </div>
-      </div>
-    </div>
+          <span className={classes.duration}>Hôm nay</span>
+        </Box>
+      </Box>
+    </Box>
   )
 }

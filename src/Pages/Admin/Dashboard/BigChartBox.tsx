@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import {
   Area,
   AreaChart,
@@ -19,6 +20,7 @@ const useStyles = makeStyles()(() => ({
   chart: {
     width: '100%',
     height: '300px',
+    marginTop: 10,
   },
 }))
 
@@ -71,9 +73,9 @@ const BigChartBox = () => {
   const { classes } = useStyles()
 
   return (
-    <div className={classes.root}>
-      <h1>Revenue Analytics</h1>
-      <div className={classes.chart}>
+    <Box className={classes.root}>
+      <h1>Doanh thu</h1>
+      <Box className={classes.chart}>
         <ResponsiveContainer width="99%" height="100%">
           <AreaChart
             data={data}
@@ -109,8 +111,8 @@ const BigChartBox = () => {
             />
           </AreaChart>
         </ResponsiveContainer>
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }
 

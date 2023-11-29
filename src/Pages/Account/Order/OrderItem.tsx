@@ -28,39 +28,40 @@ export default function OrderItem({ order }: Props) {
       <Grid container rowSpacing={2}>
         <Grid item xs={4}>
           <Typography>
-            <strong>Placed:</strong>{' '}
+            <strong>Mã đơn hàng:</strong> {order.id}
+          </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography>
+            <strong>Tổng tiền:</strong> {getCurrency(order.totalPrice)}
+          </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography>
+            <strong>Tổng số sản phẩm:</strong>{' '}
+            {order.cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+          </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography>
+            <strong>Thời gian:</strong>{' '}
             {new Date(order.createdAt).toLocaleDateString()}
           </Typography>
         </Grid>
         <Grid item xs={4}>
           <Typography>
-            <strong>Total:</strong> {getCurrency(order.totalPrice)}
+            <strong>Địa chỉ:</strong> {order.address}
           </Typography>
         </Grid>
         <Grid item xs={4}>
           <Typography>
-            <strong>Order number:</strong> {order.id}
-          </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography>
-            <strong>Status:</strong> <OrderStatusBadge status={order.status} />
-          </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography>
-            <strong>Address:</strong> {order.address}
-          </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography>
-            <strong>Total models:</strong>{' '}
-            {order.cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+            <strong>Trạng thái:</strong>{' '}
+            <OrderStatusBadge status={order.status} />
           </Typography>
         </Grid>
       </Grid>
       <Button className={classes.button} variant="contained">
-        View Detail
+        Xem chi tiết
       </Button>
     </Box>
   )

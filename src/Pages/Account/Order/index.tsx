@@ -102,7 +102,7 @@ export default function Orders() {
       {!orders.length ? (
         <Box className={classes.empty}>
           <Typography fontWeight={600} fontSize={20}>
-            Khong co don hang nao
+            Không có đơn hàng nào
           </Typography>
         </Box>
       ) : (

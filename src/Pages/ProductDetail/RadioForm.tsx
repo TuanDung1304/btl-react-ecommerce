@@ -15,6 +15,7 @@ const useStyles = makeStyles()(() => ({
     },
   },
   radioBtn: {
+    margin: '3px 0',
     position: 'relative',
     border: '1px solid #bdbfbe',
     borderRadius: 4,
@@ -24,6 +25,7 @@ const useStyles = makeStyles()(() => ({
     alignItems: 'center',
     justifyContent: 'center',
     color: '#333',
+    fontWeight: 500,
   },
   checked: {
     position: 'absolute',
@@ -50,9 +52,9 @@ function StyledRadio({ label, checked }: { label: string; checked: boolean }) {
     <Box className={classes.radioBtn}>
       {label}
       {checked && (
-        <div className={classes.checked}>
+        <Box className={classes.checked}>
           <CheckIcon sx={{ color: 'white', fontSize: 10 }} />
-        </div>
+        </Box>
       )}
     </Box>
   )

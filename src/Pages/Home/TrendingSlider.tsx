@@ -63,7 +63,7 @@ export default function TrendingSlider() {
   return (
     <Box className={classes.root}>
       <Typography textAlign={'center'} variant="h5" fontWeight={600}>
-        Trending
+        Thịnh hành
       </Typography>
       <Slider {...settings} className={classes.slider}>
         {products.map((product, index) => (

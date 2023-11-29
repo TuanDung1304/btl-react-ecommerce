@@ -67,16 +67,16 @@ export default function EditProductModels({
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle onClose={onClose}>Edit Product Models</DialogTitle>
+      <DialogTitle onClose={onClose}>Tùy chỉnh models</DialogTitle>
       <Divider />
       <Box sx={{ px: 3, pt: 3, maxHeight: 500, width: 500, overflow: 'auto' }}>
         <TableContainer className={classes.root}>
           <Table>
             <TableHead>
               <TableRow className={classes.tableHeadRow}>
-                <TableCell align="center">Size</TableCell>
-                <TableCell align="center">Color</TableCell>
-                <TableCell align="center">Quantity</TableCell>
+                <TableCell align="center">Kích cỡ</TableCell>
+                <TableCell align="center">Màu sắc</TableCell>
+                <TableCell align="center">Số lượng</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -101,7 +101,7 @@ export default function EditProductModels({
         </TableContainer>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
           <Button variant="outlined" sx={{ mb: 2 }} onClick={onClose}>
-            Cancel
+            Hủy
           </Button>
           <Button variant="contained" sx={{ mb: 2 }} onClick={handleContinue}>
             {action}

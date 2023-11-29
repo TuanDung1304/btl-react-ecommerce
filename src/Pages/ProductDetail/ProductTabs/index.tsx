@@ -42,10 +42,10 @@ export default function ProductTabs({ description }: Props) {
             onChange={handleChange}
             className={classes.tabList}
             TabIndicatorProps={{ sx: { background: '#333333' } }}>
-            <Tab label="Mo ta san pham" value="1" />
-            <Tab label="Chinh sach doi tra" value="2" />
-            <Tab label="Chinh sach bao mat" value="3" />
-            <Tab label="Cau hoi thuong gap" value="4" />
+            <Tab label="Thêm vào giỏ" value="1" />
+            <Tab label="Chính sách đổi trả" value="2" />
+            <Tab label="Chính sách bảo mật" value="3" />
+            <Tab label="Câu hỏi thường gặp" value="4" />
           </TabList>
         </Box>
         <TabPanel value="1">{description}</TabPanel>

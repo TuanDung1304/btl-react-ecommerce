@@ -65,7 +65,7 @@ export default function Register() {
             id="email"
             margin="normal"
             fullWidth
-            label="Email Address"
+            label="Email"
             autoFocus
             helperText={errors.email?.message}
             error={Boolean(errors.email?.message)}
@@ -75,7 +75,7 @@ export default function Register() {
             id="firstName"
             margin="normal"
             fullWidth
-            label="First Name"
+            label="Tên"
             helperText={errors.firstName?.message}
             error={Boolean(errors.firstName?.message)}
             {...register('firstName')}
@@ -84,7 +84,7 @@ export default function Register() {
             id="lastName"
             margin="normal"
             fullWidth
-            label="Last Name"
+            label="Họ"
             helperText={errors.lastName?.message}
             error={Boolean(errors.lastName?.message)}
             {...register('lastName')}
@@ -93,7 +93,7 @@ export default function Register() {
             id="password"
             margin="normal"
             fullWidth
-            label="Password"
+            label="Mật khẩu"
             type="password"
             helperText={errors.password?.message}
             error={Boolean(errors.password?.message)}
@@ -103,7 +103,7 @@ export default function Register() {
             id="confirm-password"
             margin="normal"
             fullWidth
-            label="Confirm Password"
+            label="Nhập lại mật khẩu"
             type="password"
             helperText={errors.confirmPassword?.message}
             error={Boolean(errors.confirmPassword?.message)}
@@ -115,13 +115,13 @@ export default function Register() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             type="submit">
-            Register
+            Đăng ký
           </Button>
           <Grid container>
             <Grid item xs></Grid>
             <Grid item>
               <Link to="/login" underline>
-                Already have an account? Login
+                Đã có tài khoản? Đăng nhập
               </Link>
             </Grid>
           </Grid>

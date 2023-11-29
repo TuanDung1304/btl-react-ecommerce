@@ -168,12 +168,12 @@ export default function ProductFormMutation({
             id="name"
             margin="normal"
             fullWidth
-            label="Name"
+            label="Tên sản phẩm"
             autoFocus
             helperText={errors.name?.message}
             error={Boolean(errors.name?.message)}
             {...register('name', {
-              required: { value: true, message: 'Khong duoc bo trong' },
+              required: { value: true, message: 'Không được bỏ trống' },
             })}
           />
           <Autocomplete
@@ -187,8 +187,8 @@ export default function ProductFormMutation({
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Categories"
-                helperText={firstSubmit && !categoryId && 'Khong duoc bo trong'}
+                label="Danh mục"
+                helperText={firstSubmit && !categoryId && 'Không được bỏ trống'}
                 error={firstSubmit && !categoryId}
               />
             )}
@@ -202,20 +202,20 @@ export default function ProductFormMutation({
           <TextField
             id="price"
             margin="normal"
-            label="Price"
+            label="Giá"
             fullWidth
             type="number"
             helperText={errors.price?.message}
             error={Boolean(errors.price?.message)}
             {...register('price', {
-              required: { value: true, message: 'Khong duoc bo trong' },
+              required: { value: true, message: 'Không được bỏ trống' },
             })}
           />
           {initForm && (
             <TextField
               id="discountedPrice"
               margin="normal"
-              label="Discounted Price"
+              label="Giá khuyến mãi"
               fullWidth
               type="number"
               helperText={errors.discountedPrice?.message}
@@ -226,7 +226,7 @@ export default function ProductFormMutation({
           <TextField
             id="text"
             margin="normal"
-            label="Description"
+            label="Mô tả"
             fullWidth
             type="text"
             multiline
@@ -237,7 +237,7 @@ export default function ProductFormMutation({
             fullWidth
             margin="normal"
             error={firstSubmit && !sizes.length}>
-            <InputLabel>Size</InputLabel>
+            <InputLabel>Kích cỡ</InputLabel>
             <Select
               multiple
               value={sizes}
@@ -258,7 +258,7 @@ export default function ProductFormMutation({
               ))}
             </Select>
             {firstSubmit && !sizes.length && (
-              <FormHelperText>Chon it nhat mot size</FormHelperText>
+              <FormHelperText>Chọn ít nhất một kích cỡ</FormHelperText>
             )}
           </FormControl>
           <Autocomplete
@@ -281,10 +281,10 @@ export default function ProductFormMutation({
               <TextField
                 {...params}
                 variant="outlined"
-                label="Colors"
+                label="Màu sắc"
                 margin="normal"
                 helperText={
-                  firstSubmit && !colors.length && 'Chon it nhat mot mau'
+                  firstSubmit && !colors.length && 'Chọn ít nhất một màu sắc'
                 }
                 error={firstSubmit && !colors.length}
               />
@@ -296,7 +296,7 @@ export default function ProductFormMutation({
                 params.inputValue !== '' &&
                 !colors.includes(params.inputValue)
               ) {
-                filtered.push(`Add "${params.inputValue}"`)
+                filtered.push(`Thêm "${params.inputValue}"`)
               }
 
               return filtered
@@ -309,7 +309,7 @@ export default function ProductFormMutation({
             onChange={handleProductModelsEdit}
             onSubmit={handleSubmit(onSubmit)}
             setFirstSubmit={setFirstSubmit}
-            action={initForm ? 'Update' : 'Create'}
+            action={initForm ? 'Cập nhật' : 'Tạo sản phẩm'}
           />
           <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -318,7 +318,7 @@ export default function ProductFormMutation({
                 variant="outlined"
                 sx={{ mt: 3, mb: 2 }}
                 onClick={onClose}>
-                Cancel
+                Hủy
               </Button>
             </Grid>
             <Grid item xs={6}>
@@ -327,7 +327,7 @@ export default function ProductFormMutation({
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 onClick={() => setOpenEditModels(true)}>
-                Continue
+                Tiếp tục
               </Button>
             </Grid>
           </Grid>

@@ -2,7 +2,7 @@ import { Box } from '@mui/material'
 import React, { useMemo } from 'react'
 import { makeStyles } from 'tss-react/mui'
 import { OrderStatus } from '../../../api/services/types'
-import { styleFromOrderStatus } from './functions'
+import { labelFromOrderStatus, styleFromOrderStatus } from './functions'
 
 const useStyles = makeStyles()(() => ({
   badge: {
@@ -35,7 +35,7 @@ export const OrderStatusBadge = ({ status }: Props) => {
 
   return (
     <Box className={cx(classes.badge)} style={style}>
-      {status}
+      {labelFromOrderStatus(status)}
     </Box>
   )
 }

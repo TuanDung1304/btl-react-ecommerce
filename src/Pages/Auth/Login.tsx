@@ -61,7 +61,7 @@ export default function Login() {
           <LockOutlinedIcon fontSize="large" />
         </Avatar>
         <Typography component="h1" variant="h5">
-          LOG IN TO CONTINUE
+          Đăng nhập
         </Typography>
         <Box
           component="form"
@@ -72,7 +72,7 @@ export default function Login() {
             id="email"
             margin="normal"
             fullWidth
-            label="Email Address"
+            label="Email"
             autoFocus
             helperText={errors.email?.message}
             error={Boolean(errors.email?.message)}
@@ -83,7 +83,7 @@ export default function Login() {
             margin="normal"
             required
             fullWidth
-            label="Password"
+            label="Mật khẩu"
             type="password"
             helperText={errors.password?.message}
             error={Boolean(errors.password?.message)}
@@ -91,24 +91,24 @@ export default function Login() {
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label="Ghi nhớ tài khoản"
           />
           <Button
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             type="submit">
-            Sign In
+            Đăng nhập
           </Button>
           <Grid container>
             <Grid item xs>
               <Link to="#" underline>
-                Forgot password?
+                Quên mật khẩu?
               </Link>
             </Grid>
             <Grid item>
               <Link to="/register" underline>
-                Don't have an account? Sign Up
+                Chưa có tài khoản? Đăng ký ngay
               </Link>
             </Grid>
           </Grid>

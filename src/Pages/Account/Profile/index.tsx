@@ -86,13 +86,13 @@ export default function Profile() {
       <Box className={cx(classes.box, classes.avatarContainer)}>
         <Avatar src={user.avatar} sx={{ width: 74, height: 74 }} />
         <Typography fontWeight={600} fontSize={20} marginX={2} flex={1}>
-          Upload a New Photo
+          Tải ảnh đại diện
         </Typography>
         <Button
           variant="outlined"
           color="secondary"
           onClick={() => uploadAvatar.open()}>
-          Update
+          Chọn ảnh
         </Button>
       </Box>
       <Box
@@ -101,16 +101,16 @@ export default function Profile() {
         className={classes.box}
         sx={{ flexDirection: 'column' }}>
         <Typography fontWeight={600} fontSize={22}>
-          Change User Information Here
+          Thay đổi thông tin cá nhân
         </Typography>
         <Grid container rowSpacing={2} columnSpacing={2} marginTop={1}>
           <Grid item xs={6}>
             <FormControl variant="standard" fullWidth>
-              <InputLabel shrink>First Name</InputLabel>
+              <InputLabel shrink>Tên</InputLabel>
               <StyledInput
                 id="firstName"
                 defaultValue={user?.firstName}
-                {...register('firstName', { required: 'Khong duoc bo trong' })}
+                {...register('firstName', { required: 'Không được bỏ trống' })}
                 error={!!errors?.firstName}
                 helperText={errors?.firstName?.message}
               />
@@ -118,11 +118,11 @@ export default function Profile() {
           </Grid>
           <Grid item xs={6}>
             <FormControl variant="standard" fullWidth>
-              <InputLabel shrink>Last Name</InputLabel>
+              <InputLabel shrink>Họ</InputLabel>
               <StyledInput
                 id="lastName"
                 defaultValue={user?.lastName}
-                {...register('lastName', { required: 'Khong duoc bo trong' })}
+                {...register('lastName', { required: 'Không được bỏ trống' })}
                 error={!!errors?.lastName}
                 helperText={errors?.lastName?.message}
               />
@@ -135,7 +135,7 @@ export default function Profile() {
                 id="email"
                 type="email"
                 defaultValue={user?.email}
-                {...register('email', { required: 'Khong duoc bo trong' })}
+                {...register('email', { required: 'Không được bỏ trống' })}
                 error={!!errors?.email}
                 helperText={errors?.email?.message}
               />
@@ -143,7 +143,7 @@ export default function Profile() {
           </Grid>
           <Grid item xs={6}>
             <FormControl variant="standard" fullWidth>
-              <InputLabel shrink>Phone number</InputLabel>
+              <InputLabel shrink>Số điện thoại</InputLabel>
               <StyledInput
                 id="phone"
                 defaultValue={user?.phone}
@@ -155,7 +155,7 @@ export default function Profile() {
           </Grid>
           <Grid item xs={6}>
             <FormControl variant="standard" fullWidth>
-              <InputLabel shrink>Address</InputLabel>
+              <InputLabel shrink>Địa chỉ</InputLabel>
               <StyledInput
                 id="address"
                 defaultValue={user?.address}
@@ -167,7 +167,7 @@ export default function Profile() {
           </Grid>
           <Grid item xs={6}>
             <FormControl variant="standard" fullWidth>
-              <InputLabel shrink>Birthday</InputLabel>
+              <InputLabel shrink>Ngày sinh</InputLabel>
               <StyledInput
                 type="date"
                 id="birthday"
@@ -182,7 +182,7 @@ export default function Profile() {
           </Grid>
         </Grid>
         <Button type="submit" variant="contained" sx={{ marginTop: 2.5 }}>
-          Update Information
+          Cập nhật
         </Button>
       </Box>
     </Box>

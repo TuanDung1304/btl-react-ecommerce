@@ -54,7 +54,7 @@ const useStyles = makeStyles()(() => ({
   infoBobyItem: {
     display: 'flex',
     alignItems: 'center',
-    padding: 15,
+    padding: 12,
     fontWeight: 600,
   },
   infoBodyTitle: {
@@ -161,7 +161,7 @@ export default function ProductInfo({
 
           <Box className={classes.productSku}>
             <Box className={classes.productSkuItem}>
-              Ma san pham:
+              Mã sản phẩm:
               <Typography className={classes.productSkuValue}>{id}</Typography>
             </Box>
             <Divider
@@ -171,7 +171,7 @@ export default function ProductInfo({
               flexItem
             />
             <Box className={classes.productSkuItem}>
-              Con lai:
+              Còn lại:
               <Typography className={classes.productSkuValue}>
                 {modelInStock}
               </Typography>
@@ -183,7 +183,7 @@ export default function ProductInfo({
               flexItem
             />
             <Box className={classes.productSkuItem}>
-              Thuong hieu:
+              Thương hiệu:
               <Typography className={classes.productSkuValue}>
                 Biluxury
               </Typography>
@@ -193,7 +193,7 @@ export default function ProductInfo({
 
         <Box className={classes.infoBody}>
           <Box className={cx(classes.infoBobyItem, classes.priceBox)}>
-            <span className={classes.infoBodyTitle}>Gia:</span>
+            <span className={classes.infoBodyTitle}>Giá:</span>
             <Typography className={classes.price}>{`${(
               discountedPrice ?? price
             ).toLocaleString()}₫`}</Typography>
@@ -244,7 +244,7 @@ export default function ProductInfo({
                 variant="outlined"
                 disabled={disableBtn}
                 onClick={addToCart}>
-                Them vao gio
+                Thêm vào giỏ
               </Button>
             </Grid>
             <Grid item xs={6}>
@@ -254,7 +254,7 @@ export default function ProductInfo({
             </Grid>
             <Grid item xs={12}>
               <Button fullWidth variant="contained">
-                <span style={{ zIndex: 2 }}>Click vao day de nhan uu dai</span>
+                <span style={{ zIndex: 2 }}>Click vào đây để nhận ưu đãi</span>
               </Button>
             </Grid>
           </Grid>

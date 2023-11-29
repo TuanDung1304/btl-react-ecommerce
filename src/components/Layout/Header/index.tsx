@@ -21,6 +21,7 @@ import { useNotify } from '../../Notify/hooks'
 import MenuIconButton from '../../ui/MenuIconButton'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import Notification from './Notification'
+import LogoutIcon from '@mui/icons-material/Logout'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -47,7 +48,10 @@ const useStyles = makeStyles()(() => ({
     padding: 0,
   },
   menuLink: {
+    display: 'flex',
+    alignItems: 'center',
     color: 'black',
+    fontWeight: 500,
     textDecoration: 'none',
     width: '100%',
     height: '100%',
@@ -142,35 +146,36 @@ export default function Header() {
         onClose={handleClose}
         onClick={handleClose}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        sx={{ width: 200 }}
-        slotProps={{ paper: { sx: { width: '150px' } } }}>
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
         {user.email ? (
           <>
             <MenuItem onClick={handleClose} className={classes.menuItem}>
               <Link to="/account/profile" className={classes.menuLink}>
-                Profile
+                Hồ sơ
               </Link>
             </MenuItem>
             <MenuItem onClick={handleClose} className={classes.menuItem}>
               <Link to="/account/my-orders" className={classes.menuLink}>
-                My Orders
+                Đơn hàng của tôi
               </Link>
             </MenuItem>
             <MenuItem onClick={logout} className={classes.menuItem}>
-              <Typography className={classes.menuLink}>Logout</Typography>
+              <Typography className={classes.menuLink}>
+                Đăng xuất
+                <LogoutIcon sx={{ color: colors.grey[500], marginLeft: 1 }} />
+              </Typography>
             </MenuItem>
           </>
         ) : (
           <>
             <MenuItem onClick={handleClose} className={classes.menuItem}>
               <Link to="/login" className={classes.menuLink}>
-                Login
+                Đăng nhập
               </Link>
             </MenuItem>
             <MenuItem onClick={handleClose} className={classes.menuItem}>
               <Link to="/register" className={classes.menuLink}>
-                Sign up
+                Đăng ký
               </Link>
             </MenuItem>
           </>

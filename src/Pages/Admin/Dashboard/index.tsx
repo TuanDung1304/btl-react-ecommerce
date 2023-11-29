@@ -67,7 +67,7 @@ export default function Dashboard() {
             <ChartBox
               {...data.users}
               color="#8884d8"
-              title="Total Users"
+              title="Người dùng"
               url="/admin/users"
               icon={<PersonIcon />}
             />
@@ -77,7 +77,7 @@ export default function Dashboard() {
               {...data.products}
               color="skyblue"
               icon={<CategoryIcon />}
-              title="Total Products"
+              title="Sản phẩm"
               url="/admin/products"
             />
           </Box>
@@ -86,7 +86,7 @@ export default function Dashboard() {
               {...data.orders}
               color="gold"
               icon={<ShoppingCartIcon />}
-              title="Total Orders"
+              title="Đơn hàng"
               url="/admin/orders"
             />
           </Box>
@@ -95,7 +95,7 @@ export default function Dashboard() {
               {...data.profit}
               color="teal"
               icon={<AttachMoneyIcon />}
-              title="Total Profit"
+              title="Doanh thu"
             />
           </Box>
           <Box className={classes.bigChartBox}>

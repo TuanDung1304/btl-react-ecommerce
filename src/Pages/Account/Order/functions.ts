@@ -17,6 +17,21 @@ export function colorFromStatus(status: OrderStatus): string {
   }
 }
 
+export function labelFromOrderStatus(status: OrderStatus) {
+  switch (status) {
+    case OrderStatus.Pending:
+      return 'Chờ xử lý'
+    case OrderStatus.Delivering:
+      return 'Đang giao'
+    case OrderStatus.Completed:
+      return 'Hoàn thành'
+    case OrderStatus.Cancelled:
+      return 'Đã hủy'
+    default:
+      return ''
+  }
+}
+
 export function styleFromOrderStatus(status: OrderStatus): CSSProperties {
   switch (status) {
     case OrderStatus.Pending:

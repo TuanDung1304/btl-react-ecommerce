@@ -64,8 +64,8 @@ export default function ProductActionButtons(
       </Dialog>
       {openDelete && (
         <DeleteConfirmDialog
-          title="Delete product"
-          content="This action cannot be undone"
+          title="Xóa sản phẩm"
+          content="Hành động này không thể khôi phục"
           onClose={handleCloseDelete}
           validConfirmation="Delete"
           onConfirmed={handleCloseDelete}
@@ -76,13 +76,13 @@ export default function ProductActionButtons(
           variant="contained"
           color="success"
           onClick={() => setOpenEdit(true)}>
-          Edit
+          Sửa
         </Button>
         <Button
           variant="contained"
           color="error"
           onClick={() => setOpenDelete(true)}>
-          Delete
+          Xóa
         </Button>
       </Box>
     </>
