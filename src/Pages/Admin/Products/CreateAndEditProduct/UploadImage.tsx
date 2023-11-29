@@ -98,11 +98,11 @@ export default function UploadImage({ setValue, watch, firstSubmit }: Props) {
         variant="contained"
         onClick={() => thumbnailPicker.open()}
         startIcon={<CloudUploadIcon />}>
-        Upload thumbnail
+        Tải thumbnail
       </Button>
       {firstSubmit && !thumbnail && (
         <Typography className={classes.error}>
-          Can them it nhat 1 hinh anh
+          Thumbnail không được bỏ trống
         </Typography>
       )}
       {thumbnail && (
@@ -123,11 +123,11 @@ export default function UploadImage({ setValue, watch, firstSubmit }: Props) {
         variant="contained"
         onClick={() => imageListPicker.open()}
         startIcon={<CloudUploadIcon />}>
-        Upload image list
+        Tải hình ảnh
       </Button>
       {firstSubmit && !images?.length && (
         <Typography className={classes.error}>
-          Can them it nhat 1 hinh anh
+          Cần ít nhất 1 hình ảnh
         </Typography>
       )}
       {!!images?.length && (

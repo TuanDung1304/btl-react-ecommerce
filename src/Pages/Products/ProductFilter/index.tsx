@@ -100,7 +100,7 @@ export default function ProductFilter() {
         expanded={isExpended('panel1')}
         onChange={handleChange('panel1')}>
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>Color</Typography>
+          <Typography>Màu sắc</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <ColorFilter />
@@ -110,7 +110,7 @@ export default function ProductFilter() {
         expanded={isExpended('panel2')}
         onChange={handleChange('panel2')}>
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Size</Typography>
+          <Typography>Kích cỡ</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <SizeFilter />
@@ -120,7 +120,7 @@ export default function ProductFilter() {
         expanded={isExpended('panel3')}
         onChange={handleChange('panel3')}>
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography>Price</Typography>
+          <Typography>Giá cả</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <PriceFilter />

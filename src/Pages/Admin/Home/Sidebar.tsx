@@ -46,11 +46,11 @@ export default function Sidebar({ setValue, value }: Props) {
   const tabs = useMemo(() => {
     const tabs = [
       { icon: <HomeIcon />, label: 'Dashboard', url: ROUTES.admin.dashboard },
-      { icon: <GroupIcon />, label: 'Users', url: ROUTES.admin.users },
-      { icon: <CategoryIcon />, label: 'Products', url: ROUTES.admin.products },
+      { icon: <GroupIcon />, label: 'Người dùng', url: ROUTES.admin.users },
+      { icon: <CategoryIcon />, label: 'Sản phẩm', url: ROUTES.admin.products },
       {
         icon: <ShoppingCartCheckoutIcon />,
-        label: 'Orders',
+        label: 'Đơn hàng',
         url: ROUTES.admin.orders,
       },
     ]

@@ -20,7 +20,6 @@ const useStyles = makeStyles()(() => ({
     marginBottom: '20px',
   },
   tableContainer: {
-    width: '100%',
     maxWidth: 'calc(100vw - 278px)',
   },
 }))
@@ -29,7 +28,7 @@ const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 80 },
   {
     field: 'img',
-    headerName: 'Image',
+    headerName: 'Hình ảnh',
     width: 100,
     sortable: false,
     renderCell: (params) => {
@@ -39,20 +38,20 @@ const columns: GridColDef[] = [
   {
     field: 'name',
     type: 'string',
-    headerName: 'Title',
+    headerName: 'Tên sản phẩm',
     width: 300,
   },
   {
     field: 'modelsCount',
     type: 'string',
     headerName: 'Models',
-    width: 120,
+    width: 100,
   },
   {
     field: 'price',
     type: 'string',
-    headerName: 'Price',
-    width: 150,
+    headerName: 'Giá',
+    width: 120,
     renderCell(params) {
       return `${Number(params.row.price).toLocaleString()} ₫`
     },
@@ -60,7 +59,7 @@ const columns: GridColDef[] = [
   {
     field: 'discountedPrice',
     type: 'string',
-    headerName: 'Discounted Price',
+    headerName: 'Giá khuyến mãi',
     width: 150,
     renderCell(params) {
       const value = params.row.discountedPrice
@@ -69,7 +68,7 @@ const columns: GridColDef[] = [
   },
   {
     field: 'createdAt',
-    headerName: 'Created At',
+    headerName: 'Ngày tạo',
     width: 160,
     type: 'string',
     renderCell: (params) => {
@@ -78,13 +77,13 @@ const columns: GridColDef[] = [
   },
   {
     field: 'inStock',
-    headerName: 'In Stock',
-    width: 120,
+    headerName: 'Còn lại',
+    width: 100,
     type: 'string',
   },
   {
     field: 'inCart',
-    headerName: 'In User Cart',
+    headerName: 'Trong giỏ hàng',
     width: 130,
     type: 'string',
   },
@@ -117,7 +116,7 @@ const Products = () => {
       <Box className={classes.info}>
         <h1>Products</h1>
         <Button variant="contained" onClick={() => setOpen(true)}>
-          Add New Product
+          Thêm sản phẩm
         </Button>
       </Box>
       <Box className={classes.tableContainer}>
@@ -129,7 +128,7 @@ const Products = () => {
         />
       </Box>
       <Dialog open={open}>
-        <DialogTitle onClose={handleClose}>Create Product</DialogTitle>
+        <DialogTitle onClose={handleClose}>Tạo sản phẩm</DialogTitle>
         <Divider />
         <CreateProduct onClose={handleClose} />
       </Dialog>

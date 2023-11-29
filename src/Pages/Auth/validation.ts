@@ -12,17 +12,13 @@ export interface RegisterForm extends LoginForm {
 }
 
 export const loginSchema: ObjectSchema<LoginForm> = object().shape({
-  email: string()
-    .required('Khong duoc bo trong nha')
-    .email('Khong dung dinh dang'),
-  password: string().required('Khong duoc bo trong nha'),
+  email: string().required('Không được bỏ trống').email('Khong dung dinh dang'),
+  password: string().required('Không được bỏ trống'),
 })
 
 export const registerSchema: ObjectSchema<RegisterForm> = object().shape({
-  email: string()
-    .required('Khong duoc bo trong nha')
-    .email('Khong dung dinh dang'),
-  password: string().required('Khong duoc bo trong nha'),
+  email: string().required('Không được bỏ trống').email('Khong dung dinh dang'),
+  password: string().required('Không được bỏ trống'),
   confirmPassword: string().required(),
   firstName: string().required(),
   lastName: string().required(),

@@ -1,7 +1,7 @@
 import { Box, Button } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 import { OrderStatus } from '../../../api/services/types'
-import { colorFromStatus } from './functions'
+import { colorFromStatus, labelFromOrderStatus } from './functions'
 
 const useStyles = makeStyles()((theme) => ({
   status: {
@@ -57,7 +57,7 @@ export const OrderStatusFilter = ({
       <Box>
         <span className={cx(classes.dot)} style={{ backgroundColor: color }} />
         <span className={classes.badge}>
-          {count} {status}
+          {count} {labelFromOrderStatus(status)}
         </span>
       </Box>
     </Button>

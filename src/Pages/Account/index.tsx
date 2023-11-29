@@ -39,20 +39,20 @@ export default function Account() {
           TabIndicatorProps={{ sx: { width: '3px', background: 'black' } }}>
           <Tab
             to="/account/profile"
-            label="Profile"
+            label="Tài khoản"
             value={'/account/profile'}
             component={Link}
           />
           <Tab
             component={Link}
             to={ROUTES.client.account.orders}
-            label="Orders"
+            label="Đơn hàng"
             value={ROUTES.client.account.orders}
           />
           <Tab
             component={Link}
             to={ROUTES.client.account.changePassword}
-            label="Change Password"
+            label="Đổi mật khẩu"
             value={ROUTES.client.account.changePassword}
           />
         </Tabs>

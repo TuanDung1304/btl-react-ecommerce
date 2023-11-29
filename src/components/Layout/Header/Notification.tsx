@@ -29,6 +29,10 @@ const useStyles = makeStyles()(() => ({
   time: {
     fontSize: 12,
   },
+  empty: {
+    padding: '15px',
+    textAlign: 'center',
+  },
 }))
 
 interface Props {
@@ -52,8 +56,8 @@ export default function Notification({ onClose }: Props) {
       <Typography fontSize={18} fontWeight={600}>
         Thông báo
       </Typography>
-      {user?.notifications &&
-        user.notifications?.map((item) => (
+      {user?.notifications?.length ? (
+        user.notifications.map((item) => (
           <Box
             className={classes.item}
             onClick={() => {
@@ -71,7 +75,10 @@ export default function Notification({ onClose }: Props) {
               </Typography>
             </Box>
           </Box>
-        ))}
+        ))
+      ) : (
+        <Box className={classes.empty}>Không có thông báo nào!</Box>
+      )}
     </Box>
   )
 }

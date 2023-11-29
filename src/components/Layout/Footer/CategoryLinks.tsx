@@ -51,10 +51,10 @@ export default function CategoryLinks({ type }: Props) {
         <Typography
           className={cx(classes.link, classes.label)}
           lineHeight={'19px'}>
-          MY ACCOUNT
+          Tài khoản
         </Typography>
         <Link href={`/my-orders`} className={classes.link}>
-          MY ORDERS
+          ĐƠN HÀNG
         </Link>
       </Grid>
     )

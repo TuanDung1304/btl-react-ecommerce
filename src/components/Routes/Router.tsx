@@ -69,7 +69,7 @@ const routes: RouteConfig[] = [
     layout: MainLayout,
   },
   {
-    title: 'Gio hang',
+    title: 'Giỏ hàng',
     path: '/cart',
     component: (
       // <PrivateRoute>
@@ -88,7 +88,7 @@ const routes: RouteConfig[] = [
     ),
   },
   {
-    title: 'Thanh toan',
+    title: 'Thanh toán',
     path: '/checkout',
     component: (
       <PrivateRoute role={Role.User}>
@@ -97,7 +97,7 @@ const routes: RouteConfig[] = [
     ),
   },
   {
-    title: 'Don hang',
+    title: 'Đơn hàng',
     path: '/account',
     component: (
       <PrivateRoute role={Role.User}>

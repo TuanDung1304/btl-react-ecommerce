@@ -77,14 +77,14 @@ export default function DeleteConfirmDialog({
           {content}
         </DialogContentText>
         <DialogContentText className={classes.contentText}>
-          {`To confirm, please type the word "${validConfirmation}" below:`}
+          {`Để xác nhận nhập "${validConfirmation}" bên dưới:`}
         </DialogContentText>
         <form onSubmit={submit}>
           <TextField
             autoFocus
             variant="outlined"
             value={confirmationText}
-            placeholder={`Type "${validConfirmation}" here`}
+            placeholder={`Nhập "${validConfirmation}" ở đây`}
             onChange={(event) => {
               setConfirmationText(event.target.value)
             }}
@@ -93,7 +93,7 @@ export default function DeleteConfirmDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} disabled={deleting}>
-          Cancel
+          Hủy
         </Button>
         <ButtonDanger
           onClick={onConfirmed}

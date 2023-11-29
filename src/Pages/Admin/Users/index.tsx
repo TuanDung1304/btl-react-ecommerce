@@ -33,13 +33,13 @@ const columns: GridColDef[] = [
   {
     field: 'firstName',
     type: 'string',
-    headerName: 'First name',
+    headerName: 'Tên',
     width: 120,
   },
   {
     field: 'lastName',
     type: 'string',
-    headerName: 'Last name',
+    headerName: 'Họ',
     width: 140,
   },
   {
@@ -51,12 +51,12 @@ const columns: GridColDef[] = [
   {
     field: 'phone',
     type: 'string',
-    headerName: 'Phone',
+    headerName: 'Số điện thoại',
     width: 200,
   },
   {
     field: 'createdAt',
-    headerName: 'Created At',
+    headerName: 'Ngày tạo',
     width: 150,
     renderCell: (params) => {
       return moment(params.row.createdAt).format('DD/MM/YYYY')
@@ -94,7 +94,7 @@ const Users = () => {
       <Box className={classes.info}>
         <h1>Users</h1>
         <Button variant="contained" onClick={() => setOpen(true)}>
-          Add New User
+          Thêm Người Dùng
         </Button>
       </Box>
       <Box className={classes.tableContainer}>

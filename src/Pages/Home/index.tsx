@@ -129,7 +129,7 @@ export default function Home() {
         <Typography>Get the Look</Typography>
         <Typography fontWeight={26}>FASHION TRENDS</Typography>
         <Typography>Fashion Trends Note</Typography>
-        <Button variant="outlined">SHOP NOW</Button>
+        <Button variant="outlined">MUA NGAY</Button>
       </Box>
 
       <Grid container className={classes.outstanding} spacing={2}>

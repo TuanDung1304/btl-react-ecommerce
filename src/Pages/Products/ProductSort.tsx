@@ -48,14 +48,14 @@ export default function ProductSort() {
           vertical: 'top',
           horizontal: 'right',
         }}>
-        <MenuItem onClick={() => handleClick('default')}>Default</MenuItem>
-        <MenuItem onClick={() => handleClick('newest')}>Newest</MenuItem>
-        <MenuItem onClick={() => handleClick('desc')}>
-          Price (High - Low)
+        <MenuItem onClick={() => handleClick('default')}>
+          {Sort['default']}
         </MenuItem>
-        <MenuItem onClick={() => handleClick('asc')}>
-          Price (Low - High)
+        <MenuItem onClick={() => handleClick('newest')}>
+          {Sort['newest']}
         </MenuItem>
+        <MenuItem onClick={() => handleClick('desc')}>{Sort['desc']}</MenuItem>
+        <MenuItem onClick={() => handleClick('asc')}>{Sort['asc']}</MenuItem>
       </Menu>
     </Box>
   )

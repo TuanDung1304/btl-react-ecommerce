@@ -9,4 +9,4 @@ export const MenuProps = {
   },
 }
 
-export const COLORS = ['Do', 'Xanh', 'Den', 'Xam', 'Vang']
+export const COLORS = ['Đỏ', 'Xanh', 'Đen', 'Xám', 'Vàng', 'Tím', 'Hồng', 'Nâu']

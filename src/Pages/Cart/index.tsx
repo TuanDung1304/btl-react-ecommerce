@@ -128,7 +128,7 @@ export default function Cart() {
               className={classes.button}
               disabled={!data?.cartItems.length}
               onClick={() => navigate('/checkout')}>
-              Thanh toan
+              Thanh toán
             </Button>
           </Box>
           <Box className={classes.term}>
