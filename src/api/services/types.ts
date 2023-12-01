@@ -156,3 +156,17 @@ export interface AdminOrder {
   totalPrice: number
   userName: string
 }
+
+export type Notification = {
+  createdAt: Date
+  product: {
+    id: number
+    name: string
+    thumbnail: string
+  }
+  content: string
+}
+export interface Notifications {
+  notifications: Notification[]
+  lastSeen: Date
+}

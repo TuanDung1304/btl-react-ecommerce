@@ -2,16 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { UserService } from '../api/services/user'
 import { Role } from '../api/services/types'
 
-export type Notification = {
-  createdAt: Date
-  product: {
-    id: number
-    name: string
-    thumbnail: string
-  }
-  content: string
-}
-
 export interface User {
   id: number
   email: string
@@ -20,7 +10,7 @@ export interface User {
   role: Role
   avatar: string
   cartQuantity: number
-  notifications: Notification[]
+  notifyBadge: number
   address: string
   phone: string
   birthday: string
@@ -34,7 +24,7 @@ const initialState: User = {
   role: Role.User,
   avatar: '',
   cartQuantity: 0,
-  notifications: [],
+  notifyBadge: 0,
   address: '',
   birthday: '',
   phone: '',
@@ -53,8 +43,8 @@ const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
   reducers: {
-    setUser(_, action: PayloadAction<User>) {
-      return action.payload
+    setUser(state, action: PayloadAction<Partial<User>>) {
+      return { ...state, ...action.payload }
     },
     removeUser() {
       return initialState
