@@ -58,9 +58,13 @@ export const useCurrentUser = () => {
     dispatch(setUserState(user))
   }
 
+  const changeCartBadge = (amount: number) => {
+    dispatch(setUserState({ cartQuantity: user.cartQuantity + amount }))
+  }
+
   const removeUser = () => {
     dispatch(removeUserState())
   }
 
-  return { user, setUser, removeUser }
+  return { user, setUser, removeUser, changeCartBadge }
 }

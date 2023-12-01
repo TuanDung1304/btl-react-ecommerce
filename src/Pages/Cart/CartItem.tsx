@@ -6,6 +6,7 @@ import AdjustQuantity from '../../components/AdjustQuantity'
 import { useNotify } from '../../components/Notify/hooks'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from '../../components/ui/Link'
+import { getCurrency } from '../../utils/functions'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -60,7 +61,7 @@ export default function CartItem({ cartItem }: Props) {
     },
   })
 
-  const handleChange = async (value: number) => {
+  const handleUpdate = async (value: number) => {
     mutate(value)
   }
 
@@ -89,14 +90,11 @@ export default function CartItem({ cartItem }: Props) {
       </Box>
       <Box className={classes.priceBox}>
         <Typography fontWeight={700}>
-          {(
-            (product.discountedPrice ?? product.price) * quantity
-          ).toLocaleString()}
-          ₫
+          {getCurrency((product.discountedPrice ?? product.price) * quantity)}
         </Typography>
         <AdjustQuantity
           quantity={quantity}
-          setQuantity={handleChange}
+          setQuantity={handleUpdate}
           size="small"
           loading={isPending}
         />

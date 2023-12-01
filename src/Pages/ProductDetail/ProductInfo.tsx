@@ -18,6 +18,8 @@ import { getDiscountPercent } from '../../utils/functions'
 import { CartService } from '../../api/services/cart'
 import { useNotify } from '../../components/Notify/hooks'
 import AdjustQuantity from '../../components/AdjustQuantity'
+import { useNavigate } from 'react-router-dom'
+import { useCurrentUser } from '../../hooks'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -126,21 +128,39 @@ export default function ProductInfo({
   const [quantity, setQuantity] = useState(1)
   const [color, setColor] = useState<string>()
   const [size, setSize] = useState<string>()
+  const navigate = useNavigate()
+  const { changeCartBadge } = useCurrentUser()
 
-  const addToCart = useCallback(async () => {
-    try {
-      const selectedModel = productModels.find(
-        (model) => model.color === color && model.size === size,
-      )
-      const res = await CartService.addToCart({
-        quantity,
-        modelId: selectedModel?.id ?? 0,
-      })
-      notify(res.message)
-    } catch (err) {
-      notifyError(err)
-    }
-  }, [color, notify, notifyError, productModels, quantity, size])
+  const add = useCallback(
+    async (buyNow?: boolean) => {
+      try {
+        const selectedModel = productModels.find(
+          (model) => model.color === color && model.size === size,
+        )
+        const res = await CartService.addToCart({
+          quantity,
+          modelId: selectedModel?.id ?? 0,
+        })
+        notify(res.message)
+        changeCartBadge(quantity)
+        if (buyNow) {
+          navigate('/cart')
+        }
+      } catch (err) {
+        notifyError(err)
+      }
+    },
+    [
+      changeCartBadge,
+      color,
+      navigate,
+      notify,
+      notifyError,
+      productModels,
+      quantity,
+      size,
+    ],
+  )
 
   const modelInStock = useMemo(() => {
     return (
@@ -243,12 +263,16 @@ export default function ProductInfo({
                 fullWidth
                 variant="outlined"
                 disabled={disableBtn}
-                onClick={addToCart}>
+                onClick={() => add()}>
                 Thêm vào giỏ
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <Button fullWidth variant="contained" disabled={disableBtn}>
+              <Button
+                fullWidth
+                variant="contained"
+                disabled={disableBtn}
+                onClick={() => add(true)}>
                 Mua ngay
               </Button>
             </Grid>

@@ -64,10 +64,10 @@ export default function Notification({ onClose }: Props) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    setUser({ notifyBadge: 0 })
     const updateLastSeen = async () => {
       try {
         await UserService.lastSeen()
+        setUser({ notifyBadge: 0 })
       } catch (error) {
         notifyError(error)
       }
