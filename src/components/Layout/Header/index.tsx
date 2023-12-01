@@ -3,7 +3,9 @@ import SearchIcon from '@mui/icons-material/Search'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import { TabContext, TabList } from '@mui/lab'
 import {
+  Avatar,
   Box,
+  IconButton,
   Menu,
   MenuItem,
   Popover,
@@ -122,13 +124,19 @@ export default function Header() {
           />
         </TabList>
       </TabContext>
-      <Box>
+      <Box display="flex" alignItems="center">
         <MenuIconButton icon={SearchIcon} />
-        <MenuIconButton icon={PersonIcon} onClick={handleClick} />
+        {user.email ? (
+          <IconButton onClick={handleClick}>
+            <Avatar src={user.avatar}></Avatar>
+          </IconButton>
+        ) : (
+          <MenuIconButton icon={PersonIcon} onClick={handleClick} />
+        )}
         {user.email && (
           <MenuIconButton
             icon={NotificationsIcon}
-            badge={user.notifications?.length}
+            badge={user.notifyBadge}
             onClick={(event) => setAnchorEl(event.currentTarget)}
           />
         )}

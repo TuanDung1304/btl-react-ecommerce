@@ -54,7 +54,7 @@ export const useCurrentUser = () => {
   const dispatch = useDispatch<AppDispatch>()
   const user = useSelector((state: RootState) => state.user)
 
-  const setUser = (user: User) => {
+  const setUser = (user: Partial<User>) => {
     dispatch(setUserState(user))
   }
 

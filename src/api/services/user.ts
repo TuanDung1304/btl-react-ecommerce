@@ -1,6 +1,6 @@
 import axiosApiInstance from '..'
 import { User } from '../../store/useSlice'
-import { ListUsersData } from './types'
+import { ListUsersData, Notifications } from './types'
 import { UpdateProfile } from '../../Pages/Account/Profile/types'
 
 export const UserService = {
@@ -22,6 +22,12 @@ export const UserService = {
     const res = await axiosApiInstance.post<{ message: string }>(
       '/users/update-profile',
       data,
+    )
+    return res.data
+  },
+  async getNotifications() {
+    const res = await axiosApiInstance.get<Notifications>(
+      '/users/notifications',
     )
     return res.data
   },
