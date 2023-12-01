@@ -1,7 +1,9 @@
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
 import { Button, ButtonGroup } from '@mui/material'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
+import { useCurrentUser } from '../../hooks'
 
 const useStyles = makeStyles<{ size: 'small' | 'medium' }>()(
   (_theme, { size }) => ({
@@ -54,6 +56,32 @@ export default function AdjustQuantity({
   size = 'medium',
   loading,
 }: Props) {
+  const { changeCartBadge } = useCurrentUser()
+
+  const [value, setValue] = useState(quantity)
+  useEffect(() => {
+    setValue(quantity)
+  }, [quantity])
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const sanitizedValue = e.target.value.replace(/[^0-9]/g, '')
+    setValue(Number(sanitizedValue))
+  }
+
+  const handleDecrease = () => {
+    if (value > 0) {
+      setQuantity(value - 1)
+    }
+  }
+
+  const handleIncrease = () => {
+    setQuantity(value + 1)
+  }
+
+  const handleBlur = () => {
+    setQuantity(value)
+  }
+
   const { classes, cx } = useStyles({ size })
   return (
     <ButtonGroup variant="contained" className={classes.root}>
@@ -61,30 +89,20 @@ export default function AdjustQuantity({
         disabled={loading}
         className={cx(classes.quantityBtn, classes.quantityItem)}
         size="small"
-        onClick={() => {
-          if (quantity > 0) {
-            setQuantity(quantity - 1)
-          }
-        }}>
+        onClick={handleDecrease}>
         <RemoveIcon className={classes.icon} />
       </Button>
       <input
         className={cx(classes.quantityInput, classes.quantityItem)}
-        value={quantity}
-        onChange={(e) => {
-          if (!e.target.value) setQuantity(0)
-          if (!isNaN(Number(e.target.value))) {
-            setQuantity(Number(e.target.value))
-          }
-        }}
+        value={value}
+        onChange={handleInputChange}
+        onBlur={handleBlur}
       />
       <Button
         disabled={loading}
         className={cx(classes.quantityBtn, classes.quantityItem)}
         size="small"
-        onClick={() => {
-          setQuantity(quantity + 1)
-        }}>
+        onClick={handleIncrease}>
         <AddIcon className={classes.icon} />
       </Button>
     </ButtonGroup>
