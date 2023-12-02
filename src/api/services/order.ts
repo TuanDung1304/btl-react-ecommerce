@@ -14,4 +14,11 @@ export const OrderService = {
     const res = await axiosApiInstance.get<Order[]>('/orders/my-orders')
     return res.data
   },
+  async cancelOrder(data: { orderId: number }) {
+    const res = await axiosApiInstance.post<{ message: string }>(
+      '/orders/cancel',
+      data,
+    )
+    return res.data
+  },
 }
