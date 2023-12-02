@@ -43,8 +43,10 @@ const useStyles = makeStyles()(() => ({
     objectFit: 'cover',
   },
   tabList: {
-    fontSize: 20,
-    fontWeight: 500,
+    '& .MuiTab-root': {
+      fontSize: 20,
+      fontWeight: 600,
+    },
   },
   menuItem: {
     padding: 0,
@@ -103,23 +105,20 @@ export default function Header() {
         />
       </Link>
       <TabContext value="">
-        <TabList>
+        <TabList className={classes.tabList}>
           <Tab
             label={CategoryType.Ao}
             value="ao"
-            className={classes.tabList}
             onClick={() => navigate('/collections/ao-nam')}
           />
           <Tab
             label={CategoryType.Quan}
             value="quan"
-            className={classes.tabList}
             onClick={() => navigate('/collections/quan-nam')}
           />
           <Tab
             label={CategoryType.PhuKien}
             value="phu-kien"
-            className={classes.tabList}
             onClick={() => navigate('/collections/phu-kien')}
           />
         </TabList>

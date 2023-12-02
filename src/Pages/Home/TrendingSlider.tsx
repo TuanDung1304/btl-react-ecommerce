@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { Product } from '../Products/type'
 import { ProductService } from '../../api/services/products'
 import { useNotify } from '../../components/Notify/hooks'
+import WhatshotIcon from '@mui/icons-material/Whatshot'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -62,8 +63,10 @@ export default function TrendingSlider() {
 
   return (
     <Box className={classes.root}>
-      <Typography textAlign={'center'} variant="h5" fontWeight={600}>
+      <Typography textAlign={'center'} variant="h4" fontWeight={600}>
+        <WhatshotIcon color="warning" />
         Thịnh hành
+        <WhatshotIcon color="warning" />
       </Typography>
       <Slider {...settings} className={classes.slider}>
         {products.map((product, index) => (

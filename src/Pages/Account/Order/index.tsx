@@ -9,7 +9,10 @@ import { makeStyles } from 'tss-react/mui'
 import { useQuery } from '@tanstack/react-query'
 
 const useStyles = makeStyles()(() => ({
-  root: { marginLeft: 50, width: 900 },
+  root: {
+    marginLeft: 50,
+    minWidth: 1000,
+  },
   orderHeader: {
     backgroundColor: '#f4f6f8',
     height: 50,

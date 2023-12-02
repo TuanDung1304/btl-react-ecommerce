@@ -8,6 +8,7 @@ interface Props {
   underline?: boolean
   underlineOnHover?: boolean
   color?: string
+  className?: string
 }
 
 const useStyles = makeStyles<{
@@ -31,10 +32,11 @@ export default function Link({
   underline,
   color,
   underlineOnHover,
+  className,
 }: Props) {
-  const { classes } = useStyles({ underline, color, underlineOnHover })
+  const { classes, cx } = useStyles({ underline, color, underlineOnHover })
   return (
-    <RouterLink to={to} className={classes.root}>
+    <RouterLink to={to} className={cx(classes.root, className)}>
       {children}
     </RouterLink>
   )

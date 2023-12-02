@@ -19,7 +19,8 @@ const useStyles = makeStyles()(() => ({
   productListContainer: {
     display: 'flex',
     flexDirection: 'column',
-    width: '1400px',
+    padding: '0 20px',
+    width: '100%',
   },
   productFilterWrapper: {
     display: 'flex',

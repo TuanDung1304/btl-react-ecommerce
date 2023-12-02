@@ -1,4 +1,4 @@
-import { Box, Grid, Pagination, Stack } from '@mui/material'
+import { Box, Grid, Pagination, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { makeStyles } from 'tss-react/mui'
@@ -14,6 +14,7 @@ const useStyles = makeStyles()(() => ({
     flexDirection: 'column',
     justifyContent: 'center',
     width: '100%',
+    flex: 1,
   },
   pagination: {
     '& .MuiPagination-ul': {
@@ -51,23 +52,33 @@ export default function ProductList() {
 
   return (
     <Box className={classes.root}>
-      <Grid container columnSpacing={3} rowSpacing={4}>
-        {products?.map((product) => (
-          <Grid item xs={3}>
-            <ProductItem product={product} />
+      {!totalPages ? (
+        <Box margin="auto">
+          <Typography fontSize={22} fontWeight={500}>
+            Không có sản phẩm nào
+          </Typography>
+        </Box>
+      ) : (
+        <>
+          <Grid container columnSpacing={3} rowSpacing={4}>
+            {products?.map((product) => (
+              <Grid item xs={6} md={4} lg={3}>
+                <ProductItem product={product} />
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
-      <Stack spacing={2} marginTop={4}>
-        <Pagination
-          count={totalPages}
-          page={filter.page}
-          variant="outlined"
-          shape="rounded"
-          className={classes.pagination}
-          onChange={(_e, value) => setProductFilter({ page: value })}
-        />
-      </Stack>
+          <Stack spacing={2} marginTop={4}>
+            <Pagination
+              count={totalPages}
+              page={filter.page}
+              variant="outlined"
+              shape="rounded"
+              className={classes.pagination}
+              onChange={(_e, value) => setProductFilter({ page: value })}
+            />
+          </Stack>
+        </>
+      )}
     </Box>
   )
 }
