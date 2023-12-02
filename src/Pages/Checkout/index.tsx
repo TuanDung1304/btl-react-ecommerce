@@ -23,6 +23,7 @@ import { CheckoutForm, checkoutSchema } from './validation'
 import { OrderService } from '../../api/services/order'
 import { getCurrency } from '../../utils/functions'
 import { MIN_PRICE_TO_FREE_SHIP, SHIPMENT_COST } from './consts'
+import { useCurrentUser } from '../../hooks'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -113,7 +114,7 @@ export default function Checkout() {
     try {
       const res = await OrderService.createOrder(data)
       notify(res.message)
-      navigate('/')
+      navigate('/account/my-orders')
     } catch (err) {
       notifyError(err)
     }

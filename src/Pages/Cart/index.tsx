@@ -97,6 +97,7 @@ export default function Cart() {
           </Typography>
         </Box>
         <Divider sx={{ marginY: 2.5 }} />
+
         {!!data?.cartItems.length && (
           <Box className={classes.cartItemContainer}>
             {data?.cartItems.map((item) => <CartItem cartItem={item} />)}

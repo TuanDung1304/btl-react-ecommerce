@@ -16,6 +16,7 @@ const useStyles = makeStyles()(() => ({
     background: '#f9f9f9',
     color: '#757575',
     position: 'sticky',
+    top: 100,
 
     '& .MuiTab-root': {
       fontWeight: 600,

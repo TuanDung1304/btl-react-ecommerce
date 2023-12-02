@@ -1,8 +1,12 @@
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid, Tooltip, Typography } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
-import { Order } from '../../../api/services/types'
+import { Order, OrderStatus } from '../../../api/services/types'
 import { getCurrency } from '../../../utils/functions'
 import { OrderStatusBadge } from './OrderStatusBadge'
+import { useState } from 'react'
+import ConfirmDialog from '../../../components/Dialog/ConfirmDialog'
+import { OrderService } from '../../../api/services/order'
+import { useNotify } from '../../../components/Notify/hooks'
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -18,6 +22,7 @@ const useStyles = makeStyles()((theme) => ({
 
   button: {
     marginTop: 15,
+    marginRight: 10,
   },
 }))
 
@@ -27,6 +32,18 @@ interface Props {
 
 export default function OrderItem({ order }: Props) {
   const { classes } = useStyles()
+  const [cancelling, setCancelling] = useState(false)
+  const { notifyError, notify } = useNotify()
+
+  const handleCancel = async () => {
+    try {
+      const res = await OrderService.cancelOrder({ orderId: order.id })
+      notify(res.message)
+    } catch (err) {
+      notifyError(err)
+    }
+  }
+
   return (
     <Box className={classes.root}>
       <Grid container rowSpacing={2}>
@@ -64,9 +81,32 @@ export default function OrderItem({ order }: Props) {
           </Typography>
         </Grid>
       </Grid>
-      <Button className={classes.button} variant="contained">
-        Xem chi tiết
-      </Button>
+      <Box display="flex">
+        <Button className={classes.button} variant="contained">
+          Xem chi tiết
+        </Button>
+        {order.status !== OrderStatus.Cancelled && (
+          <Tooltip
+            title={'Đơn hàng đã xử lý, không thể hủy.'}
+            disableHoverListener={order.status === OrderStatus.Pending}>
+            <Box width="fit-content">
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="error"
+                disabled={order.status !== OrderStatus.Pending}
+                onClick={() => setCancelling(true)}>
+                Hủy đơn
+              </Button>
+            </Box>
+          </Tooltip>
+        )}
+        <ConfirmDialog
+          open={cancelling}
+          setOpen={setCancelling}
+          onConfirm={handleCancel}
+        />
+      </Box>
     </Box>
   )
 }
