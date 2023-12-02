@@ -22,7 +22,7 @@ const useStyles = makeStyles()(() => ({
     marginLeft: 50,
     display: 'flex',
     flexDirection: 'column',
-    width: 800,
+    maxWidth: 1000,
     gap: 15,
   },
   box: {

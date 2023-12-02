@@ -10,6 +10,10 @@ const useStyles = makeStyles()((theme) => ({
     border: `1px solid ${theme.palette.divider}`,
     borderRadius: 5,
     marginTop: 20,
+
+    '& p': {
+      fontWeight: 500,
+    },
   },
 
   button: {

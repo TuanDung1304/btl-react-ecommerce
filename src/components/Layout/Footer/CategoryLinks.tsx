@@ -53,7 +53,7 @@ export default function CategoryLinks({ type }: Props) {
           lineHeight={'19px'}>
           Tài khoản
         </Typography>
-        <Link href={`/my-orders`} className={classes.link}>
+        <Link href={`/account/my-orders`} className={classes.link}>
           ĐƠN HÀNG
         </Link>
       </Grid>

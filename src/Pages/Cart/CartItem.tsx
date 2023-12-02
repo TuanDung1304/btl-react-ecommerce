@@ -78,18 +78,19 @@ export default function CartItem({ cartItem }: Props) {
       </Link>
       <Box className={classes.info}>
         <Typography
-          fontWeight={500}
+          fontWeight={600}
+          fontSize={18}
           component={Link}
           underlineOnHover
           to={`/product/${product.id}`}>
           {product.name}
         </Typography>
         <Typography
-          fontSize={12}
+          fontSize={13}
           color="#777">{`${productModel.color} / ${productModel.size}`}</Typography>
-        <Typography marginTop={1} color="#8f9bb3" fontWeight={600}>{`${(
-          product.discountedPrice ?? product.price
-        ).toLocaleString()}`}</Typography>
+        <Typography marginTop={1} color="#8f9bb3" fontWeight={600}>
+          {getCurrency(product.discountedPrice ?? product.price)}
+        </Typography>
       </Box>
       <Box className={classes.priceBox}>
         <Typography fontWeight={700}>
