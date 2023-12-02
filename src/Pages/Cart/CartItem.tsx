@@ -7,6 +7,7 @@ import { useNotify } from '../../components/Notify/hooks'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Link from '../../components/ui/Link'
 import { getCurrency } from '../../utils/functions'
+import { useCurrentUser } from '../../hooks'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -43,6 +44,7 @@ export default function CartItem({ cartItem }: Props) {
   const { classes } = useStyles()
   const queryClient = useQueryClient()
   const { notifyError } = useNotify()
+  const { changeCartBadge } = useCurrentUser()
 
   const { mutate, isPending } = useMutation({
     mutationKey: ['updateCartItem', cartItem.id],
@@ -61,8 +63,9 @@ export default function CartItem({ cartItem }: Props) {
     },
   })
 
-  const handleUpdate = async (value: number) => {
+  const handleUpdate = async (value: number, oldValue: number) => {
     mutate(value)
+    changeCartBadge(value - oldValue)
   }
 
   return (

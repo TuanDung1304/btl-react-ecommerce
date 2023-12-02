@@ -45,7 +45,7 @@ const useStyles = makeStyles<{ size: 'small' | 'medium' }>()(
 
 interface Props {
   quantity: number
-  setQuantity: (value: number) => void
+  setQuantity: (value: number, oldValue: number) => void
   loading?: boolean
   size?: 'small' | 'medium'
 }
@@ -56,8 +56,6 @@ export default function AdjustQuantity({
   size = 'medium',
   loading,
 }: Props) {
-  const { changeCartBadge } = useCurrentUser()
-
   const [value, setValue] = useState(quantity)
   useEffect(() => {
     setValue(quantity)
@@ -70,16 +68,16 @@ export default function AdjustQuantity({
 
   const handleDecrease = () => {
     if (value > 0) {
-      setQuantity(value - 1)
+      setQuantity(value - 1, quantity)
     }
   }
 
   const handleIncrease = () => {
-    setQuantity(value + 1)
+    setQuantity(value + 1, quantity)
   }
 
   const handleBlur = () => {
-    setQuantity(value)
+    setQuantity(value, quantity)
   }
 
   const { classes, cx } = useStyles({ size })
