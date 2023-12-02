@@ -7,6 +7,7 @@ import { useState } from 'react'
 import ConfirmDialog from '../../../components/Dialog/ConfirmDialog'
 import { OrderService } from '../../../api/services/order'
 import { useNotify } from '../../../components/Notify/hooks'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -34,15 +35,22 @@ export default function OrderItem({ order }: Props) {
   const { classes } = useStyles()
   const [cancelling, setCancelling] = useState(false)
   const { notifyError, notify } = useNotify()
+  const queryClient = useQueryClient()
 
-  const handleCancel = async () => {
-    try {
-      const res = await OrderService.cancelOrder({ orderId: order.id })
-      notify(res.message)
-    } catch (err) {
-      notifyError(err)
-    }
-  }
+  const { mutate } = useMutation({
+    mutationKey: ['cancel-order'],
+    async mutationFn() {
+      try {
+        const res = await OrderService.cancelOrder({ orderId: order.id })
+        notify(res.message)
+      } catch (err) {
+        notifyError(err)
+      }
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['orders'] })
+    },
+  })
 
   return (
     <Box className={classes.root}>
@@ -104,7 +112,7 @@ export default function OrderItem({ order }: Props) {
         <ConfirmDialog
           open={cancelling}
           setOpen={setCancelling}
-          onConfirm={handleCancel}
+          onConfirm={mutate}
         />
       </Box>
     </Box>
