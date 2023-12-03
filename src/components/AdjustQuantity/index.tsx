@@ -3,7 +3,6 @@ import RemoveIcon from '@mui/icons-material/Remove'
 import { Button, ButtonGroup } from '@mui/material'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { makeStyles } from 'tss-react/mui'
-import { useCurrentUser } from '../../hooks'
 
 const useStyles = makeStyles<{ size: 'small' | 'medium' }>()(
   (_theme, { size }) => ({

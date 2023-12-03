@@ -139,6 +139,7 @@ export const ROUTES = {
     users: '/admin/users',
     products: '/admin/products',
     orders: '/admin/orders',
+    vouchers: '/admin/vouchers',
   },
   client: {
     home: '/',

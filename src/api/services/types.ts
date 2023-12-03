@@ -170,3 +170,16 @@ export interface Notifications {
   notifications: Notification[]
   lastSeen: Date
 }
+
+export interface Voucher {
+  id: number
+  name: string
+  code: string
+  amount: number
+  maxUser: number
+  used: number
+  createdAt: Date
+  startedAt: Date
+  finishedAt: Date
+  status: string
+}

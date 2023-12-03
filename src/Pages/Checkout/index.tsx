@@ -23,7 +23,6 @@ import { CheckoutForm, checkoutSchema } from './validation'
 import { OrderService } from '../../api/services/order'
 import { getCurrency } from '../../utils/functions'
 import { MIN_PRICE_TO_FREE_SHIP, SHIPMENT_COST } from './consts'
-import { useCurrentUser } from '../../hooks'
 
 const useStyles = makeStyles()(() => ({
   root: {
