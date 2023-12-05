@@ -1,3 +1,4 @@
+import { VoucherStatus } from '../../Pages/Admin/Vouchers/functions'
 import { Product } from '../../Pages/Products/type'
 import { User } from '../../store/useSlice'
 
@@ -181,5 +182,5 @@ export interface Voucher {
   createdAt: Date
   startedAt: Date
   finishedAt: Date
-  status: string
+  status: VoucherStatus
 }

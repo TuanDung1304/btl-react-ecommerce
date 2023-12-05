@@ -4,12 +4,15 @@ import { makeStyles } from 'tss-react/mui'
 import { Voucher } from '../../../api/services/types'
 import moment from 'moment'
 import DataTable from '../../../components/DataTable/DataTable'
-import CreateVoucher from './CreateVoucher'
+import CreateVoucherDialog from './CreateVoucherDialog'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { AdminService } from '../../../api/services/admin'
 import { useNotify } from '../../../components/Notify/hooks'
 import { getCurrency } from '../../../utils/functions'
+import VoucherStatusBadge from './VoucherStatusBadge'
+import { VoucherStatus } from './functions'
+import VoucherActionButton from '../../../components/DataTable/VoucherActionButton'
 
 const useStyles = makeStyles()(() => ({
   info: {
@@ -94,6 +97,9 @@ const columns: GridColDef<Voucher>[] = [
     headerName: 'Trạng thái',
     width: 120,
     type: 'string',
+    renderCell(params) {
+      return <VoucherStatusBadge status={params.row.status as VoucherStatus} />
+    },
   },
 ]
 
@@ -129,10 +135,15 @@ export default function Vouchers() {
         <Button onClick={handleOpen} variant="contained">
           Tạo Voucher
         </Button>
-        <CreateVoucher open={open} onClose={handleClose} />
+        <CreateVoucherDialog open={open} onClose={handleClose} />
       </Box>
       <Box className={classes.tableContainer}>
-        <DataTable slug="vouchers" columns={columns} rows={data} />
+        <DataTable
+          slug="vouchers"
+          columns={columns}
+          rows={data}
+          rowAction={(params) => <VoucherActionButton voucher={params.row} />}
+        />
       </Box>
     </>
   )

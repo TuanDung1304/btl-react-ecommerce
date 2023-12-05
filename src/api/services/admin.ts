@@ -1,6 +1,6 @@
 import axiosApiInstance from '..'
-import { AdminOrder, DashboardData, OrderStatus } from './types'
-import { CreateVoucherForm } from '../../Pages/Admin/Vouchers/types'
+import { AdminOrder, DashboardData, OrderStatus, Voucher } from './types'
+import { VoucherForm } from '../../Pages/Admin/Vouchers/types'
 
 export const AdminService = {
   async getDashboardData() {
@@ -18,7 +18,7 @@ export const AdminService = {
     )
     return res.data
   },
-  async createVoucher(data: CreateVoucherForm) {
+  async createVoucher(data: VoucherForm) {
     const res = await axiosApiInstance.post<{ message: string }>(
       '/admin/create-voucher',
       data,
@@ -26,7 +26,14 @@ export const AdminService = {
     return res.data
   },
   async getVouchers() {
-    const res = await axiosApiInstance.get('/admin/vouchers')
+    const res = await axiosApiInstance.get<Voucher[]>('/admin/vouchers')
+    return res.data
+  },
+  async editVouchers(data: VoucherForm) {
+    const res = await axiosApiInstance.post<{ message: string }>(
+      '/admin/edit-voucher',
+      data,
+    )
     return res.data
   },
 }

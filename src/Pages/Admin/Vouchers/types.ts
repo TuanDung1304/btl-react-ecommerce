@@ -1,8 +1,6 @@
-export interface CreateVoucherForm {
-  name: string
-  code: string
-  amount: number
-  maxUser: number
-  startedAt: Date
-  finishedAt: Date
-}
+import { Voucher } from '../../../api/services/types'
+
+export type VoucherForm = Pick<
+  Voucher,
+  'name' | 'code' | 'amount' | 'maxUser' | 'startedAt' | 'finishedAt'
+>
