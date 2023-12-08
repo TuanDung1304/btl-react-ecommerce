@@ -62,7 +62,7 @@ export default function MutationVoucherForm({
             />
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <FormControl variant="standard" fullWidth>
             <InputLabel shrink>Giá trị (vnđ)</InputLabel>
             <StyledInput
@@ -74,7 +74,21 @@ export default function MutationVoucherForm({
             />
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
+          <FormControl variant="standard" fullWidth>
+            <InputLabel shrink>Giá tối thiểu áp dụng (vnđ)</InputLabel>
+            <StyledInput
+              id="minOrderPrice"
+              type="number"
+              {...register('minOrderPrice', {
+                required: 'Không được bỏ trống',
+              })}
+              error={!!errors?.minOrderPrice}
+              helperText={errors?.minOrderPrice?.message}
+            />
+          </FormControl>
+        </Grid>
+        <Grid item xs={4}>
           <FormControl variant="standard" fullWidth>
             <InputLabel shrink>Số lượng</InputLabel>
             <StyledInput

@@ -22,6 +22,7 @@ export default function EditVoucherDialog({ onClose, open, voucher }: Props) {
   const initValue = useMemo<VoucherForm>(
     () => ({
       amount: voucher.amount,
+      minOrderPrice: voucher.minOrderPrice,
       code: voucher.code,
       maxUser: voucher.maxUser,
       name: voucher.name,
@@ -39,12 +40,12 @@ export default function EditVoucherDialog({ onClose, open, voucher }: Props) {
     mutationKey: ['createVoucher'],
     async mutationFn(data: VoucherForm) {
       try {
-        console.log(data.finishedAt)
         const res = await AdminService.editVouchers({
           ...data,
           finishedAt: new Date(data.finishedAt),
           startedAt: new Date(data.startedAt),
           amount: Number(data.amount),
+          minOrderPrice: Number(data.minOrderPrice),
           maxUser: Number(data.maxUser),
         })
         notify(res.message)

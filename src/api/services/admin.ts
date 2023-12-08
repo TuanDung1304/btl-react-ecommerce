@@ -36,4 +36,11 @@ export const AdminService = {
     )
     return res.data
   },
+  async deleteVoucher(data: { id: number }) {
+    const res = await axiosApiInstance.post<{ message: string }>(
+      '/admin/delete-voucher',
+      data,
+    )
+    return res.data
+  },
 }

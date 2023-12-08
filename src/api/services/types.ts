@@ -177,6 +177,7 @@ export interface Voucher {
   name: string
   code: string
   amount: number
+  minOrderPrice: number
   maxUser: number
   used: number
   createdAt: Date

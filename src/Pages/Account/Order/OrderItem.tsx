@@ -109,11 +109,14 @@ export default function OrderItem({ order }: Props) {
             </Box>
           </Tooltip>
         )}
-        <ConfirmDialog
-          open={cancelling}
-          setOpen={setCancelling}
-          onConfirm={mutate}
-        />
+        {cancelling && (
+          <ConfirmDialog
+            onClose={() => setCancelling(false)}
+            onConfirm={mutate}
+            title="Hủy đơn hàng"
+            content="Bạn có chắc muốn hủy đơn hàng"
+          />
+        )}
       </Box>
     </Box>
   )

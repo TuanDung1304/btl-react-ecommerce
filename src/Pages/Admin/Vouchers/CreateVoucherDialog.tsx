@@ -27,6 +27,7 @@ export default function CreateVoucherDialog({ open, onClose }: Props) {
           finishedAt: new Date(data.finishedAt),
           startedAt: new Date(data.startedAt),
           amount: Number(data.amount),
+          minOrderPrice: Number(data.minOrderPrice),
           maxUser: Number(data.maxUser),
         })
         notify(res.message)
