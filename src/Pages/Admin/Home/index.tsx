@@ -10,6 +10,7 @@ import { ROUTES } from '../../../components/Routes/Router'
 import Users from '../Users'
 import Products from '../Products'
 import AdminOrders from '../Orders'
+import Vouchers from '../Vouchers'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -58,6 +59,9 @@ export default function AdminHome() {
             </TabPanel>
             <TabPanel value={ROUTES.admin.orders}>
               <AdminOrders />
+            </TabPanel>
+            <TabPanel value={ROUTES.admin.vouchers}>
+              <Vouchers />
             </TabPanel>
           </Box>
         </TabContext>

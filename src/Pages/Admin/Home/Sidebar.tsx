@@ -4,6 +4,7 @@ import CategoryIcon from '@mui/icons-material/Category'
 import GroupIcon from '@mui/icons-material/Group'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
 import HomeIcon from '@mui/icons-material/Home'
+import DiscountIcon from '@mui/icons-material/Discount'
 import { Link } from 'react-router-dom'
 import { useMemo } from 'react'
 import { ROUTES } from '../../../components/Routes/Router'
@@ -52,6 +53,11 @@ export default function Sidebar({ setValue, value }: Props) {
         icon: <ShoppingCartCheckoutIcon />,
         label: 'Đơn hàng',
         url: ROUTES.admin.orders,
+      },
+      {
+        icon: <DiscountIcon />,
+        label: 'Mã giảm giá',
+        url: ROUTES.admin.vouchers,
       },
     ]
     return tabs

@@ -1,3 +1,4 @@
+import { VoucherStatus } from '../../Pages/Admin/Vouchers/functions'
 import { Product } from '../../Pages/Products/type'
 import { User } from '../../store/useSlice'
 
@@ -169,4 +170,18 @@ export type Notification = {
 export interface Notifications {
   notifications: Notification[]
   lastSeen: Date
+}
+
+export interface Voucher {
+  id: number
+  name: string
+  code: string
+  amount: number
+  minOrderPrice: number
+  maxUser: number
+  used: number
+  createdAt: Date
+  startedAt: Date
+  finishedAt: Date
+  status: VoucherStatus
 }

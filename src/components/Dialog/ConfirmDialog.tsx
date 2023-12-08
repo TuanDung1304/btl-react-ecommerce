@@ -6,31 +6,37 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
 interface Props {
-  open: boolean
-  setOpen: (value: boolean) => void
+  onClose: () => void
   onConfirm: () => void
+  title: string
+  content: string
 }
 
-export default function ConfirmDialog({ open, setOpen, onConfirm }: Props) {
+export default function ConfirmDialog({
+  onClose,
+  onConfirm,
+  content,
+  title,
+}: Props) {
   const handleClose = () => {
-    setOpen(false)
+    onClose()
   }
 
   const handleConfirm = () => {
     onConfirm()
-    setOpen(false)
+    onClose()
   }
 
   return (
     <Dialog
-      open={open}
-      onClose={handleClose}
+      open
+      onClose={onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description">
-      <DialogTitle id="alert-dialog-title">Hủy đơn hàng?</DialogTitle>
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Bạn có chắc muốn hủy đơn hàng?
+          {content}
         </DialogContentText>
       </DialogContent>
       <DialogActions>

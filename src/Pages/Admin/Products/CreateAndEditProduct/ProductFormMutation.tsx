@@ -92,7 +92,6 @@ export default function ProductFormMutation({
     setValue,
     watch,
     getValues,
-
     formState: { errors },
   } = useForm<ProductForm>({ defaultValues: initForm })
   const { productModels: models, categoryId } = watch()
