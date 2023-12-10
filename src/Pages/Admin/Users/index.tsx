@@ -7,6 +7,7 @@ import { ListUsersData } from '../../../api/services/types'
 import { UserService } from '../../../api/services/user'
 import DataTable from '../../../components/DataTable/DataTable'
 import { useNotify } from '../../../components/Notify/hooks'
+import UserRoleBadge from './UserStatusBadge'
 
 const useStyles = makeStyles()(() => ({
   info: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles()(() => ({
   },
 }))
 
-const columns: GridColDef[] = [
+const columns: GridColDef<ListUsersData>[] = [
   { field: 'id', headerName: 'ID', width: 70 },
   {
     field: 'avatar',
@@ -66,6 +67,9 @@ const columns: GridColDef[] = [
     field: 'role',
     headerName: 'Role',
     width: 100,
+    renderCell(params) {
+      return <UserRoleBadge role={params.row.role} />
+    },
   },
 ]
 

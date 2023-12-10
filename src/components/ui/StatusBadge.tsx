@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import React, { useMemo } from 'react'
 import { makeStyles } from 'tss-react/mui'
-import { OrderStatus } from '../../api/services/types'
+import { OrderStatus, Role } from '../../api/services/types'
 import { VoucherStatus } from '../../Pages/Admin/Vouchers/functions'
 
 const useStyles = makeStyles()(() => ({
@@ -23,13 +23,13 @@ const useStyles = makeStyles()(() => ({
   },
 }))
 
-interface Props<T extends OrderStatus | VoucherStatus> {
+interface Props<T extends OrderStatus | VoucherStatus | Role> {
   status: T
   styleFromStatus: (status: T) => React.CSSProperties
-  labelFromStatus: (status: T) => string
+  labelFromStatus?: (status: T) => string
 }
 
-export const StatusBadge = <T extends OrderStatus | VoucherStatus>({
+export const StatusBadge = <T extends OrderStatus | VoucherStatus | Role>({
   labelFromStatus,
   styleFromStatus,
   status,
@@ -41,7 +41,7 @@ export const StatusBadge = <T extends OrderStatus | VoucherStatus>({
 
   return (
     <Box className={cx(classes.badge)} style={style}>
-      {labelFromStatus(status)}
+      {labelFromStatus ? labelFromStatus(status) : status}
     </Box>
   )
 }
