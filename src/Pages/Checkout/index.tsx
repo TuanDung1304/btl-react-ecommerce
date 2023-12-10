@@ -24,8 +24,8 @@ import { OrderService } from '../../api/services/order'
 import { getCurrency } from '../../utils/functions'
 import { MIN_PRICE_TO_FREE_SHIP, SHIPMENT_COST } from './consts'
 import { Voucher } from '../../api/services/types'
-import { VoucherService } from '../../api/services/voucher'
 import { isAxiosError } from 'axios'
+import { VoucherService } from '../../api/services/voucher'
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -148,6 +148,9 @@ export default function Checkout() {
 
   const fetchVoucher = useCallback(async () => {
     try {
+      if (!code) {
+        return
+      }
       const res = await VoucherService.getVoucher(code)
       setVoucherMessage('')
       setVoucher(res)

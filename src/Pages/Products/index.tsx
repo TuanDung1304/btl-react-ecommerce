@@ -41,7 +41,7 @@ export default function Products() {
     <Box className={classes.root}>
       <Box>
         <img
-          src="https://theme.hstatic.net/200000053174/1001115888/14/breadcrumb_bg.jpg"
+          src="https://theme.hstatic.net/200000053174/1001115888/14/breadcrumb_bg.jpg?v=1638"
           width={'100%'}
         />
       </Box>

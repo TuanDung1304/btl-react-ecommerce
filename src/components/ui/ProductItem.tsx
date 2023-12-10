@@ -97,7 +97,7 @@ export default function ProductItem({ product }: Props) {
         component={Link}
         className={classes.name}
         to={`/product/${id}`}>
-        {discountedPrice && `[Giam ${discountedPercent}] `}
+        {discountedPrice && `[Giảm ${discountedPercent}] `}
         {name}
       </Typography>
       <Box className={classes.priceWrapper}>

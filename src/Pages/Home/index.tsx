@@ -94,7 +94,7 @@ export default function Home() {
   return (
     <Box className={classes.root}>
       <Box className={classes.banner}>
-        <img src="https://theme.hstatic.net/200000053174/1001115888/14/breadcrumb_bg.jpg?v=1219" />
+        <img src="https://theme.hstatic.net/200000053174/1001115888/14/home_about_1_image.jpg?v=1638" />
       </Box>
       <Grid container className={classes.categoryGrid} spacing={3}>
         <Grid
