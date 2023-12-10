@@ -68,6 +68,15 @@ export default function AdminOrders() {
       },
     },
     {
+      field: 'voucherDiscount',
+      type: 'string',
+      headerName: 'Voucher',
+      width: 150,
+      renderCell(params) {
+        return getCurrency(params.row.voucherDiscount)
+      },
+    },
+    {
       field: 'userName',
       type: 'string',
       headerName: 'Khách hàng',
