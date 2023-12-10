@@ -1,6 +1,7 @@
 import { ObjectSchema, object, string } from 'yup'
 
 export interface CheckoutForm {
+  voucherCode?: string
   name: string
   email: string
   phone: string
@@ -18,4 +19,5 @@ export const checkoutSchema: ObjectSchema<CheckoutForm> = object().shape({
   province: string().required('Không được bỏ trống'),
   district: string().required('Không được bỏ trống'),
   paymentMethod: string().required('Không được bỏ trống').default('COD'),
+  voucherCode: string(),
 })

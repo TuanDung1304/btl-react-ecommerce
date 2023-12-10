@@ -105,41 +105,46 @@ export default function Cart() {
           </Typography>
         </Box>
         <Divider sx={{ marginY: 2 }} />
-        <Box>
-          <Typography color="#666666">
-            {Number(data?.totalPrice) > MIN_PRICE_TO_FREE_SHIP ? (
-              'Bạn đã được '
-            ) : (
-              <>
-                Bạn cần mua thêm{' '}
-                <span style={{ fontSize: 18, fontWeight: 600, color: 'red' }}>
-                  {getCurrency(
-                    MIN_PRICE_TO_FREE_SHIP - Number(data?.totalPrice),
-                  )}
-                </span>{' '}
-                để được{' '}
-              </>
-            )}
-            <span style={{ fontSize: 20, fontWeight: 600, color: '#333333' }}>
-              Miễn phí vận chuyển
-            </span>
-          </Typography>
 
-          <BorderLinearProgress
-            sx={{ margin: '20px 0' }}
-            variant="determinate"
-            value={progressValue}
-            color={
-              Number(data?.totalPrice) >= MIN_PRICE_TO_FREE_SHIP
-                ? 'success'
-                : 'warning'
-            }
-          />
-        </Box>
         {!!data?.cartItems.length && (
-          <Box className={classes.cartItemContainer}>
-            {data?.cartItems.map((item) => <CartItem cartItem={item} />)}
-          </Box>
+          <>
+            <Box>
+              <Typography color="#666666">
+                {Number(data?.totalPrice) > MIN_PRICE_TO_FREE_SHIP ? (
+                  'Bạn đã được '
+                ) : (
+                  <>
+                    Bạn cần mua thêm{' '}
+                    <span
+                      style={{ fontSize: 18, fontWeight: 600, color: 'red' }}>
+                      {getCurrency(
+                        MIN_PRICE_TO_FREE_SHIP - Number(data?.totalPrice),
+                      )}
+                    </span>{' '}
+                    để được{' '}
+                  </>
+                )}
+                <span
+                  style={{ fontSize: 20, fontWeight: 600, color: '#333333' }}>
+                  Miễn phí vận chuyển
+                </span>
+              </Typography>
+
+              <BorderLinearProgress
+                sx={{ margin: '20px 0' }}
+                variant="determinate"
+                value={progressValue}
+                color={
+                  Number(data?.totalPrice) >= MIN_PRICE_TO_FREE_SHIP
+                    ? 'success'
+                    : 'warning'
+                }
+              />
+            </Box>
+            <Box className={classes.cartItemContainer}>
+              {data?.cartItems.map((item) => <CartItem cartItem={item} />)}
+            </Box>
+          </>
         )}
       </Grid>
       <Grid item md={4.5} xs={12}>

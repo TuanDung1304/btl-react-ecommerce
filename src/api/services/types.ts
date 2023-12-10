@@ -152,6 +152,7 @@ export interface AdminOrder {
   address: string
   createdAt: Date
   status: OrderStatus
+  voucherDiscount: number
   province: string
   district: string
   totalPrice: number
